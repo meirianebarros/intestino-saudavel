@@ -2192,106 +2192,613 @@ function carregarRegistros() {
 // BANCO DE RECEITAS
 // ============================================================
 var todasReceitas = [
-  // CAFÉ DA MANHÃ
-  { id:1, emoji:'🫙', nome:'Iogurte com Kefir e Chia', categoria:'cafe', tempo:'5 min', tags:['Probiótico','Fácil'],
-    beneficio:'Rico em lactobacilos vivos que repovoam a microbiota. A chia adiciona fibra solúvel que alimenta bactérias benéficas do cólon.',
-    ingredientes:'1 pote de iogurte natural integral, 100ml de kefir de leite, 1 banana amassada, 1 col. sopa de chia, mel cru a gosto',
-    preparo:'Misture o iogurte com o kefir numa tigela. Adicione a banana amassada, a chia e finalize com mel. Consuma imediatamente.' },
-  { id:2, emoji:'🥣', nome:'Aveia com Mamão e Linhaça', categoria:'cafe', tempo:'5 min', tags:['Prebiótico','Anti-constipação'],
-    beneficio:'O mamão contém papaína que auxilia a digestão. A aveia é rica em beta-glucana, fibra solúvel que nutre o microbioma e regula o trânsito.',
-    ingredientes:'4 col. sopa de aveia em flocos, 1/2 mamão papaia, 1 col. sopa de linhaça dourada moída, 200ml de leite vegetal',
-    preparo:'Aqueça o leite vegetal e misture com a aveia. Sirva com o mamão cortado e polvilhe a linhaça por cima.' },
-  { id:3, emoji:'🥤', nome:'Vitamina Verde Intestinal', categoria:'cafe', tempo:'5 min', tags:['Detox','Anti-inflamatório'],
-    beneficio:'Couve e pepino são anti-inflamatórios naturais. O gengibre estimula a produção de enzimas digestivas e tem ação antibacteriana seletiva.',
-    ingredientes:'1 folha de couve, 1/2 pepino, 1 maçã verde, suco de 1 limão, 1 pedaço de gengibre, 200ml água de coco',
-    preparo:'Bata tudo no liquidificador. Coe se preferir e beba imediatamente em jejum para melhor absorção.' },
-  { id:4, emoji:'🍞', nome:'Torrada Integral com Abacate', categoria:'cafe', tempo:'5 min', tags:['Fibra','Gordura boa'],
-    beneficio:'O pão integral fermenta lentamente, evitando picos glicêmicos. O abacate é rico em fibras e gorduras que lubrificam o trato intestinal.',
-    ingredientes:'2 fatias de pão integral ou de fermentação natural, 1/2 abacate maduro, limão, azeite, sal e pimenta',
-    preparo:'Amasse o abacate com limão, sal e pimenta. Espalhe nas torradas e regue com um fio de azeite extra virgem.' },
+// =================== CAFÉ DA MANHÃ (18 receitas) ===================
+{id:1,emoji:'🫙',nome:'Iogurte com Kefir e Chia',categoria:'cafe',tempo:'5 min',tags:['Probiótico','Fácil'],
+foto:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80&fit=crop',
+beneficio:'Rico em lactobacilos vivos que repovoam a microbiota. A chia adiciona fibra solúvel que alimenta bactérias benéficas do cólon e regula o trânsito intestinal.',
+ingredientes:'1 pote iogurte natural integral, 100ml kefir de leite, 1 banana amassada, 1 col. sopa chia, mel cru a gosto',
+preparo:'Misture o iogurte com o kefir. Adicione a banana amassada, a chia e finalize com mel. Consuma imediatamente.'},
 
-  // ALMOÇO
-  { id:5, emoji:'🥗', nome:'Salada de Grão-de-Bico com Legumes', categoria:'almoco', tempo:'15 min', tags:['Prebiótico','Vegano','Alta fibra'],
-    beneficio:'O grão-de-bico é rico em amido resistente que alimenta bactérias produtoras de butirato, principal combustível das células intestinais.',
-    ingredientes:'1 xíc. grão-de-bico cozido, 1 cenoura ralada, 1 pepino, tomate cereja, 1/4 cebola roxa, azeite, limão, coentro',
-    preparo:'Misture todos os ingredientes numa tigela. Tempere com azeite, suco de limão, sal e coentro fresco. Sirva frio.' },
-  { id:6, emoji:'🍲', nome:'Sopa de Legumes com Cúrcuma', categoria:'almoco', tempo:'25 min', tags:['Anti-inflamatório','Gut healing'],
-    beneficio:'A cúrcuma contém curcumina, potente anti-inflamatório que reduz a permeabilidade intestinal. Ideal para fases de inflamação ativa.',
-    ingredientes:'1 cenoura, 1 abobrinha, 1 batata-doce, 1 col. chá de cúrcuma, 1 col. chá gengibre, alho, cebola, azeite, sal',
-    preparo:'Refogue alho e cebola. Adicione os legumes cortados, cúrcuma e gengibre. Cubra com água e cozinhe 20 min. Bata no liquidificador.' },
-  { id:7, emoji:'🐟', nome:'Salmão Grelhado com Quinoa', categoria:'almoco', tempo:'20 min', tags:['Ômega-3','Anti-inflamatório'],
-    beneficio:'O ômega-3 do salmão reduz inflamação intestinal e aumenta a diversidade da microbiota. A quinoa fornece proteína completa e fibras.',
-    ingredientes:'150g de filé de salmão, 1/2 xíc. quinoa cozida, limão, azeite, alecrim, alho, sal e pimenta',
-    preparo:'Tempere o salmão com limão, alho e azeite. Grelhe 4 min de cada lado. Sirva sobre a quinoa cozida com ervas frescas.' },
-  { id:8, emoji:'🫘', nome:'Feijão Preto com Arroz Integral', categoria:'almoco', tempo:'10 min', tags:['Prebiótico','Brasileiro','Clássico'],
-    beneficio:'Combinação clássica com proteína completa. O feijão preto é rico em amido resistente e polifenóis que aumentam Bifidobacterium no intestino.',
-    ingredientes:'1 concha de feijão preto cozido temperado, 4 col. de arroz integral, couve refogada no alho, cenoura ralada',
-    preparo:'Monte o prato com arroz integral, feijão bem temperado, couve refogada e cenoura crua ralada. Regue com azeite.' },
+{id:2,emoji:'🥣',nome:'Aveia com Mamão e Linhaça',categoria:'cafe',tempo:'5 min',tags:['Prebiótico','Anti-constipação'],
+foto:'https://images.unsplash.com/photo-1517093702277-2da73e5b4d74?w=400&q=80&fit=crop',
+beneficio:'A aveia é rica em beta-glucana, fibra solúvel que nutre o microbioma. O mamão contém papaína, enzima digestiva natural que quebra proteínas e facilita a absorção.',
+ingredientes:'4 col. sopa aveia em flocos, 1/2 mamão papaia, 1 col. sopa linhaça dourada moída, 200ml leite vegetal',
+preparo:'Aqueça o leite vegetal e misture com a aveia. Sirva com o mamão cortado e polvilhe a linhaça por cima.'},
 
-  // JANTAR
-  { id:9, emoji:'🍵', nome:'Caldo Bone Broth Anti-inflamatório', categoria:'jantar', tempo:'30 min', tags:['Gut healing','Colágeno'],
-    beneficio:'A glutamina e glicina do caldo de osso são o principal nutriente para reparar a mucosa intestinal e fechar as tight junctions do leaky gut.',
-    ingredientes:'500ml de caldo de osso bovino, 1 pedaço gengibre, 1 col. chá açafrão, 2 dentes de alho, sal do himalaia',
-    preparo:'Aqueça o caldo de osso com gengibre, açafrão e alho amassado. Não deixe ferver. Sirva como sopa leve no jantar.' },
-  { id:10, emoji:'🥦', nome:'Frango ao Vapor com Legumes', categoria:'jantar', tempo:'20 min', tags:['Leve','Digestivo','Proteína'],
-    beneficio:'Refeição leve e de fácil digestão para o jantar. Brócolis contém sulforafano que estimula enzimas de detox hepático e protege a mucosa.',
-    ingredientes:'150g peito de frango, 1 xíc. brócolis, 1 cenoura, 1 abobrinha, azeite, limão, ervas finas, sal',
-    preparo:'Cozinhe o frango e os legumes no vapor por 15-18 min. Tempere com azeite, limão e ervas. Evite frituras no jantar.' },
-  { id:11, emoji:'🥚', nome:'Omelete de Espinafre e Cogumelos', categoria:'jantar', tempo:'10 min', tags:['Leve','Probiótico','Rápido'],
-    beneficio:'Cogumelos são ricos em beta-glucanas que modulam positivamente o sistema imune intestinal. Espinafre fornece magnésio, que relaxa o músculo liso.',
-    ingredientes:'2 ovos, 1 xíc. espinafre, 100g cogumelos shitake ou paris, azeite, sal, pimenta, queijo branco opcional',
-    preparo:'Bata os ovos. Refogue os cogumelos e espinafre no azeite. Adicione os ovos batidos e cozinhe em fogo baixo até firmar.' },
+{id:3,emoji:'🥤',nome:'Vitamina Verde Intestinal',categoria:'cafe',tempo:'5 min',tags:['Detox','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=400&q=80&fit=crop',
+beneficio:'Couve e pepino são anti-inflamatórios. O gengibre estimula enzimas digestivas e tem ação antibacteriana seletiva que preserva a microbiota benéfica.',
+ingredientes:'1 folha couve, 1/2 pepino, 1 maçã verde, suco 1 limão, 1 pedaço gengibre, 200ml água de coco',
+preparo:'Bata tudo no liquidificador. Coe se preferir. Beba em jejum para melhor absorção.'},
 
-  // LANCHES
-  { id:12, emoji:'🍌', nome:'Banana com Pasta de Amendoim', categoria:'lanche', tempo:'2 min', tags:['Prebiótico','Energia'],
-    beneficio:'A banana levemente verde é rica em amido resistente prebiótico. O amendoim fornece gorduras boas e triptofano precursor de serotonina intestinal.',
-    ingredientes:'1 banana média, 1 col. sopa de pasta de amendoim integral sem açúcar',
-    preparo:'Fatie a banana e mergulhe na pasta de amendoim. Simples, nutritivo e que alimenta as bactérias boas.' },
-  { id:13, emoji:'🫐', nome:'Mix de Frutas Vermelhas com Kefir', categoria:'lanche', tempo:'3 min', tags:['Probiótico','Antioxidante'],
-    beneficio:'Frutas vermelhas são ricas em polifenóis que alimentam seletivamente Lactobacillus e Bifidobacterium. Combinadas ao kefir, potencializam o efeito.',
-    ingredientes:'1 xíc. mix de frutas vermelhas (morango, mirtilo, framboesa), 150ml kefir de leite ou água, mel opcional',
-    preparo:'Misture as frutas com o kefir numa tigela ou sirva o kefir como molho. Consuma fresco.' },
-  { id:14, emoji:'🥕', nome:'Palitinhos com Homus', categoria:'lanche', tempo:'5 min', tags:['Prebiótico','Fibra'],
-    beneficio:'Grão-de-bico do homus é prebiótico potente. Cenoura e aipo crus fornecem fibras insolúveis que aumentam o volume fecal e estimulam o peristaltismo.',
-    ingredientes:'2 cenouras, 2 talos de aipo, 1/2 pepino, 4 col. sopa de homus caseiro ou industrializado',
-    preparo:'Corte os legumes em palitos. Sirva com homus para mergulhar. Lanche perfeito para o período da tarde.' },
+{id:4,emoji:'🍞',nome:'Torrada Integral com Abacate',categoria:'cafe',tempo:'5 min',tags:['Fibra','Gordura boa'],
+foto:'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=400&q=80&fit=crop',
+beneficio:'O abacate é rico em fibras e gorduras monoinsaturadas que lubrificam o trato intestinal. O pão integral fermenta lentamente, evitando picos glicêmicos que perturbam a microbiota.',
+ingredientes:'2 fatias pão integral, 1/2 abacate maduro, limão, azeite, sal, pimenta, gergelim opcional',
+preparo:'Amasse o abacate com limão, sal e pimenta. Espalhe nas torradas. Regue com azeite e polvilhe gergelim.'},
 
-  // INTESTINO PRESO
-  { id:15, emoji:'💩', nome:'Suco de Ameixa com Laranja', categoria:'preso', tempo:'5 min', tags:['Laxante natural','Urgente'],
-    beneficio:'A ameixa contém sorbitol e isatina, compostos com efeito laxante suave e natural. A laranja estimula o peristaltismo pela acidez e vitamina C.',
-    ingredientes:'5 ameixas secas (deixar de molho 8h), suco de 2 laranjas, 1 col. chá de mel, 200ml água morna',
-    preparo:'Bata no liquidificador as ameixas hidratadas com o suco de laranja e a água morna. Beba em jejum pela manhã.' },
-  { id:16, emoji:'🌾', nome:'Papa de Aveia com Ameixa', categoria:'preso', tempo:'8 min', tags:['Fibra solúvel','Anti-constipação'],
-    beneficio:'Beta-glucana da aveia absorve água e forma gel que amolece as fezes. As ameixas adicionam sorbitol de ação osmótica. Duplo efeito regulador.',
-    ingredientes:'5 col. sopa aveia grossa, 300ml água ou leite vegetal, 3 ameixas sem caroço picadas, 1 col. linhaça dourada, canela',
-    preparo:'Cozinhe a aveia grossa no líquido por 5 min mexendo sempre. Adicione as ameixas e a linhaça. Sirva com canela.' },
-  { id:17, emoji:'🥝', nome:'Salada de Kiwi com Mamão', categoria:'preso', tempo:'5 min', tags:['Enzimas digestivas','Laxante natural'],
-    beneficio:'Kiwi contém actinidina, enzima que acelera o esvaziamento gástrico. Mamão tem papaína. Juntos formam a dupla mais eficaz contra constipação.',
-    ingredientes:'2 kiwis maduros, 1 fatia generosa de mamão papaia, suco de limão, hortelã fresca',
-    preparo:'Corte as frutas em cubos. Regue com limão e decore com hortelã. Coma em jejum ou como sobremesa do almoço.' },
-  { id:18, emoji:'🫛', nome:'Feijão Verde com Azeite', categoria:'preso', tempo:'15 min', tags:['Fibra insolúvel','Prebiótico'],
-    beneficio:'Feijão verde cozido al dente preserva a fibra insolúvel que aumenta o bolo fecal e estimula os movimentos peristálticos do cólon.',
-    ingredientes:'200g feijão verde (vagem), 2 dentes de alho, azeite extra virgem, sal, limão, salsinha',
-    preparo:'Cozinhe o feijão verde al dente (não mole). Refogue rapidamente no alho e azeite. Finalize com limão e salsinha.' },
+{id:5,emoji:'🥞',nome:'Panqueca de Banana e Aveia',categoria:'cafe',tempo:'10 min',tags:['Sem glúten','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=400&q=80&fit=crop',
+beneficio:'Aveia fornece beta-glucana prebiótica. A banana madura contém frutooligossacarídeos que alimentam Bifidobacterium. Receita sem glúten, ideal para intestino sensível.',
+ingredientes:'2 bananas maduras, 2 ovos, 4 col. sopa aveia, pitada de canela, mel para servir',
+preparo:'Amasse as bananas, misture com os ovos batidos e a aveia. Frite em frigideira antiaderente em fogo baixo. Sirva com mel e canela.'},
 
-  // INTESTINO SOLTO
-  { id:19, emoji:'🍚', nome:'Arroz Branco com Cenoura Cozida', categoria:'solto', tempo:'20 min', tags:['Adstringente','Digestivo leve'],
-    beneficio:'Arroz branco é de fácil digestão e não irrita a mucosa. A cenoura cozida é adstringente natural rica em pectina que forma gel protetor no intestino.',
-    ingredientes:'1 xíc. arroz branco cozido, 1 cenoura cozida e amassada, sal, azeite suave, sem temperos fortes',
-    preparo:'Cozinhe o arroz normalmente. Cozinhe a cenoura até amolecer bem e amasse. Misture com sal e um fio de azeite.' },
-  { id:20, emoji:'🫙', nome:'Iogurte Natural com Banana Madura', categoria:'solto', tempo:'2 min', tags:['Probiótico','Adstringente'],
-    beneficio:'Banana madura contém taninos adstringentes. O iogurte natural repõe bactérias benéficas perdidas durante a diarreia e protege a mucosa.',
-    ingredientes:'1 pote de iogurte natural integral sem açúcar, 1 banana bem madura amassada, pitada de canela',
-    preparo:'Amasse a banana e misture com o iogurte. Adicione canela. Evite versões com mel ou fibras extras durante a fase aguda.' },
-  { id:21, emoji:'🍗', nome:'Frango Desfiado com Batata Cozida', categoria:'solto', tempo:'25 min', tags:['BRAT diet','Digestivo'],
-    beneficio:'Baseada na dieta BRAT (banana, arroz, maçã, torrada), versão proteica. Frango sem pele é de fácil digestão e repõe proteínas perdidas.',
-    ingredientes:'150g peito de frango sem pele cozido e desfiado, 1 batata média cozida, sal, alho suave, sem pimenta',
-    preparo:'Cozinhe o frango na água com sal. Desfie finamente. Sirva com a batata cozida amassada. Evite temperos fortes.' },
-  { id:22, emoji:'🍵', nome:'Chá de Camomila com Torrada Integral', categoria:'solto', tempo:'5 min', tags:['Calmante','Anti-espasmo'],
-    beneficio:'Camomila tem ação antiespasmódica que relaxa a musculatura intestinal. Reduz cólicas e a hipermotilidade. Torrada absorve excesso de líquido.',
-    ingredientes:'1 sachê chá de camomila, 200ml água quente, 2 torradas integrais sem manteiga',
-    preparo:'Deixe o chá em infusão por 5 min. Beba quente e devagar. As torradas ajudam a solidificar as fezes pelo amido.' }
+{id:6,emoji:'🍓',nome:'Smoothie Bowl de Frutas Vermelhas',categoria:'cafe',tempo:'8 min',tags:['Antioxidante','Probiótico'],
+foto:'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&q=80&fit=crop',
+beneficio:'Frutas vermelhas são ricas em polifenóis que alimentam seletivamente Lactobacillus e Bifidobacterium. O kefir adiciona probióticos vivos que sobrevivem ao trato digestivo.',
+ingredientes:'1 xíc. frutas vermelhas congeladas, 150ml kefir, 1 banana, granola, sementes, frutas frescas para topping',
+preparo:'Bata as frutas congeladas com o kefir até cremoso. Despeje na tigela e decore com granola, sementes e frutas frescas.'},
+
+{id:7,emoji:'🍳',nome:'Ovos Mexidos com Espinafre',categoria:'cafe',tempo:'8 min',tags:['Proteína','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&q=80&fit=crop',
+beneficio:'O espinafre contém magnésio que relaxa o músculo liso intestinal e melhora a motilidade. Os ovos fornecem proteína de alto valor biológico sem irritar a mucosa.',
+ingredientes:'2 ovos, 1 xíc. espinafre fresco, 1 dente alho, azeite, sal, pimenta, queijo branco opcional',
+preparo:'Refogue o alho no azeite, adicione o espinafre e deixe murchar. Adicione os ovos batidos e mexa em fogo baixo até cremoso.'},
+
+{id:8,emoji:'🫐',nome:'Parfait de Iogurte com Granola',categoria:'cafe',tempo:'5 min',tags:['Probiótico','Fibra'],
+foto:'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80&fit=crop',
+beneficio:'Camadas de iogurte probiótico com granola de aveia prebiótica criam o efeito simbiótico — probiótico e prebiótico juntos potencializam a colonização de bactérias benéficas.',
+ingredientes:'200g iogurte natural, 4 col. sopa granola sem açúcar, 1/2 xíc. mirtilo, 1 col. mel, sementes de chia',
+preparo:'Monte em camadas: iogurte, granola, frutas. Repita. Finalize com mel e chia. Ideal preparar na véspera para o kefir fermentar levemente.'},
+
+{id:9,emoji:'🍵',nome:'Mingau de Aveia com Maçã e Canela',categoria:'cafe',tempo:'10 min',tags:['Prebiótico','Anti-constipação'],
+foto:'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=400&q=80&fit=crop',
+beneficio:'A maçã cozida libera pectina, fibra solúvel que forma gel protetor na mucosa intestinal. A canela tem ação antimicrobiana seletiva que combate bactérias patogênicas.',
+ingredientes:'5 col. sopa aveia grossa, 300ml leite vegetal, 1 maçã picada, canela, noz-moscada, mel, nozes',
+preparo:'Cozinhe a aveia no leite por 5 min. Adicione a maçã picada e os temperos. Sirva com mel e nozes picadas.'},
+
+{id:10,emoji:'🥑',nome:'Bowl de Abacate com Ovo Poché',categoria:'cafe',tempo:'10 min',tags:['Gordura boa','Proteína'],
+foto:'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&q=80&fit=crop',
+beneficio:'Combinação de gorduras boas do abacate com proteína do ovo. O abacate contém 7g de fibra por unidade, sendo prebiótico natural que alimenta Bacteroidetes benéficos.',
+ingredientes:'1/2 abacate, 2 ovos, pão integral, limão, sal, pimenta, cebolinha, páprica defumada',
+preparo:'Prepare os ovos pochês em água com vinagre. Fatie o abacate temperado. Monte sobre o pão e finalize com páprica.'},
+
+{id:11,emoji:'🌰',nome:'Tapioca com Pasta de Amendoim e Banana',categoria:'cafe',tempo:'8 min',tags:['Sem glúten','Energia'],
+foto:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80&fit=crop',
+beneficio:'A tapioca é fonte de amido resistente quando fria. O amendoim fornece triptofano, precursor de serotonina intestinal. Banana adiciona frutooligossacarídeos prebióticos.',
+ingredientes:'3 col. sopa goma de tapioca, 2 col. pasta de amendoim integral, 1 banana fatiada, canela',
+preparo:'Espalhe a goma na frigideira quente sem óleo. Quando firmar, vire. Recheie com pasta de amendoim e banana. Dobre e sirva.'},
+
+{id:12,emoji:'🧁',nome:'Muffin de Aveia e Mirtilo',categoria:'cafe',tempo:'25 min',tags:['Fibra','Antioxidante'],
+foto:'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=400&q=80&fit=crop',
+beneficio:'Mirtilos têm o maior índice antioxidante entre as frutas. Seus antocianinas reduzem inflamação intestinal e aumentam diversidade da microbiota em estudos clínicos.',
+ingredientes:'2 xíc. aveia em flocos, 2 ovos, 1 banana madura, 1 xíc. mirtilo, 2 col. mel, 1 col. chá fermento',
+preparo:'Processe a aveia até virar farinha. Misture com os demais ingredientes. Adicione os mirtilos. Asse em 180°C por 20 min.'},
+
+{id:13,emoji:'🥛',nome:'Iogurte de Coco com Sementes',categoria:'cafe',tempo:'3 min',tags:['Sem lactose','Probiótico'],
+foto:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400&q=80&fit=crop',
+beneficio:'O coco contém ácido láurico com propriedades antimicrobianas seletivas. Para intolerantes à lactose, esta versão vegetal mantém os benefícios probióticos sem irritar o intestino.',
+ingredientes:'200ml iogurte de coco natural, 1 col. sopa semente de girassol, 1 col. sopa semente de abóbora, mel, frutas secas',
+preparo:'Sirva o iogurte numa tigela. Cubra com as sementes e frutas secas. Regue com mel. Simples e altamente nutritivo.'},
+
+{id:14,emoji:'🍌',nome:'Vitamina de Banana com Cacau e Kefir',categoria:'cafe',tempo:'5 min',tags:['Probiótico','Humor'],
+foto:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80&fit=crop',
+beneficio:'O cacau cru é rico em flavonoides que aumentam Lactobacillus e Bifidobacterium. A banana fornece triptofano e o kefir potencializa a produção de serotonina intestinal.',
+ingredientes:'1 banana congelada, 200ml kefir, 1 col. sopa cacau em pó puro, 1 col. mel, canela a gosto',
+preparo:'Bata todos os ingredientes no liquidificador até cremoso. Sirva imediatamente para preservar os probióticos.'},
+
+{id:15,emoji:'🫓',nome:'Pão de Fermentação Natural com Azeite',categoria:'cafe',tempo:'5 min',tags:['Probiótico','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80&fit=crop',
+beneficio:'O sourdough (fermentação natural) pré-digere o glúten e os fitatos, tornando os nutrientes mais biodisponíveis. Tem índice glicêmico menor que pão comum e produz ácidos benéficos.',
+ingredientes:'2 fatias pão sourdough, azeite extra virgem, sal grosso, alecrim fresco, tomate cereja opcional',
+preparo:'Torre levemente o pão. Regue generosamente com azeite extra virgem. Finalize com sal grosso e alecrim fresco.'},
+
+{id:16,emoji:'🥝',nome:'Salada de Frutas com Kiwi e Hortelã',categoria:'cafe',tempo:'8 min',tags:['Enzimas digestivas','Leve'],
+foto:'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=400&q=80&fit=crop',
+beneficio:'O kiwi contém actinidina, enzima exclusiva que acelera o esvaziamento gástrico e melhora a digestão de proteínas. Dois kiwis por dia reduzem constipação em 79% dos casos.',
+ingredientes:'2 kiwis, 1 laranja, 1 maçã, uvas, 1/2 manga, hortelã fresca, suco de limão, mel',
+preparo:'Corte todas as frutas em cubos. Misture com suco de limão e mel. Decore com hortelã. Sirva fresco.'},
+
+{id:17,emoji:'🧇',nome:'Waffle de Aveia com Frutas',categoria:'cafe',tempo:'15 min',tags:['Fibra','Sem glúten'],
+foto:'https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&q=80&fit=crop',
+beneficio:'Aveia integral preserva beta-glucana que forma gel no intestino, retarda absorção de açúcar e alimenta bactérias produtoras de butirato no cólon.',
+ingredientes:'1 xíc. aveia processada, 2 ovos, 100ml leite vegetal, 1 banana, 1 col. chá fermento, frutas para servir',
+preparo:'Bata todos os ingredientes no liquidificador. Despeje na máquina de waffle untada. Sirva com frutas frescas e mel.'},
+
+{id:18,emoji:'🍋',nome:'Água Detox de Limão com Gengibre',categoria:'cafe',tempo:'2 min',tags:['Detox','Digestivo'],
+foto:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80&fit=crop',
+beneficio:'O suco de limão em jejum estimula a produção de bile, essencial para digestão de gorduras. O gengibre ativa a motilina, hormônio que coordena os movimentos peristálticos.',
+ingredientes:'Suco de 1 limão, 1 col. chá gengibre ralado, 300ml água morna, 1 col. chá mel opcional',
+preparo:'Misture o suco de limão com o gengibre ralado na água morna. Beba em jejum 20 min antes do café da manhã.'},
+
+// =================== ALMOÇO (20 receitas) ===================
+{id:19,emoji:'🥗',nome:'Salada de Grão-de-Bico com Legumes',categoria:'almoco',tempo:'15 min',tags:['Prebiótico','Vegano'],
+foto:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80&fit=crop',
+beneficio:'Grão-de-bico é rico em amido resistente que alimenta bactérias produtoras de butirato. Estudos mostram aumento de 70% em Bifidobacterium após consumo regular.',
+ingredientes:'1 xíc. grão-de-bico cozido, 1 cenoura ralada, 1 pepino, tomate cereja, cebola roxa, azeite, limão, coentro',
+preparo:'Misture tudo numa tigela. Tempere com azeite, limão, sal e coentro fresco. Sirva frio ou em temperatura ambiente.'},
+
+{id:20,emoji:'🍲',nome:'Sopa de Legumes com Cúrcuma',categoria:'almoco',tempo:'25 min',tags:['Anti-inflamatório','Gut healing'],
+foto:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80&fit=crop',
+beneficio:'A curcumina da cúrcuma reduz inflamação intestinal, diminui a permeabilidade do leaky gut e inibe NF-κB, principal mediador inflamatório do intestino.',
+ingredientes:'1 cenoura, 1 abobrinha, 1 batata-doce, 1 col. chá cúrcuma, gengibre, alho, cebola, azeite',
+preparo:'Refogue alho e cebola. Adicione legumes, cúrcuma e gengibre. Cubra com água e cozinhe 20 min. Bata no liquidificador.'},
+
+{id:21,emoji:'🐟',nome:'Salmão Grelhado com Quinoa',categoria:'almoco',tempo:'20 min',tags:['Ômega-3','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&q=80&fit=crop',
+beneficio:'EPA e DHA do salmão reduzem inflamação intestinal, aumentam diversidade da microbiota e melhoram a barreira epitelial. Quinoa fornece todos os aminoácidos essenciais.',
+ingredientes:'150g filé de salmão, 1/2 xíc. quinoa cozida, limão, azeite, alecrim, alho, sal, pimenta',
+preparo:'Tempere o salmão com limão, alho e azeite. Grelhe 4 min de cada lado. Sirva sobre quinoa com ervas frescas.'},
+
+{id:22,emoji:'🫘',nome:'Feijão Preto com Arroz Integral',categoria:'almoco',tempo:'10 min',tags:['Prebiótico','Brasileiro'],
+foto:'https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=400&q=80&fit=crop',
+beneficio:'O feijão preto contém antocianinas e amido resistente que aumentam Bifidobacterium. O arroz integral fornece fibras que o arroz branco não tem. Proteína complementar completa.',
+ingredientes:'1 concha feijão preto cozido, 4 col. arroz integral, couve refogada, cenoura ralada, azeite',
+preparo:'Monte com arroz integral, feijão bem temperado, couve refogada no alho e cenoura crua. Regue com azeite extra virgem.'},
+
+{id:23,emoji:'🥙',nome:'Wrap Integral com Frango e Abacate',categoria:'almoco',tempo:'15 min',tags:['Proteína','Fibra'],
+foto:'https://images.unsplash.com/photo-1551326844-4df70f78d0e9?w=400&q=80&fit=crop',
+beneficio:'O wrap integral oferece fibras que o pão branco não tem. A gordura do abacate aumenta a absorção de carotenoides das verduras em até 15 vezes.',
+ingredientes:'1 tortilla integral, 100g frango grelhado desfiado, 1/2 abacate, alface, tomate, iogurte natural, limão',
+preparo:'Aqueça a tortilla. Espalhe iogurte temperado, adicione o frango, abacate fatiado, alface e tomate. Enrole firmemente.'},
+
+{id:24,emoji:'🍜',nome:'Macarrão de Abobrinha com Pesto',categoria:'almoco',tempo:'15 min',tags:['Sem glúten','Leve'],
+foto:'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&q=80&fit=crop',
+beneficio:'A abobrinha espiralizda substitui o trigo, eliminando glúten que pode irritar o intestino sensível. O pesto de manjericão tem propriedades anti-inflamatórias e prebióticas.',
+ingredientes:'2 abobrinhas grandes, 2 col. sopa pesto caseiro, tomate cereja, parmesão, pinhão, azeite',
+preparo:'Espiralize as abobrinhas. Aqueça rapidamente no azeite por 2 min. Misture com o pesto e os tomates. Finalize com parmesão.'},
+
+{id:25,emoji:'🫕',nome:'Ensopado de Lentilha com Espinafre',categoria:'almoco',tempo:'25 min',tags:['Ferro','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80&fit=crop',
+beneficio:'Lentilha é um dos alimentos mais ricos em fibras prebióticas. 1 xícara fornece 15g de fibra — mais que qualquer vegetal. Aumenta produção de butirato e SCFA.',
+ingredientes:'1 xíc. lentilha cozida, 2 xíc. espinafre, 1 tomate, cebola, alho, cúrcuma, cominho, azeite, sal',
+preparo:'Refogue cebola e alho. Adicione tomate e temperos. Junte a lentilha cozida e o espinafre. Cozinhe 5 min. Sirva com arroz.'},
+
+{id:26,emoji:'🥩',nome:'Frango ao Forno com Batata-Doce',categoria:'almoco',tempo:'40 min',tags:['Proteína','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1598103442097-8b74394b95c9?w=400&q=80&fit=crop',
+beneficio:'A batata-doce é uma das melhores fontes de fibras prebióticas e beta-caroteno anti-inflamatório. Quando esfria, forma amido resistente que alimenta a microbiota.',
+ingredientes:'2 sobrecoxas de frango, 2 batatas-doces, alecrim, alho, cúrcuma, azeite, sal, pimenta',
+preparo:'Marine o frango com temperos. Asse junto com a batata-doce em cubos a 200°C por 35 min. Vire na metade do tempo.'},
+
+{id:27,emoji:'🫙',nome:'Salada de Atum com Grão-de-Bico',categoria:'almoco',tempo:'10 min',tags:['Ômega-3','Rápido'],
+foto:'https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=400&q=80&fit=crop',
+beneficio:'O atum fornece ômega-3 e selênio antioxidante. O grão-de-bico adiciona 12g de fibra prebiótica por xícara. Combinação de proteína e prebiótico que alimenta e repara o intestino.',
+ingredientes:'1 lata atum em água, 1 xíc. grão-de-bico cozido, azeitonas, tomate, cebola roxa, limão, azeite, salsinha',
+preparo:'Escorra o atum. Misture com grão-de-bico, legumes e temperos. Sirva frio sobre folhas verdes.'},
+
+{id:28,emoji:'🥬',nome:'Bowl de Quinoa com Vegetais Assados',categoria:'almoco',tempo:'30 min',tags:['Vegano','Completo'],
+foto:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=80&fit=crop',
+beneficio:'Quinoa é o único vegetal com proteína completa. Vegetais assados concentram fibras prebióticas. O azeite extra virgem contém oleocanthal com efeito anti-inflamatório.',
+ingredientes:'1 xíc. quinoa cozida, 1 abobrinha, 1 pimentão, 1 cenoura, cebola roxa, grão-de-bico, tahine, limão',
+preparo:'Asse os vegetais com azeite a 200°C por 20 min. Monte o bowl com quinoa, vegetais e grão-de-bico. Regue com tahine e limão.'},
+
+{id:29,emoji:'🍱',nome:'Arroz de Couve-Flor com Frango',categoria:'almoco',tempo:'20 min',tags:['Low carb','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80&fit=crop',
+beneficio:'A couve-flor contém sulforafano que estimula enzimas de detox e protege a mucosa. Versão low carb que não sacrifica fibras — ao contrário, aumenta a variedade de prebióticos.',
+ingredientes:'1/2 couve-flor processada, 150g frango grelhado, alho, cebola, cenoura, ervilha, ovo, shoyu low sodium',
+preparo:'Processe a couve-flor em grãos. Refogue no azeite com alho. Adicione os legumes e o frango. Tempere e sirva.'},
+
+{id:30,emoji:'🥕',nome:'Sopa Cremosa de Cenoura e Gengibre',categoria:'almoco',tempo:'25 min',tags:['Anti-inflamatório','Imunidade'],
+foto:'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=400&q=80&fit=crop',
+beneficio:'Beta-caroteno da cenoura é convertido em vitamina A, essencial para manter a integridade da mucosa intestinal. O gengibre reduz náusea e espasmos intestinais.',
+ingredientes:'4 cenouras grandes, 1 cebola, 2cm gengibre, 1 lata leite de coco, caldo legumes, cúrcuma, azeite',
+preparo:'Refogue cebola e gengibre. Adicione cenoura, caldo e cúrcuma. Cozinhe 20 min. Bata com leite de coco até cremoso.'},
+
+{id:31,emoji:'🫛',nome:'Feijão Verde Salteado com Alho',categoria:'almoco',tempo:'15 min',tags:['Fibra insolúvel','Simples'],
+foto:'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop',
+beneficio:'O feijão verde al dente preserva fibras insolúveis que aumentam o volume fecal e estimulam peristaltismo. O alho é um dos prebióticos mais potentes da natureza.',
+ingredientes:'300g feijão verde, 4 dentes alho laminado, azeite extra virgem, sal, limão, amêndoas tostadas',
+preparo:'Branqueie o feijão verde por 3 min. Salteie no azeite com alho laminado. Finalize com limão e amêndoas.'},
+
+{id:32,emoji:'🍣',nome:'Tigela de Salmão com Arroz Integral',categoria:'almoco',tempo:'15 min',tags:['Ômega-3','Completo'],
+foto:'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=400&q=80&fit=crop',
+beneficio:'O ômega-3 aumenta produção de mucina, camada protetora do intestino. O arroz integral fornece fibras que o branco não tem e alimenta bactérias benéficas do cólon.',
+ingredientes:'150g salmão grelhado, 1 xíc. arroz integral, edamame, pepino, cenoura, abacate, gergelim, molho shoyu',
+preparo:'Monte a tigela com arroz integral na base. Adicione o salmão lascado, os vegetais e o edamame. Tempere com shoyu e gergelim.'},
+
+{id:33,emoji:'🥦',nome:'Frango ao Vapor com Brócolis',categoria:'almoco',tempo:'20 min',tags:['Leve','Digestivo'],
+foto:'https://images.unsplash.com/photo-1546548970-71785318a17b?w=400&q=80&fit=crop',
+beneficio:'O brócolis contém sulforafano que ativa o gene NRF2, reduzindo inflamação intestinal. Cozinhar no vapor preserva 90% dos nutrientes comparado ao cozimento em água.',
+ingredientes:'150g peito de frango, 1 cabeça brócolis, cenoura, azeite, limão, alho, ervas finas, sal',
+preparo:'Cozinhe o frango e os legumes no vapor por 15-18 min. Tempere com azeite, limão e ervas. Simples e digestivo.'},
+
+{id:34,emoji:'🌯',nome:'Wrap de Grão-de-Bico com Homus',categoria:'almoco',tempo:'10 min',tags:['Vegano','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&q=80&fit=crop',
+beneficio:'Dupla dose de grão-de-bico: no wrap e no homus. Fornece 20g de fibra prebiótica numa refeição. Estudo comprova aumento de 45% em Faecalibacterium prausnitzii após 4 semanas.',
+ingredientes:'1 tortilla integral, 4 col. sopa homus, 1/2 xíc. grão-de-bico cozido, alface, tomate, pepino, limão',
+preparo:'Aqueça a tortilla. Espalhe o homus. Adicione os vegetais e o grão-de-bico. Regue com limão e enrole.'},
+
+{id:35,emoji:'🍛',nome:'Dal de Lentilha com Arroz Integral',categoria:'almoco',tempo:'30 min',tags:['Prebiótico','Vegano'],
+foto:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80&fit=crop',
+beneficio:'O dal indiano é uma das refeições mais estudadas para saúde intestinal. A combinação de lentilha, cúrcuma e cominho tem efeito sinérgico anti-inflamatório e prebiótico.',
+ingredientes:'1 xíc. lentilha vermelha, 1 lata tomate, 1 cebola, alho, cúrcuma, cominho, coentro, leite de coco, arroz integral',
+preparo:'Refogue cebola, alho e temperos. Adicione lentilha, tomate e leite de coco. Cozinhe 20 min. Sirva com arroz integral.'},
+
+{id:36,emoji:'🥗',nome:'Salada Caesar Saudável com Frango',categoria:'almoco',tempo:'20 min',tags:['Proteína','Probiótico'],
+foto:'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400&q=80&fit=crop',
+beneficio:'O molho à base de iogurte natural substitui a maionese, adicionando probióticos. A alface romana fornece prebióticos e a crosta integral adiciona fibras fermentáveis.',
+ingredientes:'Alface romana, 150g frango grelhado, croutons integrais, parmesão, molho: iogurte, limão, mostarda, alho',
+preparo:'Grelhe o frango temperado. Prepare o molho misturando iogurte, limão, mostarda e alho. Monte a salada e sirva.'},
+
+{id:37,emoji:'🫔',nome:'Tacos de Peixe com Coleslaw de Repolho',categoria:'almoco',tempo:'20 min',tags:['Probiótico','Ômega-3'],
+foto:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80&fit=crop',
+beneficio:'O repolho cru é rico em glutamina natural e glucosinolatos que protegem a mucosa. Fermentado brevemente com sal vira um probiótico natural ainda mais potente.',
+ingredientes:'2 tortillas, 150g tilápia ou merluza, repolho roxo, cenoura, iogurte, limão, coentro, abacate',
+preparo:'Tempere e grelhe o peixe. Misture repolho e cenoura com iogurte e limão. Monte os tacos com o peixe e o coleslaw.'},
+
+{id:38,emoji:'🍝',nome:'Macarrão Integral com Molho de Tomate e Sardinha',categoria:'almoco',tempo:'20 min',tags:['Ômega-3','Fibra'],
+foto:'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80&fit=crop',
+beneficio:'A sardinha é a fonte de ômega-3 mais acessível. O tomate cozido libera licopeno biodisponível que protege as células intestinais do estresse oxidativo.',
+ingredientes:'100g macarrão integral, 1 lata sardinha em azeite, 2 tomates, alho, cebola, manjericão, parmesão',
+preparo:'Cozinhe o macarrão al dente. Prepare molho com tomate, alho e cebola. Adicione a sardinha desfiada. Misture e sirva.'},
+
+// =================== JANTAR (18 receitas) ===================
+{id:39,emoji:'🍵',nome:'Caldo Bone Broth Anti-inflamatório',categoria:'jantar',tempo:'30 min',tags:['Gut healing','Colágeno'],
+foto:'https://images.unsplash.com/photo-1604152135912-04a022e23696?w=400&q=80&fit=crop',
+beneficio:'Glutamina e glicina do caldo de osso são o principal nutriente para reparar a mucosa intestinal, fechar tight junctions e reverter o leaky gut. Protocolo de ouro para gut healing.',
+ingredientes:'500ml caldo de osso bovino, 1 pedaço gengibre, 1 col. chá açafrão, 2 dentes alho, sal do himalaia, cúrcuma',
+preparo:'Aqueça o caldo com gengibre, açafrão e alho amassado. Não deixe ferver para preservar colágeno. Sirva quente no jantar.'},
+
+{id:40,emoji:'🥦',nome:'Frango ao Vapor com Legumes',categoria:'jantar',tempo:'20 min',tags:['Leve','Digestivo'],
+foto:'https://images.unsplash.com/photo-1546548970-71785318a17b?w=400&q=80&fit=crop',
+beneficio:'Refeição de fácil digestão para o período noturno. O vapor preserva enzimas e fibras. Brócolis e cenoura fornecem prebióticos que trabalham durante o sono restaurando a microbiota.',
+ingredientes:'150g peito de frango, 1 xíc. brócolis, 1 cenoura, 1 abobrinha, azeite, limão, ervas, sal',
+preparo:'Cozinhe no vapor por 15-18 min. Tempere com azeite, limão e ervas frescas. Refeição leve ideal para o jantar.'},
+
+{id:41,emoji:'🥚',nome:'Omelete de Espinafre e Cogumelos',categoria:'jantar',tempo:'10 min',tags:['Leve','Probiótico'],
+foto:'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&q=80&fit=crop',
+beneficio:'Cogumelos shitake são ricos em beta-glucanas que modulam o sistema imune intestinal. O espinafre fornece magnésio que relaxa o músculo liso — essencial para boa noite de sono digestivo.',
+ingredientes:'2 ovos, 1 xíc. espinafre, 100g cogumelos shitake, azeite, sal, pimenta, queijo branco',
+preparo:'Refogue os cogumelos e espinafre no azeite. Adicione os ovos batidos. Cozinhe em fogo baixo até firmar levemente.'},
+
+{id:42,emoji:'🍲',nome:'Creme de Abóbora com Coco',categoria:'jantar',tempo:'25 min',tags:['Anti-inflamatório','Reconfortante'],
+foto:'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=400&q=80&fit=crop',
+beneficio:'A abóbora é rica em beta-caroteno e fibras solúveis. O leite de coco contém ácido láurico com ação antimicrobiana seletiva. Sopa quente à noite favorece o sono e a digestão.',
+ingredientes:'500g abóbora, 1 lata leite de coco, 1 cebola, 2 dentes alho, cúrcuma, gengibre, caldo legumes, coentro',
+preparo:'Refogue cebola, alho e temperos. Adicione abóbora e caldo. Cozinhe 20 min. Bata com leite de coco. Decore com coentro.'},
+
+{id:43,emoji:'🐠',nome:'Tilápia Grelhada com Purê de Batata-Doce',categoria:'jantar',tempo:'20 min',tags:['Proteína leve','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80&fit=crop',
+beneficio:'Peixe branco é de digestão mais leve que carne vermelha para o jantar. O purê de batata-doce fornece amido resistente que alimenta a microbiota enquanto você dorme.',
+ingredientes:'150g tilápia, 2 batatas-doces, leite vegetal, azeite, alho, limão, ervas, cúrcuma, sal',
+preparo:'Grelhe a tilápia com limão e ervas. Cozinhe a batata-doce, amasse com leite vegetal e cúrcuma. Monte o prato.'},
+
+{id:44,emoji:'🫕',nome:'Shakshuka com Espinafre',categoria:'jantar',tempo:'20 min',tags:['Mediterrâneo','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1584278860047-22db9ff82bed?w=400&q=80&fit=crop',
+beneficio:'O tomate cozido libera licopeno 5x mais biodisponível que cru. Pimentões são ricos em vitamina C que aumenta a diversidade da microbiota. Receita mediterrânea com efeito anti-inflamatório comprovado.',
+ingredientes:'4 ovos, 1 lata tomate pelado, 1 pimentão, cebola, alho, cominho, páprica, espinafre, azeite, coentro',
+preparo:'Refogue cebola, alho, pimentão e temperos. Adicione tomate e espinafre. Abra cavidades e quebre os ovos. Tampa e cozinhe 8 min.'},
+
+{id:45,emoji:'🥗',nome:'Salada Morna de Lentilha com Azeite',categoria:'jantar',tempo:'20 min',tags:['Prebiótico','Proteína vegetal'],
+foto:'https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=400&q=80&fit=crop',
+beneficio:'A lentilha é a leguminosa mais rica em fibras prebióticas e mais fácil de digerir. Servida morna facilita ainda mais a digestão noturna sem sobrecarregar o intestino.',
+ingredientes:'1 xíc. lentilha cozida, rúcula, tomate, pepino, cebola roxa, azeite extra virgem, vinagre balsâmico, sal',
+preparo:'Aqueça levemente a lentilha. Monte a salada com as folhas, adicione a lentilha morna e tempere com azeite e balsâmico.'},
+
+{id:46,emoji:'🍳',nome:'Tortilha Espanhola de Batata-Doce',categoria:'jantar',tempo:'25 min',tags:['Prebiótico','Reconfortante'],
+foto:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80&fit=crop',
+beneficio:'Versão saudável da tortilha clássica. A batata-doce substitui a batata comum, adicionando beta-caroteno, mais fibras e índice glicêmico mais baixo que beneficia a microbiota.',
+ingredientes:'2 batatas-doces médias, 4 ovos, 1 cebola, azeite, sal, pimenta, salsinha, pimentão',
+preparo:'Cozinhe a batata-doce em fatias no azeite com cebola. Adicione ovos batidos. Vire após 8 min. Sirva morna.'},
+
+{id:47,emoji:'🥣',nome:'Sopa de Missô com Tofu e Wakame',categoria:'jantar',tempo:'10 min',tags:['Probiótico','Japonês'],
+foto:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80&fit=crop',
+beneficio:'O missô é um dos probióticos mais estudados. Rico em enzimas vivas, Aspergillus oryzae e compostos bioativos que reduzem risco de câncer gástrico e melhoram digestão de proteínas.',
+ingredientes:'1 col. sopa pasta de missô, 200ml caldo dashi ou legumes, 50g tofu, wakame hidratado, cebolinha',
+preparo:'Aqueça o caldo sem ferver. Dissolva o missô (não cozinhe — mata os probióticos). Adicione tofu e wakame. Sirva imediatamente.'},
+
+{id:48,emoji:'🌿',nome:'Frango com Ervas ao Forno',categoria:'jantar',tempo:'35 min',tags:['Proteína','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1598103442097-8b74394b95c9?w=400&q=80&fit=crop',
+beneficio:'O alecrim contém ácido rosmarínico que inibe o crescimento de patógenos intestinais. O tomilho tem ação antifúngica natural que combate o crescimento excessivo de Candida.',
+ingredientes:'2 coxas de frango sem pele, alecrim, tomilho, alho, azeite, limão, páprica, sal, pimenta',
+preparo:'Marine o frango nas ervas, alho, limão e azeite por 30 min. Asse a 200°C por 30-35 min até dourar.'},
+
+{id:49,emoji:'🫙',nome:'Ratatouille de Legumes ao Forno',categoria:'jantar',tempo:'45 min',tags:['Vegano','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1572453800999-e8d2d1589b7c?w=400&q=80&fit=crop',
+beneficio:'Combinação de legumes ricos em polifenóis anti-inflamatórios. Berinjela contém nasunina que protege membranas celulares intestinais. Abobrinha tem fibras que alimentam Bacteroidetes.',
+ingredientes:'1 berinjela, 2 abobrinhas, 2 tomates, 1 pimentão, cebola, alho, ervas provençais, azeite',
+preparo:'Fatie os legumes em rodelas. Disponha em camadas na travessa. Regue com azeite e ervas. Asse 40 min a 180°C.'},
+
+{id:50,emoji:'🥬',nome:'Caldo Verde com Linguiça de Frango',categoria:'jantar',tempo:'25 min',tags:['Brasileiro','Reconfortante'],
+foto:'https://images.unsplash.com/photo-1604152135912-04a022e23696?w=400&q=80&fit=crop',
+beneficio:'A couve é uma brassícea rica em indol-3-carbinol que protege o DNA das células intestinais. A batata cozida resfriada gera amido resistente prebiótico.',
+ingredientes:'3 batatas, 1 maço couve, 1 linguiça de frango, cebola, alho, azeite, sal, pimenta do reino',
+preparo:'Cozinhe as batatas, amasse metade. Refogue cebola, alho e linguiça. Adicione a batata e caldo. Junte a couve fatiada fina.'},
+
+{id:51,emoji:'🫒',nome:'Bacalhau com Grão-de-Bico e Azeite',categoria:'jantar',tempo:'20 min',tags:['Proteína','Mediterrâneo'],
+foto:'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&q=80&fit=crop',
+beneficio:'O bacalhau é rico em ômega-3 e vitamina D, essencial para modular a imunidade intestinal. O azeite extra virgem contém oleocanthal que inibe COX-2, mesma ação do ibuprofeno.',
+ingredientes:'200g bacalhau dessalgado, 1 xíc. grão-de-bico, cebola, alho, tomate, azeitonas, azeite, salsinha',
+preparo:'Cozinhe o bacalhau. Refogue cebola e alho no azeite. Adicione grão-de-bico, tomate e azeitonas. Junte o bacalhau lascado.'},
+
+{id:52,emoji:'🍠',nome:'Curry de Grão-de-Bico com Espinafre',categoria:'jantar',tempo:'25 min',tags:['Vegano','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80&fit=crop',
+beneficio:'O curry contém 15+ especiarias com ação anti-inflamatória sinérgica. O grão-de-bico adiciona 15g de fibra prebiótica. O espinafre fornece folato essencial para renovação celular intestinal.',
+ingredientes:'1 xíc. grão-de-bico, 2 xíc. espinafre, 1 lata leite de coco, curry em pó, cebola, alho, gengibre, tomate',
+preparo:'Refogue cebola, alho, gengibre e curry. Adicione tomate e leite de coco. Junte grão-de-bico e espinafre. Cozinhe 15 min.'},
+
+{id:53,emoji:'🐟',nome:'Peixe ao Papilote com Legumes',categoria:'jantar',tempo:'25 min',tags:['Leve','Ômega-3'],
+foto:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80&fit=crop',
+beneficio:'Cozinhar no papilote preserva todos os nutrientes e enzimas sem adicionar gorduras extras. Técnica ideal para jantar leve que não sobrecarrega o sistema digestivo à noite.',
+ingredientes:'150g peixe branco ou salmão, abobrinha, cenoura, limão, ervas, azeite, alho, sal, papel alumínio',
+preparo:'Monte o papilote com o peixe, legumes, limão e ervas. Feche bem. Asse a 200°C por 20 min. Abra na mesa.'},
+
+{id:54,emoji:'🥗',nome:'Salada de Grelhados com Rúcula',categoria:'jantar',tempo:'20 min',tags:['Leve','Digestivo'],
+foto:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80&fit=crop',
+beneficio:'A rúcula é rica em glucosinolatos e nitratos que melhoram circulação intestinal. Grelhados preservam mais nutrientes que frituras. Azeite extra virgem potencializa absorção de vitaminas lipossolúveis.',
+ingredientes:'Rúcula, 1 abobrinha grelhada, 1 pimentão grelhado, 150g frango grelhado, tomate, parmesão, azeite, balsâmico',
+preparo:'Grelhe os vegetais e o frango. Monte sobre a rúcula. Tempere com azeite e balsâmico. Finalize com lascas de parmesão.'},
+
+{id:55,emoji:'🥣',nome:'Sopa de Abóbora com Gengibre',categoria:'jantar',tempo:'20 min',tags:['Anti-inflamatório','Imunidade'],
+foto:'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=400&q=80&fit=crop',
+beneficio:'Combinação de abóbora e gengibre tem efeito triplo: beta-caroteno para mucosa, gingeróis para motilidade e fibras para microbiota. Sopa perfeita para jantar reconfortante e digestivo.',
+ingredientes:'500g abóbora, 3cm gengibre, cebola, alho, caldo legumes, cúrcuma, pimenta caiena, azeite, sementes abóbora',
+preparo:'Refogue cebola, alho e gengibre. Adicione abóbora e caldo. Cozinhe 20 min. Bata. Sirva com sementes de abóbora tostadas.'},
+
+{id:56,emoji:'🌮',nome:'Tacos de Cogumelos e Feijão Preto',categoria:'jantar',tempo:'20 min',tags:['Vegano','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80&fit=crop',
+beneficio:'Cogumelos shitake e portobello são adaptogênicos que modulam o sistema imune intestinal. Feijão preto adiciona antocianinas e amido resistente. Refeição vegana completa nutricionalmente.',
+ingredientes:'2 tortillas, 150g cogumelos variados, 1/2 xíc. feijão preto, abacate, coentro, limão, páprica, cominho',
+preparo:'Salteie os cogumelos com páprica e cominho. Aqueça o feijão. Monte os tacos com guacamole simples e coentro fresco.'},
+
+// =================== LANCHES (14 receitas) ===================
+{id:57,emoji:'🍌',nome:'Banana com Pasta de Amendoim',categoria:'lanche',tempo:'2 min',tags:['Prebiótico','Energia'],
+foto:'https://images.unsplash.com/photo-1528825871115-3581a5387919?w=400&q=80&fit=crop',
+beneficio:'Banana verde é rica em amido resistente prebiótico. O amendoim fornece triptofano, precursor de serotonina intestinal. Combinação de energia sustentada sem pico glicêmico.',
+ingredientes:'1 banana, 1 col. sopa pasta amendoim integral sem açúcar',
+preparo:'Fatie a banana e mergulhe na pasta de amendoim. Ou corte ao meio e recheie. Lanche simples e nutritivo.'},
+
+{id:58,emoji:'🫐',nome:'Mix de Frutas Vermelhas com Kefir',categoria:'lanche',tempo:'3 min',tags:['Probiótico','Antioxidante'],
+foto:'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400&q=80&fit=crop',
+beneficio:'Frutas vermelhas têm o maior índice antioxidante entre todas as frutas. Seus polifenóis alimentam seletivamente Lactobacillus. Combinadas ao kefir, potencializam a colonização probiótica.',
+ingredientes:'1 xíc. mix frutas vermelhas, 150ml kefir de leite ou água, mel opcional, hortelã',
+preparo:'Misture as frutas com o kefir. Adicione mel se desejar. Sirva fresco com folhas de hortelã.'},
+
+{id:59,emoji:'🥕',nome:'Palitinhos com Homus Caseiro',categoria:'lanche',tempo:'5 min',tags:['Prebiótico','Fibra'],
+foto:'https://images.unsplash.com/photo-1541014741259-de529411b96a?w=400&q=80&fit=crop',
+beneficio:'Cenoura e aipo crus preservam fibras insolúveis que estimulam peristaltismo. O homus de grão-de-bico é probiótico duplo: prebiótico e contém ácido láctico da fermentação do limão.',
+ingredientes:'2 cenouras, 2 talos aipo, 1/2 pepino, 4 col. sopa homus, paprica defumada',
+preparo:'Corte os legumes em palitos. Sirva com homus polvilhado com páprica. Lanche perfeito à tarde.'},
+
+{id:60,emoji:'🌰',nome:'Mix de Castanhas e Frutas Secas',categoria:'lanche',tempo:'1 min',tags:['Gordura boa','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1611489142329-5f62cfa43e6e?w=400&q=80&fit=crop',
+beneficio:'Nozes contêm ácido elágico que bactérias intestinais convertem em urolitinas — compostos com ação anti-inflamatória. Tâmaras e ameixas secas são prebióticos naturais concentrados.',
+ingredientes:'Castanha do Pará, nozes, amêndoas, tâmaras picadas, ameixas secas, passas',
+preparo:'Monte um mix com 30g de castanhas variadas e algumas frutas secas. Porção ideal: cabe na palma da mão.'},
+
+{id:61,emoji:'🍎',nome:'Maçã com Canela e Pasta de Amêndoa',categoria:'lanche',tempo:'3 min',tags:['Prebiótico','Enzimas'],
+foto:'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&q=80&fit=crop',
+beneficio:'A pectina da maçã é um prebiótico específico que aumenta Bifidobacterium. A canela tem ação antifúngica que controla Candida. Combinação que regula glicemia e alimenta a microbiota.',
+ingredientes:'1 maçã fatiada, 1 col. sopa pasta de amêndoa, canela em pó, mel opcional',
+preparo:'Fatie a maçã. Sirva com pasta de amêndoa para mergulhar. Polvilhe canela por cima. Simples e eficiente.'},
+
+{id:62,emoji:'🫙',nome:'Kefir com Mel e Sementes',categoria:'lanche',tempo:'2 min',tags:['Probiótico','Simples'],
+foto:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400&q=80&fit=crop',
+beneficio:'100ml de kefir contém até 50 bilhões de UFC de bactérias benéficas — mais que a maioria dos suplementos probióticos. O mel cru tem ação prebiótica e antimicrobiana seletiva.',
+ingredientes:'200ml kefir de leite, 1 col. mel cru, 1 col. sopa semente de abóbora, canela',
+preparo:'Sirva o kefir num copo ou tigela. Adicione mel, sementes e uma pitada de canela. Beba lentamente.'},
+
+{id:63,emoji:'🫓',nome:'Bolacha de Arroz com Abacate e Tomate',categoria:'lanche',tempo:'5 min',tags:['Sem glúten','Leve'],
+foto:'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=400&q=80&fit=crop',
+beneficio:'Bolachas de arroz são neutras para o intestino e não irritam a mucosa. O abacate fornece fibras e gorduras que lubrificam o trato. Tomate adiciona licopeno anti-inflamatório.',
+ingredientes:'3 bolachas de arroz, 1/2 abacate, 1 tomate, sal, limão, azeite, gergelim',
+preparo:'Amasse o abacate com limão e sal. Espalhe nas bolachas. Cubra com fatias de tomate e gergelim.'},
+
+{id:64,emoji:'🧀',nome:'Queijo Branco com Geleia de Frutas Sem Açúcar',categoria:'lanche',tempo:'2 min',tags:['Proteína','Probiótico'],
+foto:'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&q=80&fit=crop',
+beneficio:'O queijo branco contém lactobacilos probióticos. A geleia sem açúcar preserva polifenóis das frutas que alimentam a microbiota. Combinação de proteína e prebiótico no mesmo lanche.',
+ingredientes:'2 fatias queijo branco ou cottage, 1 col. sopa geleia de frutas vermelhas sem açúcar, nozes',
+preparo:'Monte as fatias de queijo com a geleia por cima. Adicione nozes picadas para crocância e gorduras boas.'},
+
+{id:65,emoji:'🍫',nome:'Bolinha de Cacau e Tâmara',categoria:'lanche',tempo:'15 min',tags:['Prebiótico','Antioxidante'],
+foto:'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400&q=80&fit=crop',
+beneficio:'Tâmaras são ricas em frutooligossacarídeos prebióticos. O cacau cru tem 10x mais antioxidantes que o processado e aumenta Lactobacillus e Bifidobacterium.',
+ingredientes:'10 tâmaras sem caroço, 3 col. sopa cacau em pó, 2 col. pasta de amendoim, coco ralado, sal',
+preparo:'Processe as tâmaras até virar pasta. Misture com cacau e amendoim. Enrole em bolinhas. Passe no coco ralado. Geladeira por 30 min.'},
+
+{id:66,emoji:'🫁',nome:'Chips de Couve ao Forno',categoria:'lanche',tempo:'15 min',tags:['Detox','Crocante'],
+foto:'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop',
+beneficio:'A couve desidratada concentra sulforafano e glucosinolatos. Esses compostos ativam genes de desintoxicação nas células intestinais e têm ação anticarcinogênica comprovada.',
+ingredientes:'1 maço couve, azeite, sal, páprica, alho em pó, levedura nutricional opcional',
+preparo:'Rasgue a couve em pedaços. Massageie com azeite e temperos. Asse a 150°C por 12-15 min até crocante. Sirva frio.'},
+
+{id:67,emoji:'🥑',nome:'Guacamole com Legumes Crus',categoria:'lanche',tempo:'8 min',tags:['Prebiótico','Gordura boa'],
+foto:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80&fit=crop',
+beneficio:'O abacate contém inulina prebiótica que alimenta especificamente Bifidobacterium. Os legumes crus preservam enzimas digestivas naturais. Combinação de prebiótcos com gorduras anti-inflamatórias.',
+ingredientes:'2 abacates, suco limão, cebola roxa, tomate, coentro, jalapeño, sal, cenoura e pepino para mergulhar',
+preparo:'Amasse os abacates com limão. Misture os demais ingredientes. Sirva com palitinhos de cenoura e pepino.'},
+
+{id:68,emoji:'🍊',nome:'Laranja com Castanha do Pará',categoria:'lanche',tempo:'2 min',tags:['Selênio','Vitamina C'],
+foto:'https://images.unsplash.com/photo-1547514701-42782101795e?w=400&q=80&fit=crop',
+beneficio:'1 castanha do Pará fornece a dose diária de selênio, mineral essencial para enzimas antioxidantes intestinais. A vitamina C da laranja potencializa a absorção do selênio em 40%.',
+ingredientes:'1 laranja, 2 castanhas do Pará',
+preparo:'Descasque e fatie a laranja. Sirva com 2 castanhas do Pará. Lanche de 2 minutos com impacto nutricional enorme.'},
+
+{id:69,emoji:'🧁',nome:'Bolo de Cenoura Funcional (Fatia)',categoria:'lanche',tempo:'5 min',tags:['Prebiótico','Caseiro'],
+foto:'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&q=80&fit=crop',
+beneficio:'Cenoura cozida libera beta-caroteno e pectina que formam gel protetor na mucosa. Versão funcional com farinha de aveia preserva beta-glucana prebiótica.',
+ingredientes:'1 fatia bolo de cenoura com farinha de aveia, sem açúcar refinado, adoçado com mel ou tâmara',
+preparo:'Prepare em casa: 2 cenouras, 3 ovos, 2 xíc. aveia processada, 1/2 xíc. mel, 1 col. chá fermento. Asse 35 min 180°C.'},
+
+{id:70,emoji:'🫧',nome:'Kombucha com Frutas',categoria:'lanche',tempo:'1 min',tags:['Probiótico','Detox'],
+foto:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop',
+beneficio:'A kombucha é fermentada com colônias de bactérias e leveduras (SCOBY). Rica em ácidos orgânicos, enzimas digestivas e probióticos que melhoram digestão e reduzem inflamação intestinal.',
+ingredientes:'200ml kombucha natural (original ou sabores frutas), gelo, rodela limão ou gengibre',
+preparo:'Sirva a kombucha gelada. Adicione gelo e decore com limão. Beba devagar para aproveitar os probióticos vivos.'},
+
+// =================== INTESTINO PRESO (15 receitas) ===================
+{id:71,emoji:'💩',nome:'Suco de Ameixa com Laranja',categoria:'preso',tempo:'5 min',tags:['Laxante natural','Urgente'],
+foto:'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80&fit=crop',
+beneficio:'Ameixa contém sorbitol e isatina com efeito laxante suave e natural. Sorbitol tem ação osmótica que atrai água para o intestino. A laranja estimula peristaltismo pela acidez.',
+ingredientes:'5 ameixas secas hidratadas 8h, suco 2 laranjas, 1 col. mel, 200ml água morna',
+preparo:'Bata as ameixas hidratadas com o suco de laranja e água morna. Beba em jejum pela manhã.'},
+
+{id:72,emoji:'🌾',nome:'Papa de Aveia com Ameixa',categoria:'preso',tempo:'8 min',tags:['Fibra solúvel','Anti-constipação'],
+foto:'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=400&q=80&fit=crop',
+beneficio:'Beta-glucana da aveia absorve água formando gel que amolece fezes. Ameixas adicionam sorbitol osmótico. Duplo mecanismo: fibra volumosa + laxante natural osmótico.',
+ingredientes:'5 col. sopa aveia grossa, 300ml água, 3 ameixas sem caroço, linhaça dourada, canela',
+preparo:'Cozinhe a aveia grossa por 5 min mexendo. Adicione ameixas picadas e linhaça. Sirva com canela.'},
+
+{id:73,emoji:'🥝',nome:'Salada de Kiwi com Mamão',categoria:'preso',tempo:'5 min',tags:['Enzimas digestivas','Natural'],
+foto:'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=400&q=80&fit=crop',
+beneficio:'Kiwi contém actinidina que acelera esvaziamento gástrico. Mamão tem papaína com ação laxante. Juntos são a dupla mais eficaz contra constipação — estudos mostram melhora em 2 dias.',
+ingredientes:'2 kiwis maduros, 1 fatia mamão papaia, suco limão, hortelã fresca',
+preparo:'Corte as frutas em cubos. Regue com limão e decore com hortelã. Coma em jejum ou pós-almoço.'},
+
+{id:74,emoji:'🫛',nome:'Feijão Verde com Azeite e Alho',categoria:'preso',tempo:'15 min',tags:['Fibra insolúvel','Prebiótico'],
+foto:'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop',
+beneficio:'Feijão verde al dente preserva fibra insolúvel que aumenta bolo fecal e estimula movimentos peristálticos. Não cozinhe demais — fibra insolúvel precisa de textura para funcionar.',
+ingredientes:'200g vagem, 2 dentes alho, azeite extra virgem, sal, limão, salsinha',
+preparo:'Cozinhe a vagem al dente (5 min). Refogue no alho e azeite rapidamente. Finalize com limão e salsinha.'},
+
+{id:75,emoji:'🌱',nome:'Salada de Sementes e Fibras',categoria:'preso',tempo:'5 min',tags:['Psyllium','Alta fibra'],
+foto:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80&fit=crop',
+beneficio:'Psyllium é a fibra solúvel mais estudada contra constipação — 5g hidratados com 300ml água formam gel volumoso que facilita passagem intestinal em 12-24h.',
+ingredientes:'1 col. sopa psyllium, 300ml água, 1 col. linhaça moída, 1 col. chia, suco limão, mel',
+preparo:'Misture o psyllium na água e deixe hidratar 5 min. Adicione linhaça, chia e limão. Beba imediatamente antes de gel firmar.'},
+
+{id:76,emoji:'🍠',nome:'Purê de Batata-Doce com Azeite',categoria:'preso',tempo:'20 min',tags:['Prebiótico','Fibra'],
+foto:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80&fit=crop',
+beneficio:'Batata-doce cozida e resfriada forma amido resistente tipo 3 — prebiótico que aumenta produção de butirato. Rica em fibra insolúvel que aumenta volume e suaviza as fezes.',
+ingredientes:'2 batatas-doces, azeite extra virgem, alho, sal, cúrcuma, salsinha',
+preparo:'Cozinhe as batatas-doces inteiras. Descasque e amasse com azeite, alho e cúrcuma. Sirva morno ou frio.'},
+
+{id:77,emoji:'🫐',nome:'Smoothie Laxante de Mirtilo e Linhaça',categoria:'preso',tempo:'5 min',tags:['Fibra solúvel','Antioxidante'],
+foto:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80&fit=crop',
+beneficio:'A linhaça moída libera mucilagem que lubrifica o intestino. O mirtilo tem efeito laxante suave por sua riqueza em polifenóis. Banana verde adiciona amido resistente prebiótico.',
+ingredientes:'1 xíc. mirtilo, 1 banana verde, 2 col. sopa linhaça dourada moída, 200ml água de coco, mel',
+preparo:'Bata todos os ingredientes no liquidificador. Beba em jejum ou entre refeições com bastante água.'},
+
+{id:78,emoji:'🥑',nome:'Guacamole com Sementes de Chia',categoria:'preso',tempo:'5 min',tags:['Fibra solúvel','Laxante suave'],
+foto:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80&fit=crop',
+beneficio:'O abacate contém 7g de fibra por unidade. A chia hidratada forma gel mucilaginoso que facilita passagem intestinal. Combinação de fibras solúveis e insolúveis para efeito completo.',
+ingredientes:'1 abacate, 1 col. sopa chia hidratada em 3 col. água, limão, sal, coentro, tomate',
+preparo:'Hidrate a chia por 10 min. Amasse o abacate com limão e sal. Misture a chia hidratada e demais ingredientes.'},
+
+{id:79,emoji:'🍑',nome:'Compota de Frutas com Ameixa e Pêssego',categoria:'preso',tempo:'15 min',tags:['Laxante natural','Fibra'],
+foto:'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=400&q=80&fit=crop',
+beneficio:'A compota concentra as fibras solúveis das frutas. Pêssego contém fibra pectina que forma gel no intestino. Consumir morno potencializa o efeito estimulante do peristaltismo.',
+ingredientes:'5 ameixas, 2 pêssegos, 200ml água, 1 pau canela, 1 col. mel, casca de laranja',
+preparo:'Cozinhe as frutas com água, canela e casca de laranja por 12 min. Não adicione açúcar. Sirva morno.'},
+
+{id:80,emoji:'🌿',nome:'Chá de Sene com Alcaçuz',categoria:'preso',tempo:'10 min',tags:['Fitoterápico','Noturno'],
+foto:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80&fit=crop',
+beneficio:'O sene contém antraquinonas que estimulam contrações musculares do cólon — efeito em 8-12h. Uso máximo: 5-7 dias consecutivos. O alcaçuz é calmante intestinal sinérgico.',
+ingredientes:'1 sachê chá de sene, 1 pedaço alcaçuz ou erva-cidreira, 200ml água quente, mel',
+preparo:'Infuse por 5-7 min. Não use mais de 3 vezes por semana. Tome à noite para efeito pela manhã. Consulte médico se necessário.'},
+
+{id:81,emoji:'🥦',nome:'Sopa de Brócolis Rica em Fibras',categoria:'preso',tempo:'20 min',tags:['Fibra insolúvel','Anti-inflamatório'],
+foto:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80&fit=crop',
+beneficio:'Brócolis tem 5g de fibra por xícara, sendo 2g insolúvel que estimula peristaltismo. Sulforafano protege células intestinais e ativa mecanismos de limpeza celular (autofagia).',
+ingredientes:'1 cabeça brócolis, 1 batata, cebola, alho, caldo vegetal, azeite, gergelim, sal',
+preparo:'Cozinhe brócolis e batata no caldo. Bata metade e misture com pedaços inteiros. Regue com azeite e gergelim.'},
+
+{id:82,emoji:'🍋',nome:'Limoncello Digestivo (sem álcool)',categoria:'preso',tempo:'5 min',tags:['Digestivo','Estimulante'],
+foto:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80&fit=crop',
+beneficio:'O limoneno da casca do limão estimula enzimas digestivas e tem leve efeito laxante. O suco de limão alcaliniza o ph intestinal criando ambiente favorável para bactérias benéficas.',
+ingredientes:'Suco 2 limões, raspas casca de limão, 300ml água morna, 1 col. mel, hortelã fresca',
+preparo:'Misture o suco e as raspas de limão com a água morna. Adicione mel e hortelã. Beba em jejum pela manhã.'},
+
+{id:83,emoji:'🫘',nome:'Feijão Branco com Azeite e Ervas',categoria:'preso',tempo:'10 min',tags:['Fibra','Simples'],
+foto:'https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=400&q=80&fit=crop',
+beneficio:'Feijão branco cozido tem 11g de fibra por xícara — dos quais 4g são fibra insolúvel de rápida ação. Rico em amido resistente que alimenta bactérias produtoras de butirato.',
+ingredientes:'1 xíc. feijão branco cozido, azeite extra virgem, alecrim, alho, sal, pimenta, suco limão',
+preparo:'Aqueça o feijão com alho e alecrim no azeite. Tempere com sal, pimenta e limão. Sirva quente ou frio.'},
+
+{id:84,emoji:'🍃',nome:'Overnight Oats com Ameixa e Linhaça',categoria:'preso',tempo:'5 min preparo + 8h geladeira',tags:['Alta fibra','Prático'],
+foto:'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80&fit=crop',
+beneficio:'A aveia hidratada durante a noite pré-digere parte do amido e aumenta a disponibilidade de beta-glucana. A linhaça moída libera mucilagem ao hidratar. Efeito de manhã garantido.',
+ingredientes:'4 col. sopa aveia, 200ml kefir, 3 ameixas sem caroço, 1 col. linhaça moída, mel',
+preparo:'Na véspera: misture aveia, kefir, ameixas picadas e linhaça. Cubra e deixe na geladeira. Pela manhã adicione mel.'},
+
+{id:85,emoji:'🌊',nome:'Água de Coco com Chia e Limão',categoria:'preso',tempo:'3 min + 10 min hidratar',tags:['Hidratação','Fibra solúvel'],
+foto:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80&fit=crop',
+beneficio:'A água de coco hidrata o intestino — desidratação é uma das principais causas de constipação. A chia hidratada expande 10x seu volume, criando gel volumoso que facilita passagem intestinal.',
+ingredientes:'300ml água de coco, 1 col. sopa chia, suco 1 limão, pitada cúrcuma, mel opcional',
+preparo:'Misture a chia na água de coco. Espere 10 min para hidratar. Adicione limão, cúrcuma e mel. Beba imediatamente.'},
+
+// =================== INTESTINO SOLTO (15 receitas) ===================
+{id:86,emoji:'🍚',nome:'Arroz Branco com Cenoura Cozida',categoria:'solto',tempo:'20 min',tags:['Adstringente','BRAT diet'],
+foto:'https://images.unsplash.com/photo-1536304993881-ff86e0c9ce26?w=400&q=80&fit=crop',
+beneficio:'Arroz branco é de fácil digestão e não irrita mucosa inflamada. A cenoura cozida bem mole libera pectina adstringente que forma gel protetor no intestino e absorve toxinas bacterianas.',
+ingredientes:'1 xíc. arroz branco, 1 cenoura amassada, sal, azeite suave, sem temperos fortes',
+preparo:'Cozinhe o arroz. Cozinhe a cenoura até amolecer muito e amasse. Misture com sal e fio de azeite. Evite condimentos.'},
+
+{id:87,emoji:'🫙',nome:'Iogurte Natural com Banana Madura',categoria:'solto',tempo:'2 min',tags:['Probiótico','Adstringente'],
+foto:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80&fit=crop',
+beneficio:'Banana madura tem taninos adstringentes que reduzem hipermotilidade. O iogurte repõe bactérias benéficas perdidas na diarreia. Estudos mostram redução de 50% na duração da diarreia.',
+ingredientes:'1 pote iogurte natural integral sem açúcar, 1 banana bem madura amassada, pitada canela',
+preparo:'Amasse a banana e misture com o iogurte. Adicione canela. Evite mel ou fibras extras na fase aguda.'},
+
+{id:88,emoji:'🍗',nome:'Frango Desfiado com Batata Cozida',categoria:'solto',tempo:'25 min',tags:['BRAT diet','Digestivo'],
+foto:'https://images.unsplash.com/photo-1598103442097-8b74394b95c9?w=400&q=80&fit=crop',
+beneficio:'Baseado na dieta BRAT. Frango sem pele cozido é de máxima digestibilidade. A batata cozida bem mole é neutra para a mucosa e fornece energia sem irritar o intestino.',
+ingredientes:'150g peito frango sem pele cozido desfiado, 1 batata média cozida, sal, alho suave, sem pimenta',
+preparo:'Cozinhe o frango na água com sal e alho. Desfie finamente. Sirva com batata amassada. Sem temperos fortes.'},
+
+{id:89,emoji:'🍵',nome:'Chá de Camomila com Torrada',categoria:'solto',tempo:'5 min',tags:['Anti-espasmo','Calmante'],
+foto:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80&fit=crop',
+beneficio:'Camomila contém apigenina que relaxa a musculatura intestinal, reduz espasmos e hipermotilidade. Combina com a-bisabolol que tem ação anti-inflamatória na mucosa irritada.',
+ingredientes:'1 sachê chá camomila, 200ml água quente, 2 torradas integrais sem manteiga',
+preparo:'Infuse o chá por 5 min. Beba quente e devagar. Torradas absorbem excesso de líquido no intestino.'},
+
+{id:90,emoji:'🥣',nome:'Sopa de Arroz com Cenoura',categoria:'solto',tempo:'20 min',tags:['Reconfortante','Adstringente'],
+foto:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80&fit=crop',
+beneficio:'Sopa clara de arroz é a receita mais prescrita em gastroenterologia para diarreia. A água de cozimento do arroz contém amido solúvel que reduz secreção intestinal excessiva.',
+ingredientes:'4 col. sopa arroz branco, 1 cenoura, 500ml água, sal, 1 folha louro, sem gordura',
+preparo:'Cozinhe o arroz com a cenoura na água até amolecer bem. Retire o louro. Sirva como sopa clara e nutritiva.'},
+
+{id:91,emoji:'🍌',nome:'Banana Assada com Canela',categoria:'solto',tempo:'15 min',tags:['Adstringente','Reconfortante'],
+foto:'https://images.unsplash.com/photo-1528825871115-3581a5387919?w=400&q=80&fit=crop',
+beneficio:'A banana assada concentra os taninos adstringentes e elimina parte da frutose que pode irritar o intestino sensível. Potencializa o efeito antidiarreico da banana crua.',
+ingredientes:'2 bananas maduras, canela em pó, pitada noz-moscada, mel opcional',
+preparo:'Corte as bananas ao meio no sentido do comprimento. Polvilhe canela e noz-moscada. Asse a 180°C por 10-12 min.'},
+
+{id:92,emoji:'🥤',nome:'Soro Caseiro com Água de Coco',categoria:'solto',tempo:'3 min',tags:['Hidratação','Essencial'],
+foto:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80&fit=crop',
+beneficio:'Diarreia causa perda de eletrólitos — sódio, potássio e cloro. A água de coco tem concentração de eletrólitos similar ao plasma sanguíneo. Reidratação é a prioridade máxima.',
+ingredientes:'500ml água de coco natural, 1 pitada sal, 1 pitada açúcar de coco ou mel, suco 1/2 limão',
+preparo:'Misture todos os ingredientes. Beba em pequenos goles ao longo do dia. Não espere ter sede para beber.'},
+
+{id:93,emoji:'🍎',nome:'Compota de Maçã sem Açúcar',categoria:'solto',tempo:'15 min',tags:['Pectina','Adstringente'],
+foto:'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&q=80&fit=crop',
+beneficio:'A maçã cozida é a fonte de pectina mais concentrada. A pectina forma gel espesso que recobre e protege a mucosa intestinal irritada e absorve toxinas e água em excesso.',
+ingredientes:'3 maçãs descascadas, 100ml água, pau canela, pitada noz-moscada, sem açúcar',
+preparo:'Cozinhe as maçãs com água e canela por 12 min até amolecer bem. Amasse parcialmente. Sirva morno.'},
+
+{id:94,emoji:'🫙',nome:'Missô Diluído em Água Quente',categoria:'solto',tempo:'3 min',tags:['Probiótico','Eletrólitos'],
+foto:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80&fit=crop',
+beneficio:'Missô diluído repõe eletrólitos perdidos e fornece probióticos que restauram a microbiota rapidamente. Mais eficaz que soro para casos moderados por adicionar lactobacilos vivos.',
+ingredientes:'1 col. chá pasta missô, 200ml água quente (não fervente), cebolinha, opcional tofu mole',
+preparo:'Dissolva o missô na água morna. Não ferva — destrói os probióticos. Adicione cebolinha. Beba devagar.'},
+
+{id:95,emoji:'🍋',nome:'Chá de Hortelã com Gengibre',categoria:'solto',tempo:'8 min',tags:['Anti-espasmo','Digestivo'],
+foto:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80&fit=crop',
+beneficio:'O mentol da hortelã relaxa o esfíncter esofágico e reduz espasmos intestinais. O gengibre tem ação antiemérica e anti-inflamatória que reduz irritação da mucosa intestinal.',
+ingredientes:'4 folhas hortelã fresca, 2cm gengibre fatiado, 200ml água quente, mel, limão',
+preparo:'Infuse o gengibre por 5 min. Adicione a hortelã e infuse mais 3 min. Coe, adicione mel e algumas gotas de limão.'},
+
+{id:96,emoji:'🥔',nome:'Batata Cozida com Sal e Azeite',categoria:'solto',tempo:'20 min',tags:['BRAT diet','Neutro'],
+foto:'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&q=80&fit=crop',
+beneficio:'Batata cozida é o alimento mais digerível da natureza. Seu amido neutro não irrita a mucosa e fornece energia sem estimular movimentos intestinais. Base da dieta BRAT clínica.',
+ingredientes:'2 batatas médias, água, sal, fio azeite extra virgem suave, salsinha sem talo',
+preparo:'Cozinhe as batatas com casca até amolecer completamente. Descasque. Sirva com sal e mínimo de azeite.'},
+
+{id:97,emoji:'🍞',nome:'Torrada de Pão Branco com Queijo Branco',categoria:'solto',tempo:'3 min',tags:['BRAT diet','Proteína leve'],
+foto:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80&fit=crop',
+beneficio:'Pão torrado tem amido resistente que absorve água intestinal excessiva. O queijo branco fresco adiciona proteína leve e probióticos sem a gordura que pode piorar a diarreia.',
+ingredientes:'2 fatias pão branco tostado, 2 fatias queijo branco fresco, sal',
+preparo:'Torre o pão até firmar bem. Coloque o queijo branco. Evite manteiga, geleia ou acompanhamentos pesados.'},
+
+{id:98,emoji:'🥛',nome:'Leite de Arroz Caseiro com Canela',categoria:'solto',tempo:'5 min',tags:['Sem lactose','Adstringente'],
+foto:'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&q=80&fit=crop',
+beneficio:'O leite de arroz não contém lactose que pode piorar a diarreia. O amido do arroz tem ação adstringente. A canela tem propriedades antimicrobianas que combatem bactérias causadoras de diarreia.',
+ingredientes:'2 col. sopa arroz cozido, 300ml água, pitada canela, pitada sal, mel opcional',
+preparo:'Bata o arroz cozido com a água no liquidificador. Coe. Adicione canela e mel. Sirva morno. Reconfortante e adstringente.'},
+
+{id:99,emoji:'🫐',nome:'Kefir Diluído com Banana',categoria:'solto',tempo:'3 min',tags:['Probiótico','Adstringente'],
+foto:'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400&q=80&fit=crop',
+beneficio:'O kefir diluído reduz a concentração de lactose enquanto mantém os probióticos. Estudos mostram que kefir reduz duração da diarreia em 1,5 dias em média por restaurar microbiota rapidamente.',
+ingredientes:'100ml kefir, 100ml água, 1 banana madura amassada, pitada canela',
+preparo:'Dilua o kefir na água. Amasse a banana e misture. Adicione canela. Beba em temperatura ambiente.'},
+
+{id:100,emoji:'🌿',nome:'Caldo de Legumes Claro com Arroz',categoria:'solto',tempo:'25 min',tags:['Hidratação','Eletrólitos'],
+foto:'https://images.unsplash.com/photo-1604152135912-04a022e23696?w=400&q=80&fit=crop',
+beneficio:'O caldo claro repõe eletrólitos e hidrata sem sobrecarregar o intestino. O arroz no caldo libera amido solúvel que reduz secreção intestinal. Protocolo clínico para gastroenterite aguda.',
+ingredientes:'1 cenoura, 1 aipo, 1 cebola, 4 col. sopa arroz branco, sal, louro, 1L água',
+preparo:'Cozinhe os legumes na água por 20 min. Coe e reaproveite o caldo. Cozinhe o arroz no caldo coado. Sirva como sopa clara.'}
 ];
+
 
 var categoriaAtual = 'todas';
 
@@ -2337,9 +2844,12 @@ function renderizarReceitas() {
 }
 
 function cardReceitaMini(r) {
-  var tagHtml = r.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('');
+  var fotoHtml = r.foto
+    ? '<img src="' + r.foto + '" alt="' + r.nome + '" style="width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+      '<div class="emoji" style="display:none;width:56px;height:56px;background:var(--bege-escuro);border-radius:10px;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">' + r.emoji + '</div>'
+    : '<div class="emoji" style="width:56px;height:56px;background:var(--bege-escuro);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">' + r.emoji + '</div>';
   return '<div class="receita-card-mini" onclick="abrirReceita(' + r.id + ')">' +
-    '<div class="emoji">' + r.emoji + '</div>' +
+    fotoHtml +
     '<div class="info">' +
       '<h4>' + r.nome + '</h4>' +
       '<p>' + r.tempo + ' · ' + r.tags[0] + '</p>' +
@@ -2353,10 +2863,13 @@ function abrirReceita(id) {
   if (!r) return;
   var tagHtml = r.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('');
   var cor = categoriasInfo[r.categoria] ? categoriasInfo[r.categoria].cor : 'var(--verde)';
+  var fotoModal = r.foto
+    ? '<img src="' + r.foto + '" alt="' + r.nome + '" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:16px;" onerror="this.style.display=\'none\'">'
+    : '<div style="font-size:56px;text-align:center;margin-bottom:16px;">' + r.emoji + '</div>';
   document.getElementById('modal-conteudo').innerHTML =
+    fotoModal +
     '<div style="text-align:center;margin-bottom:16px;">' +
-      '<div style="font-size:56px;">' + r.emoji + '</div>' +
-      '<h3 style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;margin-top:8px;">' + r.nome + '</h3>' +
+      '<h3 style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;">' + r.nome + '</h3>' +
       '<p style="font-size:12px;color:var(--cinza);">' + r.tempo + '</p>' +
       '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px;">' + tagHtml + '</div>' +
     '</div>' +
