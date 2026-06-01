@@ -1908,6 +1908,7 @@ function iniciarGrid21Dias() { renderizarDesafio(); }
 // ============================================================
 // VERIFICAR SESSÃO AO CARREGAR
 // ============================================================
+function atualizarInfoDia(dia) {
   var el = document.getElementById('texto-dia-atual');
   if (!el) return;
   var fase = dia <= 7 ? '1 — Eliminação' : (dia <= 14 ? '2 — Regeneração' : '3 — Repovoamento');
