@@ -737,6 +737,57 @@
   .tab-conteudo { display: none; }
   .tab-conteudo.ativo { display: block; }
 
+  /* ===== FILTROS RECEITAS ===== */
+  .filtro-btn {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 2px solid var(--bege-escuro);
+    background: var(--branco);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--cinza);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .filtro-btn.ativo {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: white;
+  }
+
+  .receita-card-mini {
+    background: var(--branco);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid var(--bege-escuro);
+  }
+  .receita-card-mini:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .receita-card-mini .emoji { font-size: 32px; flex-shrink: 0; }
+  .receita-card-mini .info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .receita-card-mini .info p { font-size: 12px; color: var(--cinza); }
+  .receita-card-mini .seta { margin-left: auto; color: var(--cinza); font-size: 18px; flex-shrink: 0; }
+
+  .categoria-titulo {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--cinza);
+    margin: 16px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
   /* ===== UTIL ===== */
   .divider { height: 1px; background: var(--bege-escuro); margin: 16px 0; }
   .texto-verde { color: var(--verde); }
@@ -985,90 +1036,41 @@
     <!-- ===== TELA: CARDÁPIO / IA ===== -->
     <div class="tela" id="tela-ia">
       <div style="padding:20px;">
-        <div class="tabs">
-          <button class="tab-btn ativo" onclick="mudarTab('cardapio')">🥗 Cardápio</button>
-          <button class="tab-btn" onclick="mudarTab('receitas')">👨‍🍳 Receitas</button>
-          <button class="tab-btn" onclick="mudarTab('ia-livre')">🤖 IA Livre</button>
+        <div class="tabs" style="overflow-x:auto;flex-wrap:nowrap;">
+          <button class="tab-btn ativo" onclick="mudarTab('receitas')" style="white-space:nowrap;">🍽️ Receitas</button>
+          <button class="tab-btn" onclick="mudarTab('ia-livre')" style="white-space:nowrap;">🤖 IA</button>
         </div>
 
-        <div class="tab-conteudo ativo" id="tab-cardapio">
-          <div class="card">
-            <div class="card-titulo">🥗 Cardápio Semanal Personalizado</div>
-            <p style="font-size:13px;color:var(--cinza);margin-bottom:16px;">IA gera um cardápio baseado no seu perfil intestinal com alimentos pró-microbiota.</p>
-            <button class="btn-primario" onclick="gerarCardapio()" id="btn-cardapio">
-              ✨ Gerar meu cardápio
-            </button>
+        <!-- RECEITAS -->
+        <div class="tab-conteudo ativo" id="tab-receitas">
+
+          <!-- Filtros por categoria -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">
+            <button class="filtro-btn ativo" onclick="filtrarReceitas('todas')">Todas</button>
+            <button class="filtro-btn" onclick="filtrarReceitas('cafe')">☕ Café</button>
+            <button class="filtro-btn" onclick="filtrarReceitas('almoco')">🍽️ Almoço</button>
+            <button class="filtro-btn" onclick="filtrarReceitas('jantar')">🌙 Jantar</button>
+            <button class="filtro-btn" onclick="filtrarReceitas('lanche')">🥪 Lanche</button>
+            <button class="filtro-btn" onclick="filtrarReceitas('preso')">🔒 Int. Preso</button>
+            <button class="filtro-btn" onclick="filtrarReceitas('solto')">💧 Int. Solto</button>
           </div>
-          <div class="card" id="resultado-cardapio" style="display:none;">
-            <div class="card-titulo">📋 Seu cardápio da semana</div>
-            <div class="ia-resposta" id="texto-cardapio"></div>
+
+          <div id="lista-receitas"></div>
+
+          <!-- Modal receita -->
+          <div id="modal-receita" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;padding:20px;overflow-y:auto;">
+            <div style="background:var(--branco);border-radius:20px;max-width:500px;margin:0 auto;padding:24px;position:relative;">
+              <button onclick="fecharModal()" style="position:absolute;top:16px;right:16px;background:var(--bege-escuro);border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;">×</button>
+              <div id="modal-conteudo"></div>
+            </div>
           </div>
+
         </div>
 
-        <div class="tab-conteudo" id="tab-receitas">
-          <div class="receita-card">
-            <div class="receita-header">
-              <div class="receita-emoji">🫙</div>
-              <div class="receita-info">
-                <h4>Iogurte Natural com Kefir</h4>
-                <p>Café da manhã • 10 min</p>
-              </div>
-            </div>
-            <div class="receita-body">
-              <div class="receita-tags">
-                <span class="tag">Probiótico</span>
-                <span class="tag">Sem glúten</span>
-                <span class="tag">Fácil</span>
-              </div>
-              <p style="font-size:13px;color:var(--cinza);">Iogurte integral + kefir de leite + banana amassada + mel cru + sementes de chia. Rico em lactobacilos e prebióticos naturais.</p>
-            </div>
-          </div>
-          <div class="receita-card">
-            <div class="receita-header">
-              <div class="receita-emoji">🥗</div>
-              <div class="receita-info">
-                <h4>Salada de Fibras com Grão-de-Bico</h4>
-                <p>Almoço • 15 min</p>
-              </div>
-            </div>
-            <div class="receita-body">
-              <div class="receita-tags">
-                <span class="tag">Prebiótico</span>
-                <span class="tag">Alta fibra</span>
-                <span class="tag">Vegano</span>
-              </div>
-              <p style="font-size:13px;color:var(--cinza);">Grão-de-bico cozido + cenoura + pepino + tomate cereja + azeite + limão + coentro. Alimenta as bactérias boas do cólon.</p>
-            </div>
-          </div>
-          <div class="receita-card">
-            <div class="receita-header">
-              <div class="receita-emoji">🍵</div>
-              <div class="receita-info">
-                <h4>Caldo Bone Broth Anti-inflamatório</h4>
-                <p>Jantar • 30 min</p>
-              </div>
-            </div>
-            <div class="receita-body">
-              <div class="receita-tags">
-                <span class="tag">Gut healing</span>
-                <span class="tag">Colágeno</span>
-                <span class="tag">Sem lactose</span>
-              </div>
-              <p style="font-size:13px;color:var(--cinza);">Caldo de osso com gengibre, açafrão, alho e cebola. Glutamina natural para reparar a parede intestinal.</p>
-            </div>
-          </div>
-          <button class="btn-primario" onclick="gerarReceita()" id="btn-receita">
-            ✨ Gerar receita personalizada
-          </button>
-          <div class="card mt-16" id="resultado-receita" style="display:none;">
-            <div class="card-titulo">👨‍🍳 Sua receita</div>
-            <div class="ia-resposta" id="texto-receita"></div>
-          </div>
-        </div>
-
+        <!-- IA LIVRE -->
         <div class="tab-conteudo" id="tab-ia-livre">
           <div class="card">
-            <div class="card-titulo">🤖 Assistente de Saúde Intestinal</div>
+            <div class="card-titulo">🤖 Assistente Intestinal</div>
             <p style="font-size:13px;color:var(--cinza);margin-bottom:12px;">Tire dúvidas, peça dicas, entenda seus sintomas.</p>
             <div class="ia-resposta" id="ia-livre-resposta" style="min-height:120px;">Olá! 👋 Sou sua assistente de saúde intestinal. Como posso te ajudar hoje?</div>
             <div style="display:flex;gap:8px;margin-top:12px;">
@@ -1082,6 +1084,7 @@
             <button class="btn-secundario" onclick="perguntaRapida('Como melhorar a motilidade?')" style="font-size:12px;padding:8px 12px;">Melhorar trânsito?</button>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -1600,7 +1603,7 @@ var passosConfig = [
     subtitulo: 'A microbiota muda com a idade',
     campo: 'idade',
     tipo: 'opcoes',
-    opcoes: ['35–44 anos', '45–54 anos', '55–64 anos', '65+ anos']
+    opcoes: ['20–24 anos', '25–29 anos', '30–34 anos', '35–39 anos', '40–44 anos', '45–49 anos', '50–54 anos', '55–59 anos', '60–64 anos', '65+ anos']
   },
   {
     titulo: 'Qual seu principal sintoma intestinal?',
@@ -2086,9 +2089,217 @@ function carregarRegistros() {
   }
 }
 
+
 // ============================================================
-// VERIFICAR SESSÃO AO CARREGAR
+// BANCO DE RECEITAS
 // ============================================================
+var todasReceitas = [
+  // CAFÉ DA MANHÃ
+  { id:1, emoji:'🫙', nome:'Iogurte com Kefir e Chia', categoria:'cafe', tempo:'5 min', tags:['Probiótico','Fácil'],
+    beneficio:'Rico em lactobacilos vivos que repovoam a microbiota. A chia adiciona fibra solúvel que alimenta bactérias benéficas do cólon.',
+    ingredientes:'1 pote de iogurte natural integral, 100ml de kefir de leite, 1 banana amassada, 1 col. sopa de chia, mel cru a gosto',
+    preparo:'Misture o iogurte com o kefir numa tigela. Adicione a banana amassada, a chia e finalize com mel. Consuma imediatamente.' },
+  { id:2, emoji:'🥣', nome:'Aveia com Mamão e Linhaça', categoria:'cafe', tempo:'5 min', tags:['Prebiótico','Anti-constipação'],
+    beneficio:'O mamão contém papaína que auxilia a digestão. A aveia é rica em beta-glucana, fibra solúvel que nutre o microbioma e regula o trânsito.',
+    ingredientes:'4 col. sopa de aveia em flocos, 1/2 mamão papaia, 1 col. sopa de linhaça dourada moída, 200ml de leite vegetal',
+    preparo:'Aqueça o leite vegetal e misture com a aveia. Sirva com o mamão cortado e polvilhe a linhaça por cima.' },
+  { id:3, emoji:'🥤', nome:'Vitamina Verde Intestinal', categoria:'cafe', tempo:'5 min', tags:['Detox','Anti-inflamatório'],
+    beneficio:'Couve e pepino são anti-inflamatórios naturais. O gengibre estimula a produção de enzimas digestivas e tem ação antibacteriana seletiva.',
+    ingredientes:'1 folha de couve, 1/2 pepino, 1 maçã verde, suco de 1 limão, 1 pedaço de gengibre, 200ml água de coco',
+    preparo:'Bata tudo no liquidificador. Coe se preferir e beba imediatamente em jejum para melhor absorção.' },
+  { id:4, emoji:'🍞', nome:'Torrada Integral com Abacate', categoria:'cafe', tempo:'5 min', tags:['Fibra','Gordura boa'],
+    beneficio:'O pão integral fermenta lentamente, evitando picos glicêmicos. O abacate é rico em fibras e gorduras que lubrificam o trato intestinal.',
+    ingredientes:'2 fatias de pão integral ou de fermentação natural, 1/2 abacate maduro, limão, azeite, sal e pimenta',
+    preparo:'Amasse o abacate com limão, sal e pimenta. Espalhe nas torradas e regue com um fio de azeite extra virgem.' },
+
+  // ALMOÇO
+  { id:5, emoji:'🥗', nome:'Salada de Grão-de-Bico com Legumes', categoria:'almoco', tempo:'15 min', tags:['Prebiótico','Vegano','Alta fibra'],
+    beneficio:'O grão-de-bico é rico em amido resistente que alimenta bactérias produtoras de butirato, principal combustível das células intestinais.',
+    ingredientes:'1 xíc. grão-de-bico cozido, 1 cenoura ralada, 1 pepino, tomate cereja, 1/4 cebola roxa, azeite, limão, coentro',
+    preparo:'Misture todos os ingredientes numa tigela. Tempere com azeite, suco de limão, sal e coentro fresco. Sirva frio.' },
+  { id:6, emoji:'🍲', nome:'Sopa de Legumes com Cúrcuma', categoria:'almoco', tempo:'25 min', tags:['Anti-inflamatório','Gut healing'],
+    beneficio:'A cúrcuma contém curcumina, potente anti-inflamatório que reduz a permeabilidade intestinal. Ideal para fases de inflamação ativa.',
+    ingredientes:'1 cenoura, 1 abobrinha, 1 batata-doce, 1 col. chá de cúrcuma, 1 col. chá gengibre, alho, cebola, azeite, sal',
+    preparo:'Refogue alho e cebola. Adicione os legumes cortados, cúrcuma e gengibre. Cubra com água e cozinhe 20 min. Bata no liquidificador.' },
+  { id:7, emoji:'🐟', nome:'Salmão Grelhado com Quinoa', categoria:'almoco', tempo:'20 min', tags:['Ômega-3','Anti-inflamatório'],
+    beneficio:'O ômega-3 do salmão reduz inflamação intestinal e aumenta a diversidade da microbiota. A quinoa fornece proteína completa e fibras.',
+    ingredientes:'150g de filé de salmão, 1/2 xíc. quinoa cozida, limão, azeite, alecrim, alho, sal e pimenta',
+    preparo:'Tempere o salmão com limão, alho e azeite. Grelhe 4 min de cada lado. Sirva sobre a quinoa cozida com ervas frescas.' },
+  { id:8, emoji:'🫘', nome:'Feijão Preto com Arroz Integral', categoria:'almoco', tempo:'10 min', tags:['Prebiótico','Brasileiro','Clássico'],
+    beneficio:'Combinação clássica com proteína completa. O feijão preto é rico em amido resistente e polifenóis que aumentam Bifidobacterium no intestino.',
+    ingredientes:'1 concha de feijão preto cozido temperado, 4 col. de arroz integral, couve refogada no alho, cenoura ralada',
+    preparo:'Monte o prato com arroz integral, feijão bem temperado, couve refogada e cenoura crua ralada. Regue com azeite.' },
+
+  // JANTAR
+  { id:9, emoji:'🍵', nome:'Caldo Bone Broth Anti-inflamatório', categoria:'jantar', tempo:'30 min', tags:['Gut healing','Colágeno'],
+    beneficio:'A glutamina e glicina do caldo de osso são o principal nutriente para reparar a mucosa intestinal e fechar as tight junctions do leaky gut.',
+    ingredientes:'500ml de caldo de osso bovino, 1 pedaço gengibre, 1 col. chá açafrão, 2 dentes de alho, sal do himalaia',
+    preparo:'Aqueça o caldo de osso com gengibre, açafrão e alho amassado. Não deixe ferver. Sirva como sopa leve no jantar.' },
+  { id:10, emoji:'🥦', nome:'Frango ao Vapor com Legumes', categoria:'jantar', tempo:'20 min', tags:['Leve','Digestivo','Proteína'],
+    beneficio:'Refeição leve e de fácil digestão para o jantar. Brócolis contém sulforafano que estimula enzimas de detox hepático e protege a mucosa.',
+    ingredientes:'150g peito de frango, 1 xíc. brócolis, 1 cenoura, 1 abobrinha, azeite, limão, ervas finas, sal',
+    preparo:'Cozinhe o frango e os legumes no vapor por 15-18 min. Tempere com azeite, limão e ervas. Evite frituras no jantar.' },
+  { id:11, emoji:'🥚', nome:'Omelete de Espinafre e Cogumelos', categoria:'jantar', tempo:'10 min', tags:['Leve','Probiótico','Rápido'],
+    beneficio:'Cogumelos são ricos em beta-glucanas que modulam positivamente o sistema imune intestinal. Espinafre fornece magnésio, que relaxa o músculo liso.',
+    ingredientes:'2 ovos, 1 xíc. espinafre, 100g cogumelos shitake ou paris, azeite, sal, pimenta, queijo branco opcional',
+    preparo:'Bata os ovos. Refogue os cogumelos e espinafre no azeite. Adicione os ovos batidos e cozinhe em fogo baixo até firmar.' },
+
+  // LANCHES
+  { id:12, emoji:'🍌', nome:'Banana com Pasta de Amendoim', categoria:'lanche', tempo:'2 min', tags:['Prebiótico','Energia'],
+    beneficio:'A banana levemente verde é rica em amido resistente prebiótico. O amendoim fornece gorduras boas e triptofano precursor de serotonina intestinal.',
+    ingredientes:'1 banana média, 1 col. sopa de pasta de amendoim integral sem açúcar',
+    preparo:'Fatie a banana e mergulhe na pasta de amendoim. Simples, nutritivo e que alimenta as bactérias boas.' },
+  { id:13, emoji:'🫐', nome:'Mix de Frutas Vermelhas com Kefir', categoria:'lanche', tempo:'3 min', tags:['Probiótico','Antioxidante'],
+    beneficio:'Frutas vermelhas são ricas em polifenóis que alimentam seletivamente Lactobacillus e Bifidobacterium. Combinadas ao kefir, potencializam o efeito.',
+    ingredientes:'1 xíc. mix de frutas vermelhas (morango, mirtilo, framboesa), 150ml kefir de leite ou água, mel opcional',
+    preparo:'Misture as frutas com o kefir numa tigela ou sirva o kefir como molho. Consuma fresco.' },
+  { id:14, emoji:'🥕', nome:'Palitinhos com Homus', categoria:'lanche', tempo:'5 min', tags:['Prebiótico','Fibra'],
+    beneficio:'Grão-de-bico do homus é prebiótico potente. Cenoura e aipo crus fornecem fibras insolúveis que aumentam o volume fecal e estimulam o peristaltismo.',
+    ingredientes:'2 cenouras, 2 talos de aipo, 1/2 pepino, 4 col. sopa de homus caseiro ou industrializado',
+    preparo:'Corte os legumes em palitos. Sirva com homus para mergulhar. Lanche perfeito para o período da tarde.' },
+
+  // INTESTINO PRESO
+  { id:15, emoji:'💩', nome:'Suco de Ameixa com Laranja', categoria:'preso', tempo:'5 min', tags:['Laxante natural','Urgente'],
+    beneficio:'A ameixa contém sorbitol e isatina, compostos com efeito laxante suave e natural. A laranja estimula o peristaltismo pela acidez e vitamina C.',
+    ingredientes:'5 ameixas secas (deixar de molho 8h), suco de 2 laranjas, 1 col. chá de mel, 200ml água morna',
+    preparo:'Bata no liquidificador as ameixas hidratadas com o suco de laranja e a água morna. Beba em jejum pela manhã.' },
+  { id:16, emoji:'🌾', nome:'Papa de Aveia com Ameixa', categoria:'preso', tempo:'8 min', tags:['Fibra solúvel','Anti-constipação'],
+    beneficio:'Beta-glucana da aveia absorve água e forma gel que amolece as fezes. As ameixas adicionam sorbitol de ação osmótica. Duplo efeito regulador.',
+    ingredientes:'5 col. sopa aveia grossa, 300ml água ou leite vegetal, 3 ameixas sem caroço picadas, 1 col. linhaça dourada, canela',
+    preparo:'Cozinhe a aveia grossa no líquido por 5 min mexendo sempre. Adicione as ameixas e a linhaça. Sirva com canela.' },
+  { id:17, emoji:'🥝', nome:'Salada de Kiwi com Mamão', categoria:'preso', tempo:'5 min', tags:['Enzimas digestivas','Laxante natural'],
+    beneficio:'Kiwi contém actinidina, enzima que acelera o esvaziamento gástrico. Mamão tem papaína. Juntos formam a dupla mais eficaz contra constipação.',
+    ingredientes:'2 kiwis maduros, 1 fatia generosa de mamão papaia, suco de limão, hortelã fresca',
+    preparo:'Corte as frutas em cubos. Regue com limão e decore com hortelã. Coma em jejum ou como sobremesa do almoço.' },
+  { id:18, emoji:'🫛', nome:'Feijão Verde com Azeite', categoria:'preso', tempo:'15 min', tags:['Fibra insolúvel','Prebiótico'],
+    beneficio:'Feijão verde cozido al dente preserva a fibra insolúvel que aumenta o bolo fecal e estimula os movimentos peristálticos do cólon.',
+    ingredientes:'200g feijão verde (vagem), 2 dentes de alho, azeite extra virgem, sal, limão, salsinha',
+    preparo:'Cozinhe o feijão verde al dente (não mole). Refogue rapidamente no alho e azeite. Finalize com limão e salsinha.' },
+
+  // INTESTINO SOLTO
+  { id:19, emoji:'🍚', nome:'Arroz Branco com Cenoura Cozida', categoria:'solto', tempo:'20 min', tags:['Adstringente','Digestivo leve'],
+    beneficio:'Arroz branco é de fácil digestão e não irrita a mucosa. A cenoura cozida é adstringente natural rica em pectina que forma gel protetor no intestino.',
+    ingredientes:'1 xíc. arroz branco cozido, 1 cenoura cozida e amassada, sal, azeite suave, sem temperos fortes',
+    preparo:'Cozinhe o arroz normalmente. Cozinhe a cenoura até amolecer bem e amasse. Misture com sal e um fio de azeite.' },
+  { id:20, emoji:'🫙', nome:'Iogurte Natural com Banana Madura', categoria:'solto', tempo:'2 min', tags:['Probiótico','Adstringente'],
+    beneficio:'Banana madura contém taninos adstringentes. O iogurte natural repõe bactérias benéficas perdidas durante a diarreia e protege a mucosa.',
+    ingredientes:'1 pote de iogurte natural integral sem açúcar, 1 banana bem madura amassada, pitada de canela',
+    preparo:'Amasse a banana e misture com o iogurte. Adicione canela. Evite versões com mel ou fibras extras durante a fase aguda.' },
+  { id:21, emoji:'🍗', nome:'Frango Desfiado com Batata Cozida', categoria:'solto', tempo:'25 min', tags:['BRAT diet','Digestivo'],
+    beneficio:'Baseada na dieta BRAT (banana, arroz, maçã, torrada), versão proteica. Frango sem pele é de fácil digestão e repõe proteínas perdidas.',
+    ingredientes:'150g peito de frango sem pele cozido e desfiado, 1 batata média cozida, sal, alho suave, sem pimenta',
+    preparo:'Cozinhe o frango na água com sal. Desfie finamente. Sirva com a batata cozida amassada. Evite temperos fortes.' },
+  { id:22, emoji:'🍵', nome:'Chá de Camomila com Torrada Integral', categoria:'solto', tempo:'5 min', tags:['Calmante','Anti-espasmo'],
+    beneficio:'Camomila tem ação antiespasmódica que relaxa a musculatura intestinal. Reduz cólicas e a hipermotilidade. Torrada absorve excesso de líquido.',
+    ingredientes:'1 sachê chá de camomila, 200ml água quente, 2 torradas integrais sem manteiga',
+    preparo:'Deixe o chá em infusão por 5 min. Beba quente e devagar. As torradas ajudam a solidificar as fezes pelo amido.' }
+];
+
+var categoriaAtual = 'todas';
+
+var categoriasInfo = {
+  cafe:   { label: '☕ Café da Manhã', cor: '#F4A534' },
+  almoco: { label: '🍽️ Almoço',        cor: '#2D6A4F' },
+  jantar: { label: '🌙 Jantar',         cor: '#3B4B8A' },
+  lanche: { label: '🥪 Lanches',        cor: '#52B788' },
+  preso:  { label: '🔒 Intestino Preso', cor: '#7B5E3A' },
+  solto:  { label: '💧 Intestino Solto', cor: '#3B82F6' }
+};
+
+function filtrarReceitas(cat) {
+  categoriaAtual = cat;
+  document.querySelectorAll('.filtro-btn').forEach(function(b) { b.classList.remove('ativo'); });
+  event.currentTarget.classList.add('ativo');
+  renderizarReceitas();
+}
+
+function renderizarReceitas() {
+  var lista = document.getElementById('lista-receitas');
+  if (!lista) return;
+
+  var filtradas = categoriaAtual === 'todas'
+    ? todasReceitas
+    : todasReceitas.filter(function(r) { return r.categoria === categoriaAtual; });
+
+  if (categoriaAtual === 'todas') {
+    // Agrupar por categoria
+    var html = '';
+    Object.keys(categoriasInfo).forEach(function(cat) {
+      var grupo = filtradas.filter(function(r) { return r.categoria === cat; });
+      if (!grupo.length) return;
+      html += '<div class="categoria-titulo" style="color:' + categoriasInfo[cat].cor + '">' + categoriasInfo[cat].label + '</div>';
+      grupo.forEach(function(r) { html += cardReceitaMini(r); });
+    });
+    lista.innerHTML = html;
+  } else {
+    var html = '';
+    filtradas.forEach(function(r) { html += cardReceitaMini(r); });
+    lista.innerHTML = html || '<p style="color:var(--cinza);text-align:center;padding:20px;">Nenhuma receita nesta categoria.</p>';
+  }
+}
+
+function cardReceitaMini(r) {
+  var tagHtml = r.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('');
+  return '<div class="receita-card-mini" onclick="abrirReceita(' + r.id + ')">' +
+    '<div class="emoji">' + r.emoji + '</div>' +
+    '<div class="info">' +
+      '<h4>' + r.nome + '</h4>' +
+      '<p>' + r.tempo + ' · ' + r.tags[0] + '</p>' +
+    '</div>' +
+    '<div class="seta">›</div>' +
+  '</div>';
+}
+
+function abrirReceita(id) {
+  var r = todasReceitas.find(function(x) { return x.id === id; });
+  if (!r) return;
+  var tagHtml = r.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('');
+  var cor = categoriasInfo[r.categoria] ? categoriasInfo[r.categoria].cor : 'var(--verde)';
+  document.getElementById('modal-conteudo').innerHTML =
+    '<div style="text-align:center;margin-bottom:16px;">' +
+      '<div style="font-size:56px;">' + r.emoji + '</div>' +
+      '<h3 style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;margin-top:8px;">' + r.nome + '</h3>' +
+      '<p style="font-size:12px;color:var(--cinza);">' + r.tempo + '</p>' +
+      '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px;">' + tagHtml + '</div>' +
+    '</div>' +
+    '<div style="background:#f0faf5;border-radius:12px;padding:14px;margin-bottom:14px;border-left:4px solid ' + cor + '">' +
+      '<p style="font-size:12px;font-weight:700;text-transform:uppercase;color:' + cor + ';margin-bottom:6px;">🌿 Por que é boa para o intestino</p>' +
+      '<p style="font-size:14px;line-height:1.6;color:var(--texto);">' + r.beneficio + '</p>' +
+    '</div>' +
+    '<div style="margin-bottom:14px;">' +
+      '<p style="font-size:12px;font-weight:700;text-transform:uppercase;color:var(--cinza);margin-bottom:8px;">🛒 Ingredientes</p>' +
+      '<p style="font-size:14px;line-height:1.7;">' + r.ingredientes + '</p>' +
+    '</div>' +
+    '<div>' +
+      '<p style="font-size:12px;font-weight:700;text-transform:uppercase;color:var(--cinza);margin-bottom:8px;">👩‍🍳 Modo de preparo</p>' +
+      '<p style="font-size:14px;line-height:1.7;">' + r.preparo + '</p>' +
+    '</div>';
+  document.getElementById('modal-receita').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModal() {
+  document.getElementById('modal-receita').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Fechar modal clicando fora
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('modal-receita');
+  if (modal && e.target === modal) fecharModal();
+});
+
+// Inicializar receitas ao entrar na tela
+var _navOriginal = navegarPara;
+navegarPara = function(tela) {
+  _navOriginal(tela);
+  if (tela === 'ia') renderizarReceitas();
+};
+
+// ============================================================
+// FIM RECEITAS
+// ============================================================
+
 window.addEventListener('load', function() {
   var sess = localStorage.getItem('is_session');
   if (sess) {
