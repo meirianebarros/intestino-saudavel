@@ -1421,7 +1421,7 @@
 // ============================================================
 var SUPABASE_URL    = 'https://hafgsrygevbmhoisuglw.supabase.co';
 var SUPABASE_ANON   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhhZmdzcnlnZXZibWhvaXN1Z2x3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgxMTA3NDUsImV4cCI6MjA2MzY4Njc0NX0.I0-l7hBCPRHC0NTgQG3Ae4Ew7VG3wnc7qFXRJIBxTvw';
-var ANTHROPIC_KEY   = 'SUA_CHAVE_ANTHROPIC'; // use via proxy Supabase Edge em produção
+var ANTHROPIC_KEY = ''; // chave segura no servidor
 
 // ============================================================
 // ESTADO GLOBAL
@@ -1871,11 +1871,11 @@ async function chamarClaude(systemPrompt, userPrompt) {
   if (iaHistorico.length > 0 && systemPrompt.includes('livre')) {
     msgs = iaHistorico.concat(msgs);
   }
-  var r = await fetch('https://api.anthropic.com/v1/messages', {
+  var r = await fetch('https://hafgsrygevbmhoisuglw.supabase.co/functions/v1/claude-proxy', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': ANTHROPIC_KEY,
+      
       'anthropic-version': '2023-06-01',
       'anthropic-dangerous-direct-browser-access': 'true'
     },
