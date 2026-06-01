@@ -1101,9 +1101,32 @@
           <div class="card">
             <div class="card-titulo">🔄 Protocolo Reset Intestinal</div>
             <p style="font-size:13px;color:var(--cinza);margin-bottom:16px;">21 dias para resetar sua microbiota e recuperar o equilíbrio intestinal.</p>
-            <div class="dias-grid" id="grid-21-dias"></div>
-            <div class="card" id="info-dia-atual" style="background:var(--bege);padding:14px;border-radius:12px;margin-top:8px;">
-              <div id="texto-dia-atual"></div>
+
+            <!-- Estado: não iniciado -->
+            <div id="bloco-iniciar" style="display:none;text-align:center;padding:16px 0;">
+              <div style="font-size:48px;margin-bottom:12px;">🌱</div>
+              <p style="font-size:15px;font-weight:600;margin-bottom:6px;">Você ainda não iniciou o desafio</p>
+              <p style="font-size:13px;color:var(--cinza);margin-bottom:16px;">Ao clicar em iniciar, começamos a contar seus dias automaticamente.</p>
+              <button class="btn-primario" onclick="iniciarDesafio()" style="max-width:280px;margin:0 auto;">🚀 Iniciar Desafio de 21 Dias</button>
+            </div>
+
+            <!-- Estado: em andamento -->
+            <div id="bloco-progresso" style="display:none;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <div>
+                  <span style="font-size:13px;color:var(--cinza);">Iniciado em</span>
+                  <div style="font-size:14px;font-weight:700;" id="data-inicio-label"></div>
+                </div>
+                <div style="text-align:right;">
+                  <span style="font-size:13px;color:var(--cinza);">Dia atual</span>
+                  <div style="font-size:28px;font-weight:900;color:var(--verde);" id="dia-atual-numero">1</div>
+                </div>
+              </div>
+              <div class="dias-grid" id="grid-21-dias"></div>
+              <div style="background:var(--bege);padding:14px;border-radius:12px;margin-top:12px;">
+                <div id="texto-dia-atual"></div>
+              </div>
+              <button class="btn-secundario mt-12" onclick="reiniciarDesafio()" style="width:100%;justify-content:center;font-size:12px;">🔄 Reiniciar desafio do zero</button>
             </div>
           </div>
           <div class="card">
@@ -1232,65 +1255,66 @@
       <div style="padding:20px;">
         <div class="card-titulo" style="margin-bottom:16px;">🔬 Base Científica</div>
 
-        <div class="tabs">
-          <button class="tab-btn ativo" onclick="mudarTabCiencia('artigos')">📚 Artigos</button>
-          <button class="tab-btn" onclick="mudarTabCiencia('eixo')">🧠 Eixo Cérebro</button>
-          <button class="tab-btn" onclick="mudarTabCiencia('hormonios')">⚗️ Hormônios</button>
+        <div class="artigo-card">
+          <h4>🦠 Microbiota intestinal e imunidade: o impacto da dieta</h4>
+          <p>A composição da microbiota modula diretamente 70% do sistema imune localizado no GALT (gut-associated lymphoid tissue). Dietas ricas em fibras fermentáveis aumentam Firmicutes produtores de butirato, fortalecendo a barreira intestinal.</p>
+          <div class="artigo-fonte">📖 Nature Reviews Immunology, 2023</div>
         </div>
 
-        <div class="tab-conteudo ativo" id="tab-artigos">
-          <div class="artigo-card">
-            <h4>Microbiota intestinal e imunidade: o impacto da dieta</h4>
-            <p>A composição da microbiota modula diretamente 70% do sistema imune localizado no GALT (gut-associated lymphoid tissue). Dietas ricas em fibras fermentáveis aumentam Firmicutes produtores de butirato.</p>
-            <div class="artigo-fonte">📖 Nature Reviews Immunology, 2023</div>
-          </div>
-          <div class="artigo-card">
-            <h4>Síndrome do Intestino Permeável (Leaky Gut) — mecanismos</h4>
-            <p>A disfunção das tight junctions permite a passagem de lipopolissacarídeos bacterianos (LPS) para a corrente sanguínea, ativando inflamação sistêmica de baixo grau e resistência insulínica.</p>
-            <div class="artigo-fonte">📖 Gastroenterology, 2022</div>
-          </div>
-          <div class="artigo-card">
-            <h4>Probióticos multiestirpe vs. monoestirpe</h4>
-            <p>Meta-análise com 4.200 participantes demonstrou que combinações de Lactobacillus + Bifidobacterium reduzem sintomas de SII em 47% vs. 23% com cepa única.</p>
-            <div class="artigo-fonte">📖 Alimentary Pharmacology, 2023</div>
-          </div>
-          <button class="btn-primario mt-8" onclick="gerarCuriosidade()" id="btn-curiosidade">
-            🔬 Gerar curiosidade científica
-          </button>
-          <div class="card mt-12" id="resultado-curiosidade" style="display:none;">
-            <div class="ia-resposta" id="texto-curiosidade"></div>
-          </div>
+        <div class="artigo-card">
+          <h4>🧱 Síndrome do Intestino Permeável (Leaky Gut)</h4>
+          <p>A disfunção das tight junctions permite a passagem de lipopolissacarídeos bacterianos (LPS) para a corrente sanguínea, ativando inflamação sistêmica de baixo grau associada a obesidade, diabetes tipo 2 e doenças autoimunes.</p>
+          <div class="artigo-fonte">📖 Gastroenterology, 2022</div>
         </div>
 
-        <div class="tab-conteudo" id="tab-eixo">
-          <div class="card">
-            <div class="card-titulo">🧠 Eixo Intestino-Cérebro</div>
-            <div style="font-size:14px;line-height:1.8;">
-              <p>O intestino possui <strong>500 milhões de neurônios</strong> — o sistema nervoso entérico, chamado de "segundo cérebro".</p>
-              <div class="divider"></div>
-              <p><strong>90% da serotonina</strong> do corpo é produzida no intestino. Desequilíbrios na microbiota afetam diretamente humor, ansiedade e foco.</p>
-              <div class="divider"></div>
-              <p>O <strong>nervo vago</strong> transmite 80% das informações do intestino ao cérebro — e apenas 20% no sentido inverso. O intestino fala mais que o cérebro.</p>
-              <div class="divider"></div>
-              <p>Disbiose está associada à <strong>depressão, ansiedade e névoa mental</strong> via inflamação, alteração do metabolismo do triptofano e produção reduzida de GABA.</p>
-            </div>
-          </div>
+        <div class="artigo-card">
+          <h4>🧬 Probióticos multiestirpe vs. monoestirpe</h4>
+          <p>Meta-análise com 4.200 participantes demonstrou que combinações de Lactobacillus + Bifidobacterium reduzem sintomas de SII em 47% vs. 23% com cepa única. A diversidade de cepas potencializa os efeitos terapêuticos.</p>
+          <div class="artigo-fonte">📖 Alimentary Pharmacology & Therapeutics, 2023</div>
         </div>
 
-        <div class="tab-conteudo" id="tab-hormonios">
-          <div class="card">
-            <div class="card-titulo">⚗️ Intestino e Hormônios (35+)</div>
-            <div style="font-size:14px;line-height:1.8;">
-              <p><strong>Estrogênio (mulheres):</strong> O "estroboloma" — conjunto de bactérias que metabolizam estrogênio — regula os níveis circulantes. Disbiose pode causar dominância estrogênica ou deficiência.</p>
-              <div class="divider"></div>
-              <p><strong>Testosterona (homens):</strong> Bactérias intestinais influenciam a conversão de andrógenos. Inflamação intestinal eleva aromatase e reduz testosterona livre.</p>
-              <div class="divider"></div>
-              <p><strong>Cortisol:</strong> Estresse crônico altera a permeabilidade intestinal. Microbiota saudável modula o eixo HPA e a resposta ao cortisol.</p>
-              <div class="divider"></div>
-              <p><strong>Insulina:</strong> Ácidos graxos de cadeia curta (SCFA) produzidos por bactérias boas melhoram a sensibilidade insulínica via receptores GPR41/GPR43.</p>
-            </div>
-          </div>
+        <div class="artigo-card">
+          <h4>🧠 Eixo Intestino-Cérebro: o segundo cérebro</h4>
+          <p>O intestino possui 500 milhões de neurônios e produz 90% da serotonina corporal. O nervo vago transmite 80% das informações do intestino ao cérebro. Disbiose está associada à depressão, ansiedade e névoa mental via inflamação e metabolismo do triptofano.</p>
+          <div class="artigo-fonte">📖 Nature Neuroscience, 2022</div>
         </div>
+
+        <div class="artigo-card">
+          <h4>⚗️ Microbiota e hormônios em adultos 35+</h4>
+          <p>O "estroboloma" regula o metabolismo do estrogênio. Em homens, inflamação intestinal eleva aromatase e reduz testosterona livre. Ácidos graxos de cadeia curta (SCFA) melhoram sensibilidade insulínica via receptores GPR41/GPR43.</p>
+          <div class="artigo-fonte">📖 Cell Metabolism, 2023</div>
+        </div>
+
+        <div class="artigo-card">
+          <h4>🌱 L-Glutamina e reparação da mucosa intestinal</h4>
+          <p>A glutamina é o principal combustível dos enterócitos. Suplementação de 5g/dia em jejum demonstrou redução de 38% na permeabilidade intestinal após 8 semanas em pacientes com leaky gut. Potencializada por zinco bisglicinato.</p>
+          <div class="artigo-fonte">📖 Nutrients, 2022</div>
+        </div>
+
+        <div class="artigo-card">
+          <h4>😴 Sono e diversidade da microbiota</h4>
+          <p>Privação de sono reduz Lactobacillus e Bifidobacterium em até 31% em apenas 2 dias. Dormir menos de 6h cronicamente aumenta LPS sérico e promove disbiose. O ritmo circadiano regula diretamente a composição da microbiota.</p>
+          <div class="artigo-fonte">📖 Sleep Medicine, 2023</div>
+        </div>
+
+        <div class="artigo-card">
+          <h4>🏃 Exercício físico e microbiota</h4>
+          <p>Exercício aeróbico moderado (150 min/semana) aumenta produtores de butirato como Faecalibacterium prausnitzii em 40%. Caminhada de 20 min pós-refeição reduz inchaço em 67% dos pacientes com SII em estudo controlado.</p>
+          <div class="artigo-fonte">📖 Gut Microbes, 2023</div>
+        </div>
+
+        <div class="artigo-card">
+          <h4>🍵 Alimentos fermentados vs. dieta rica em fibras</h4>
+          <p>Estudo de Stanford (2021) com 36 adultos demonstrou que dieta rica em fermentados aumentou diversidade microbiana e reduziu 19 proteínas inflamatórias, superando os benefícios de dieta apenas rica em fibras sem fermentados.</p>
+          <div class="artigo-fonte">📖 Cell, Stanford University, 2021</div>
+        </div>
+
+        <div class="artigo-card">
+          <h4>🧪 Butirato: o combustível do cólon</h4>
+          <p>O butirato, produzido pela fermentação de fibras por bactérias benéficas, é o principal nutriente das células do cólon, tem efeito anti-inflamatório, epigenético e anti-tumoral. Baixa produção de butirato está ligada a câncer colorretal e DII.</p>
+          <div class="artigo-fonte">📖 Nature Reviews Cancer, 2022</div>
+        </div>
+
       </div>
     </div>
 
@@ -1819,33 +1843,71 @@ function toggleRitual(el, id) {
 }
 
 // ============================================================
-// GRID 21 DIAS
+// DESAFIO 21 DIAS
 // ============================================================
-function iniciarGrid21Dias() {
-  var dias = parseInt(localStorage.getItem('is_dias_protocolo') || '0');
-  estadoApp.diasProtocolo = dias;
+function iniciarDesafio() {
+  var hoje = new Date().toISOString().split('T')[0];
+  localStorage.setItem('is_desafio_inicio', hoje);
+  localStorage.setItem('is_dias_protocolo', '1');
+  renderizarDesafio();
+  atualizarDashboard();
+}
+
+function reiniciarDesafio() {
+  if (!confirm('Reiniciar o desafio do zero?')) return;
+  localStorage.removeItem('is_desafio_inicio');
+  localStorage.setItem('is_dias_protocolo', '0');
+  renderizarDesafio();
+  atualizarDashboard();
+}
+
+function renderizarDesafio() {
+  var inicio = localStorage.getItem('is_desafio_inicio');
+  var blocoIniciar   = document.getElementById('bloco-iniciar');
+  var blocoProgresso = document.getElementById('bloco-progresso');
+  if (!blocoIniciar || !blocoProgresso) return;
+
+  if (!inicio) {
+    blocoIniciar.style.display = 'block';
+    blocoProgresso.style.display = 'none';
+    return;
+  }
+
+  blocoIniciar.style.display = 'none';
+  blocoProgresso.style.display = 'block';
+
+  // Calcular dia atual baseado na data de início
+  var dataInicio = new Date(inicio + 'T00:00:00');
+  var hoje = new Date();
+  hoje.setHours(0,0,0,0);
+  var diffMs   = hoje - dataInicio;
+  var diaAtual = Math.min(Math.floor(diffMs / 86400000) + 1, 21);
+  diaAtual     = Math.max(diaAtual, 1);
+
+  localStorage.setItem('is_dias_protocolo', diaAtual);
+
+  document.getElementById('data-inicio-label').textContent = dataInicio.toLocaleDateString('pt-BR');
+  document.getElementById('dia-atual-numero').textContent  = diaAtual;
+
+  // Grid
   var grid = document.getElementById('grid-21-dias');
   if (!grid) return;
   var html = '';
   for (var i = 1; i <= 21; i++) {
-    var cls = i < dias ? 'concluido' : (i === dias + 1 ? 'hoje' : 'futuro');
-    html += '<div class="dia-protocolo ' + cls + '" onclick="clicouDia(' + i + ')">' + i + '</div>';
+    var cls = i < diaAtual ? 'concluido' : (i === diaAtual ? 'hoje' : 'futuro');
+    html += '<div class="dia-protocolo ' + cls + '" onclick="verDia(' + i + ')">' + i + '</div>';
   }
   grid.innerHTML = html;
-  atualizarInfoDia(dias + 1);
+  atualizarInfoDia(diaAtual);
 }
 
-function clicouDia(n) {
-  var dias = parseInt(localStorage.getItem('is_dias_protocolo') || '0');
-  if (n === dias + 1) {
-    localStorage.setItem('is_dias_protocolo', n);
-    estadoApp.diasProtocolo = n;
-    iniciarGrid21Dias();
-    atualizarDashboard();
-  }
-}
+function verDia(n) { atualizarInfoDia(n); }
 
-function atualizarInfoDia(dia) {
+function iniciarGrid21Dias() { renderizarDesafio(); }
+
+// ============================================================
+// VERIFICAR SESSÃO AO CARREGAR
+// ============================================================
   var el = document.getElementById('texto-dia-atual');
   if (!el) return;
   var fase = dia <= 7 ? '1 — Eliminação' : (dia <= 14 ? '2 — Regeneração' : '3 — Repovoamento');
@@ -2040,7 +2102,43 @@ async function gerarRelatorio() {
   btn.innerHTML = '📋 Atualizar relatório';
 }
 
-function imprimirRelatorio() { window.print(); }
+function imprimirRelatorio() {
+  var dados    = document.getElementById('relatorio-dados-paciente').innerText;
+  var score    = document.getElementById('relatorio-score').innerText;
+  var evac     = document.getElementById('relatorio-evacuacao').innerText;
+  var sint     = document.getElementById('relatorio-sintomas-lista').innerText;
+  var supl     = document.getElementById('relatorio-suplementos-lista').innerText;
+  var ia       = document.getElementById('relatorio-ia').innerText;
+  var periodo  = document.getElementById('relatorio-periodo').value;
+  var prof     = document.getElementById('relatorio-profissional').value || 'Profissional de Saúde';
+
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>Relatório Intestino Saudável</title>');
+  win.document.write('<style>');
+  win.document.write('body{font-family:Georgia,serif;max-width:800px;margin:40px auto;padding:0 32px;color:#1A2E23;}');
+  win.document.write('h1{font-size:24px;color:#2D6A4F;border-bottom:3px solid #2D6A4F;padding-bottom:12px;margin-bottom:8px;}');
+  win.document.write('.subtitulo{font-size:14px;color:#6B7280;margin-bottom:32px;}');
+  win.document.write('.secao{margin-bottom:24px;padding:16px;border:1px solid #e8f5f0;border-radius:8px;border-left:4px solid #2D6A4F;}');
+  win.document.write('.secao h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#52B788;margin:0 0 10px 0;}');
+  win.document.write('.secao p{font-size:14px;line-height:1.8;margin:4px 0;white-space:pre-wrap;}');
+  win.document.write('.aviso{background:#fff8e1;padding:12px;border-radius:6px;font-size:12px;color:#92400e;margin-top:32px;border:1px solid #fde68a;}');
+  win.document.write('.rodape{text-align:center;font-size:11px;color:#9CA3AF;margin-top:24px;padding-top:16px;border-top:1px solid #e5e7eb;}');
+  win.document.write('@media print{body{margin:20px;}.aviso{display:block;}}');
+  win.document.write('</style></head><body>');
+  win.document.write('<h1>🌿 Relatório de Saúde Intestinal</h1>');
+  win.document.write('<div class="subtitulo">Para: ' + prof + ' &nbsp;|&nbsp; Período: últimos ' + periodo + ' dias &nbsp;|&nbsp; Gerado em: ' + new Date().toLocaleDateString('pt-BR') + '</div>');
+  win.document.write('<div class="secao"><h2>👤 Dados do Paciente</h2><p>' + dados.replace(/\n/g,'<br>') + '</p></div>');
+  win.document.write('<div class="secao"><h2>📊 Score de Saúde Intestinal</h2><p>' + score.replace(/\n/g,'<br>') + '</p></div>');
+  win.document.write('<div class="secao"><h2>💩 Padrão de Evacuação</h2><p>' + evac.replace(/\n/g,'<br>') + '</p></div>');
+  win.document.write('<div class="secao"><h2>😣 Sintomas Recorrentes</h2><p>' + sint.replace(/\n/g,'<br>') + '</p></div>');
+  win.document.write('<div class="secao"><h2>💊 Suplementação em Uso</h2><p>' + supl.replace(/\n/g,'<br>') + '</p></div>');
+  win.document.write('<div class="secao"><h2>🤖 Análise IA</h2><p>' + ia.replace(/\n/g,'<br>') + '</p></div>');
+  win.document.write('<div class="aviso">⚠️ Este relatório é gerado por aplicativo de saúde e não substitui avaliação médica. Os dados foram coletados pelo próprio usuário e devem ser interpretados pelo profissional responsável.</div>');
+  win.document.write('<div class="rodape">Intestino Saudável App &nbsp;·&nbsp; intestino-saudavel-eight.vercel.app</div>');
+  win.document.write('</body></html>');
+  win.document.close();
+  setTimeout(function() { win.print(); }, 500);
+}
 
 function copiarRelatorio() {
   var dados = document.getElementById('relatorio-dados-paciente').innerText;
