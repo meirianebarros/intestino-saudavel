@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intestino Saudável</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --verde: #2D6A4F;
+    --verde-claro: #52B788;
+    --verde-menta: #95D5B2;
+    --bege: #F8F4EF;
+    --bege-escuro: #EDE8DF;
+    --marrom: #7B5E3A;
+    --texto: #1A2E23;
+    --cinza: #6B7280;
+    --branco: #FFFFFF;
+    --vermelho: #E05C5C;
+    --amarelo: #F4A534;
+    --azul: #3B82F6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bege);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* ===== TELA DE LOGIN ===== */
+  #tela-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1A2E23 0%, #2D6A4F 50%, #52B788 100%);
+    padding: 20px;
+  }
+
+  .login-box {
+    background: var(--branco);
+    border-radius: 24px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .login-logo .icon { font-size: 48px; margin-bottom: 12px; display: block; }
+
+  .login-logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--verde);
+    font-weight: 900;
+  }
+
+  .login-logo p { color: var(--cinza); font-size: 14px; margin-top: 4px; }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--bege-escuro);
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s;
+    background: var(--bege);
+    color: var(--texto);
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--verde-claro);
+    background: var(--branco);
+  }
+
+  .btn-login {
+    width: 100%;
+    padding: 16px;
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 8px;
+  }
+
+  .btn-login:hover { background: #235c40; transform: translateY(-1px); }
+  .btn-login:active { transform: translateY(0); }
+
+  .login-erro {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: var(--vermelho);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-top: 16px;
+    display: none;
+  }
+
+  .ativar-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--cinza);
+  }
+
+  .ativar-link a {
+    color: var(--verde);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* ===== TELA ATIVAR CONTA ===== */
+  #tela-ativar {
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1A2E23 0%, #2D6A4F 50%, #52B788 100%);
+    padding: 20px;
+  }
+
+  /* ===== APP PRINCIPAL ===== */
+  #app {
+    display: none;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: var(--verde);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+
+  .header-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--verde-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .btn-sair {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .btn-sair:hover { background: rgba(255,255,255,0.25); }
+
+  /* ===== CONTEÚDO ===== */
+  .conteudo {
+    flex: 1;
+    padding: 0 0 80px 0;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ===== NAV INFERIOR ===== */
+  .nav-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--branco);
+    border-top: 1px solid var(--bege-escuro);
+    display: flex;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 4px;
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--cinza);
+    font-size: 10px;
+    gap: 3px;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .nav-item .nav-icon { font-size: 20px; }
+
+  .nav-item.ativo { color: var(--verde); }
+
+  /* ===== TELAS ===== */
+  .tela { display: none; padding: 20px; }
+  .tela.ativa { display: block; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--branco);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .card-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--verde);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== DASHBOARD ===== */
+  .saudacao {
+    padding: 24px 20px 0;
+    margin-bottom: 4px;
+  }
+
+  .saudacao h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--verde);
+    font-weight: 900;
+  }
+
+  .saudacao p { color: var(--cinza); font-size: 14px; margin-top: 4px; }
+
+  .grid-metricas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .metrica {
+    background: var(--branco);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+
+  .metrica-icon { font-size: 28px; margin-bottom: 6px; }
+  .metrica-valor { font-size: 28px; font-weight: 700; color: var(--verde); }
+  .metrica-label { font-size: 11px; color: var(--cinza); margin-top: 2px; }
+
+  .streak-card {
+    background: linear-gradient(135deg, var(--verde) 0%, var(--verde-claro) 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .streak-info h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 4px; }
+  .streak-info p { font-size: 13px; opacity: 0.85; }
+  .streak-numero { font-size: 52px; font-weight: 900; line-height: 1; }
+
+  /* ===== PROTOCOLO 21 DIAS ===== */
+  .dias-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .dia-protocolo {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .dia-protocolo.concluido { background: var(--verde); color: white; }
+  .dia-protocolo.hoje { background: var(--amarelo); color: white; border: 3px solid #c87800; }
+  .dia-protocolo.futuro { background: var(--bege-escuro); color: var(--cinza); }
+  .dia-protocolo:hover { transform: scale(1.1); }
+
+  /* ===== DIÁRIO ===== */
+  .bristol-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .bristol-tipo {
+    border: 2px solid var(--bege-escuro);
+    border-radius: 12px;
+    padding: 10px 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .bristol-tipo.selecionado {
+    border-color: var(--verde);
+    background: #f0faf5;
+  }
+
+  .bristol-tipo .numero {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--verde);
+  }
+
+  .bristol-tipo .descricao {
+    font-size: 10px;
+    color: var(--cinza);
+    margin-top: 3px;
+  }
+
+  .sintomas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .sintoma-btn {
+    border: 2px solid var(--bege-escuro);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--branco);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sintoma-btn.ativo {
+    border-color: var(--vermelho);
+    background: #fff5f5;
+    color: var(--vermelho);
+  }
+
+  /* ===== IA / CARDÁPIO ===== */
+  .ia-resposta {
+    background: var(--bege);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    min-height: 100px;
+  }
+
+  .btn-primario {
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-primario:hover { background: #235c40; transform: translateY(-1px); }
+  .btn-primario:disabled { background: var(--cinza); cursor: not-allowed; transform: none; }
+
+  .btn-secundario {
+    background: var(--bege-escuro);
+    color: var(--texto);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-secundario:hover { background: #d8d0c4; }
+
+  /* ===== SUPLEMENTAÇÃO ===== */
+  .suplemento-card {
+    background: var(--branco);
+    border: 2px solid var(--bege-escuro);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .suplemento-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #f0faf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .suplemento-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .suplemento-info p { font-size: 13px; color: var(--cinza); line-height: 1.5; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  .badge-verde { background: #d1fae5; color: #065f46; }
+  .badge-amarelo { background: #fef3c7; color: #92400e; }
+  .badge-azul { background: #dbeafe; color: #1e40af; }
+
+  /* ===== CIÊNCIA ===== */
+  .artigo-card {
+    background: var(--branco);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--verde-claro);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .artigo-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .artigo-card p { font-size: 13px; color: var(--cinza); line-height: 1.6; }
+  .artigo-fonte { font-size: 11px; color: var(--verde); font-weight: 600; margin-top: 8px; }
+
+  /* ===== RELATÓRIO ===== */
+  .relatorio-secao {
+    background: var(--branco);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--bege-escuro);
+  }
+
+  .relatorio-secao h4 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--cinza);
+    margin-bottom: 10px;
+  }
+
+  /* ===== ANAMNESE ===== */
+  .passo-indicador {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+    justify-content: center;
+  }
+
+  .passo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bege-escuro);
+    transition: background 0.3s;
+  }
+
+  .passo-dot.ativo { background: var(--verde); width: 24px; border-radius: 4px; }
+  .passo-dot.concluido { background: var(--verde-claro); }
+
+  .anamnese-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--verde);
+    margin-bottom: 6px;
+  }
+
+  .anamnese-subtitulo { font-size: 14px; color: var(--cinza); margin-bottom: 20px; }
+
+  .opcao-btn {
+    width: 100%;
+    text-align: left;
+    padding: 14px 16px;
+    background: var(--bege);
+    border: 2px solid var(--bege-escuro);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .opcao-btn:hover { border-color: var(--verde-claro); background: #f0faf5; }
+  .opcao-btn.selecionado { border-color: var(--verde); background: #f0faf5; color: var(--verde); font-weight: 600; }
+
+  select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--bege-escuro);
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bege);
+    color: var(--texto);
+    transition: border-color 0.2s;
+  }
+
+  select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--verde-claro);
+    background: var(--branco);
+  }
+
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* ===== RECEITAS ===== */
+  .receita-card {
+    background: var(--branco);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .receita-header {
+    padding: 16px;
+    background: linear-gradient(135deg, #f0faf5, #e8f5f0);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .receita-emoji { font-size: 36px; }
+  .receita-info h4 { font-size: 16px; font-weight: 700; }
+  .receita-info p { font-size: 12px; color: var(--cinza); margin-top: 2px; }
+
+  .receita-body { padding: 16px; }
+
+  .receita-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+
+  .tag {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--bege-escuro);
+    color: var(--texto);
+  }
+
+  /* ===== RITUAIS ===== */
+  .ritual-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--bege-escuro);
+    cursor: pointer;
+  }
+
+  .ritual-item:last-child { border-bottom: none; }
+
+  .ritual-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--bege-escuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    font-size: 14px;
+    color: transparent;
+  }
+
+  .ritual-item.feito .ritual-check {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: white;
+  }
+
+  .ritual-texto h4 { font-size: 14px; font-weight: 500; }
+  .ritual-texto p { font-size: 12px; color: var(--cinza); margin-top: 2px; }
+
+  /* ===== SCORE ===== */
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-circle svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
+
+  .score-numero {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--verde);
+    z-index: 1;
+  }
+
+  /* ===== LOADING ===== */
+  .loading {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* ===== TABS ===== */
+  .tabs {
+    display: flex;
+    background: var(--bege-escuro);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--cinza);
+    transition: all 0.2s;
+  }
+
+  .tab-btn.ativo {
+    background: var(--branco);
+    color: var(--verde);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .tab-conteudo { display: none; }
+  .tab-conteudo.ativo { display: block; }
+
+  /* ===== UTIL ===== */
+  .divider { height: 1px; background: var(--bege-escuro); margin: 16px 0; }
+  .texto-verde { color: var(--verde); }
+  .texto-cinza { color: var(--cinza); font-size: 13px; }
+  .negrito { font-weight: 700; }
+  .mt-8 { margin-top: 8px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-16 { margin-top: 16px; }
+  .flex { display: flex; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  .gap-8 { gap: 8px; }
+  .w-full { width: 100%; }
+
+  /* ===== SUPABASE CONFIG ===== */
+  .config-box {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    color: #94a3b8;
+    font-size: 13px;
+    font-family: monospace;
+  }
+
+  .config-box span { color: #7dd3fc; }
+  .config-box .val { color: #86efac; }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--verde);
+    margin: 8px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TELA LOGIN ===== -->
+<div id="tela-login">
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="icon">🌿</span>
+      <h1>Intestino Saudável</h1>
+      <p>Seu guia completo de saúde intestinal</p>
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com">
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="login-senha" placeholder="••••••••">
+    </div>
+    <button class="btn-login" onclick="fazerLogin()">Entrar no App</button>
+    <div class="login-erro" id="login-erro"></div>
+    <div class="ativar-link">
+      Primeira vez aqui? <a onclick="mostrarAtivar()">Ativar minha conta</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TELA ATIVAR ===== -->
+<div id="tela-ativar">
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="icon">🔑</span>
+      <h1>Ativar Conta</h1>
+      <p>Use o e-mail da sua compra</p>
+    </div>
+    <div class="form-group">
+      <label>E-mail da compra</label>
+      <input type="email" id="ativar-email" placeholder="seu@email.com">
+    </div>
+    <div class="form-group">
+      <label>Criar senha</label>
+      <input type="password" id="ativar-senha" placeholder="mínimo 6 caracteres">
+    </div>
+    <div class="form-group">
+      <label>Confirmar senha</label>
+      <input type="password" id="ativar-confirma" placeholder="repita a senha">
+    </div>
+    <button class="btn-login" onclick="ativarConta()">Ativar Conta</button>
+    <div class="login-erro" id="ativar-erro"></div>
+    <div class="ativar-link">
+      Já tenho conta. <a onclick="mostrarLogin()">Fazer login</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== APP PRINCIPAL ===== -->
+<div id="app" style="display:none; flex-direction:column; min-height:100vh;">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">🌿 Intestino Saudável</div>
+    <div class="header-user">
+      <div class="header-avatar" id="avatar-inicial">?</div>
+      <span id="header-nome" style="font-size:13px;"></span>
+      <button class="btn-sair" onclick="fazerLogout()">Sair</button>
+    </div>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="conteudo">
+
+    <!-- ===== TELA: DASHBOARD ===== -->
+    <div class="tela ativa" id="tela-home">
+      <div class="saudacao">
+        <h2 id="saudacao-titulo">Olá! 👋</h2>
+        <p id="saudacao-sub">Como está seu intestino hoje?</p>
+      </div>
+      <div style="padding:16px 20px 0;">
+        <div class="streak-card">
+          <div class="streak-info">
+            <h3>🔥 Sequência ativa</h3>
+            <p id="streak-texto">Continue sua jornada!</p>
+          </div>
+          <div class="streak-numero" id="streak-numero">0</div>
+        </div>
+        <div class="grid-metricas">
+          <div class="metrica">
+            <div class="metrica-icon">📊</div>
+            <div class="metrica-valor" id="score-dash">--</div>
+            <div class="metrica-label">Score Intestinal</div>
+          </div>
+          <div class="metrica">
+            <div class="metrica-icon">📅</div>
+            <div class="metrica-valor" id="dias-protocolo">0</div>
+            <div class="metrica-label">Dias no protocolo</div>
+          </div>
+          <div class="metrica">
+            <div class="metrica-icon">✅</div>
+            <div class="metrica-valor" id="rituais-hoje">0/7</div>
+            <div class="metrica-label">Rituais hoje</div>
+          </div>
+          <div class="metrica">
+            <div class="metrica-icon">📝</div>
+            <div class="metrica-valor" id="registros-semana">0</div>
+            <div class="metrica-label">Registros semana</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-titulo">🎯 Próxima ação</div>
+          <p style="font-size:14px;color:var(--cinza);" id="proxima-acao">Complete sua anamnese para personalizar o app.</p>
+          <button class="btn-primario mt-12" onclick="irParaAnamnese()" id="btn-proxima-acao">
+            Completar Perfil
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: ANAMNESE ===== -->
+    <div class="tela" id="tela-anamnese">
+      <div style="padding:20px;">
+        <div id="anamnese-conteudo"></div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: DIÁRIO ===== -->
+    <div class="tela" id="tela-diario">
+      <div style="padding:20px;">
+        <div class="card-titulo" style="margin-bottom:16px;">📝 Diário de Hoje</div>
+
+        <div class="card">
+          <div class="card-titulo">💩 Escala de Bristol</div>
+          <p style="font-size:13px;color:var(--cinza);margin-bottom:12px;">Como foi sua evacuação hoje?</p>
+          <div class="bristol-grid">
+            <div class="bristol-tipo" onclick="selecionarBristol(1)">
+              <div class="numero">1</div>
+              <div class="descricao">Bolotas duras</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(2)">
+              <div class="numero">2</div>
+              <div class="descricao">Com saliências</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(3)">
+              <div class="numero">3</div>
+              <div class="descricao">Com rachaduras</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(4)">
+              <div class="numero">4</div>
+              <div class="descricao">Lisa e mole ✅</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(5)">
+              <div class="numero">5</div>
+              <div class="descricao">Pedaços macios</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(6)">
+              <div class="numero">6</div>
+              <div class="descricao">Pastosa</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(7)">
+              <div class="numero">7</div>
+              <div class="descricao">Líquida</div>
+            </div>
+            <div class="bristol-tipo" onclick="selecionarBristol(0)">
+              <div class="numero">0</div>
+              <div class="descricao">Não evacuei</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-titulo">😣 Sintomas de hoje</div>
+          <div class="sintomas-grid">
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'inchaço')">🫃 Inchaço</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'gases')">💨 Gases</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'dor abdominal')">🤢 Dor abdominal</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'azia')">🔥 Azia</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'náusea')">🤮 Náusea</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'cansaço')">😴 Cansaço</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'pele ruim')">😶 Pele ruim</button>
+            <button class="sintoma-btn" onclick="toggleSintoma(this,'humor baixo')">😔 Humor baixo</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-titulo">🥗 O que você comeu?</div>
+          <textarea id="diario-alimentacao" placeholder="Anote os alimentos do dia..."></textarea>
+        </div>
+
+        <div class="card">
+          <div class="card-titulo">💧 Hidratação</div>
+          <p style="font-size:13px;color:var(--cinza);">Quantos copos de água bebeu?</p>
+          <input type="range" id="slider-agua" min="0" max="12" value="6" oninput="atualizarAgua(this.value)">
+          <div class="flex-between">
+            <span style="font-size:13px;color:var(--cinza);">0 copos</span>
+            <span id="agua-label" style="font-size:16px;font-weight:700;color:var(--verde);">6 copos 💧</span>
+            <span style="font-size:13px;color:var(--cinza);">12 copos</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-titulo">😊 Bem-estar geral</div>
+          <input type="range" id="slider-humor" min="1" max="10" value="7" oninput="atualizarHumor(this.value)">
+          <div class="flex-between">
+            <span style="font-size:13px;color:var(--cinza);">😞 1</span>
+            <span id="humor-label" style="font-size:16px;font-weight:700;color:var(--verde);">7 / 10</span>
+            <span style="font-size:13px;color:var(--cinza);">10 😄</span>
+          </div>
+        </div>
+
+        <button class="btn-primario" onclick="salvarDiario()">💾 Salvar registro de hoje</button>
+      </div>
+    </div>
+
+    <!-- ===== TELA: CARDÁPIO / IA ===== -->
+    <div class="tela" id="tela-ia">
+      <div style="padding:20px;">
+        <div class="tabs">
+          <button class="tab-btn ativo" onclick="mudarTab('cardapio')">🥗 Cardápio</button>
+          <button class="tab-btn" onclick="mudarTab('receitas')">👨‍🍳 Receitas</button>
+          <button class="tab-btn" onclick="mudarTab('ia-livre')">🤖 IA Livre</button>
+        </div>
+
+        <div class="tab-conteudo ativo" id="tab-cardapio">
+          <div class="card">
+            <div class="card-titulo">🥗 Cardápio Semanal Personalizado</div>
+            <p style="font-size:13px;color:var(--cinza);margin-bottom:16px;">IA gera um cardápio baseado no seu perfil intestinal com alimentos pró-microbiota.</p>
+            <button class="btn-primario" onclick="gerarCardapio()" id="btn-cardapio">
+              ✨ Gerar meu cardápio
+            </button>
+          </div>
+          <div class="card" id="resultado-cardapio" style="display:none;">
+            <div class="card-titulo">📋 Seu cardápio da semana</div>
+            <div class="ia-resposta" id="texto-cardapio"></div>
+          </div>
+        </div>
+
+        <div class="tab-conteudo" id="tab-receitas">
+          <div class="receita-card">
+            <div class="receita-header">
+              <div class="receita-emoji">🫙</div>
+              <div class="receita-info">
+                <h4>Iogurte Natural com Kefir</h4>
+                <p>Café da manhã • 10 min</p>
+              </div>
+            </div>
+            <div class="receita-body">
+              <div class="receita-tags">
+                <span class="tag">Probiótico</span>
+                <span class="tag">Sem glúten</span>
+                <span class="tag">Fácil</span>
+              </div>
+              <p style="font-size:13px;color:var(--cinza);">Iogurte integral + kefir de leite + banana amassada + mel cru + sementes de chia. Rico em lactobacilos e prebióticos naturais.</p>
+            </div>
+          </div>
+          <div class="receita-card">
+            <div class="receita-header">
+              <div class="receita-emoji">🥗</div>
+              <div class="receita-info">
+                <h4>Salada de Fibras com Grão-de-Bico</h4>
+                <p>Almoço • 15 min</p>
+              </div>
+            </div>
+            <div class="receita-body">
+              <div class="receita-tags">
+                <span class="tag">Prebiótico</span>
+                <span class="tag">Alta fibra</span>
+                <span class="tag">Vegano</span>
+              </div>
+              <p style="font-size:13px;color:var(--cinza);">Grão-de-bico cozido + cenoura + pepino + tomate cereja + azeite + limão + coentro. Alimenta as bactérias boas do cólon.</p>
+            </div>
+          </div>
+          <div class="receita-card">
+            <div class="receita-header">
+              <div class="receita-emoji">🍵</div>
+              <div class="receita-info">
+                <h4>Caldo Bone Broth Anti-inflamatório</h4>
+                <p>Jantar • 30 min</p>
+              </div>
+            </div>
+            <div class="receita-body">
+              <div class="receita-tags">
+                <span class="tag">Gut healing</span>
+                <span class="tag">Colágeno</span>
+                <span class="tag">Sem lactose</span>
+              </div>
+              <p style="font-size:13px;color:var(--cinza);">Caldo de osso com gengibre, açafrão, alho e cebola. Glutamina natural para reparar a parede intestinal.</p>
+            </div>
+          </div>
+          <button class="btn-primario" onclick="gerarReceita()" id="btn-receita">
+            ✨ Gerar receita personalizada
+          </button>
+          <div class="card mt-16" id="resultado-receita" style="display:none;">
+            <div class="card-titulo">👨‍🍳 Sua receita</div>
+            <div class="ia-resposta" id="texto-receita"></div>
+          </div>
+        </div>
+
+        <div class="tab-conteudo" id="tab-ia-livre">
+          <div class="card">
+            <div class="card-titulo">🤖 Assistente de Saúde Intestinal</div>
+            <p style="font-size:13px;color:var(--cinza);margin-bottom:12px;">Tire dúvidas, peça dicas, entenda seus sintomas.</p>
+            <div class="ia-resposta" id="ia-livre-resposta" style="min-height:120px;">Olá! 👋 Sou sua assistente de saúde intestinal. Como posso te ajudar hoje?</div>
+            <div style="display:flex;gap:8px;margin-top:12px;">
+              <input type="text" id="ia-input" placeholder="Digite sua pergunta..." style="flex:1;padding:12px;border:2px solid var(--bege-escuro);border-radius:12px;font-size:14px;font-family:DM Sans,sans-serif;background:var(--bege);" onkeypress="if(event.key==='Enter')enviarIA()">
+              <button class="btn-secundario" onclick="enviarIA()">Enviar</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+            <button class="btn-secundario" onclick="perguntaRapida('O que é disbiose?')" style="font-size:12px;padding:8px 12px;">O que é disbiose?</button>
+            <button class="btn-secundario" onclick="perguntaRapida('Alimentos que pioram o intestino?')" style="font-size:12px;padding:8px 12px;">Alimentos ruins?</button>
+            <button class="btn-secundario" onclick="perguntaRapida('Como melhorar a motilidade?')" style="font-size:12px;padding:8px 12px;">Melhorar trânsito?</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: PROTOCOLO ===== -->
+    <div class="tela" id="tela-protocolo">
+      <div style="padding:20px;">
+        <div class="tabs">
+          <button class="tab-btn ativo" onclick="mudarTabProtocolo('reset')">🔄 Reset 21 dias</button>
+          <button class="tab-btn" onclick="mudarTabProtocolo('rituais')">☀️ Rituais</button>
+          <button class="tab-btn" onclick="mudarTabProtocolo('suplementos')">💊 Suplementos</button>
+        </div>
+
+        <div class="tab-conteudo ativo" id="tab-reset">
+          <div class="card">
+            <div class="card-titulo">🔄 Protocolo Reset Intestinal</div>
+            <p style="font-size:13px;color:var(--cinza);margin-bottom:16px;">21 dias para resetar sua microbiota e recuperar o equilíbrio intestinal.</p>
+            <div class="dias-grid" id="grid-21-dias"></div>
+            <div class="card" id="info-dia-atual" style="background:var(--bege);padding:14px;border-radius:12px;margin-top:8px;">
+              <div id="texto-dia-atual"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-titulo">📋 Guia do protocolo</div>
+            <div style="font-size:14px;line-height:1.8;">
+              <p><strong>Fase 1 (dias 1-7):</strong> Eliminação de alimentos inflamatórios. Sem glúten, laticínios, açúcar refinado, álcool e ultraprocessados.</p>
+              <div class="divider"></div>
+              <p><strong>Fase 2 (dias 8-14):</strong> Regeneração da mucosa. Introdução de alimentos fermentados, caldo bone broth e glutamina.</p>
+              <div class="divider"></div>
+              <p><strong>Fase 3 (dias 15-21):</strong> Repovoamento. Probióticos potentes, prebióticos e reintrodução gradual de alimentos.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-conteudo" id="tab-rituais">
+          <div class="card">
+            <div class="card-titulo">☀️ Rituais diários de hoje</div>
+            <div id="lista-rituais">
+              <div class="ritual-item" onclick="toggleRitual(this,'agua-jejum')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>💧 Água morna em jejum</h4>
+                  <p>Estimula o peristaltismo e hidrata o cólon</p>
+                </div>
+              </div>
+              <div class="ritual-item" onclick="toggleRitual(this,'mastigacao')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>😮 Mastigar 20x cada bocado</h4>
+                  <p>Amilase salivar começa a digestão na boca</p>
+                </div>
+              </div>
+              <div class="ritual-item" onclick="toggleRitual(this,'caminhada')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>🚶 Caminhada 20min pós-almoço</h4>
+                  <p>Melhora motilidade e glicemia pós-prandial</p>
+                </div>
+              </div>
+              <div class="ritual-item" onclick="toggleRitual(this,'fermentado')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>🫙 Fermentado nas refeições</h4>
+                  <p>Kefir, kimchi ou chucrute — adicione probióticos naturais</p>
+                </div>
+              </div>
+              <div class="ritual-item" onclick="toggleRitual(this,'sem-tela')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>📵 Sem tela ao comer</h4>
+                  <p>Comer distraído ativa o sistema simpático e prejudica a digestão</p>
+                </div>
+              </div>
+              <div class="ritual-item" onclick="toggleRitual(this,'respiracao')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>🧘 3 respirações profundas antes das refeições</h4>
+                  <p>Ativa o sistema parassimpático (rest & digest)</p>
+                </div>
+              </div>
+              <div class="ritual-item" onclick="toggleRitual(this,'sono')">
+                <div class="ritual-check">✓</div>
+                <div class="ritual-texto">
+                  <h4>😴 Dormir 7-8h por noite</h4>
+                  <p>Sono restaura a diversidade da microbiota</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-conteudo" id="tab-suplementos">
+          <div class="suplemento-card">
+            <div class="suplemento-icon">🦠</div>
+            <div class="suplemento-info">
+              <h4>Probiótico multiestirpe</h4>
+              <p>Lactobacillus acidophilus + Bifidobacterium + Saccharomyces boulardii. Repovoamento da microbiota. Tomar em jejum ou com refeição fria.</p>
+              <span class="badge badge-verde">Alta prioridade</span>
+            </div>
+          </div>
+          <div class="suplemento-card">
+            <div class="suplemento-icon">💊</div>
+            <div class="suplemento-info">
+              <h4>L-Glutamina</h4>
+              <p>5g em jejum. Principal combustível dos enterócitos. Repara a permeabilidade intestinal ("leaky gut"). Fundamental na Fase 2 do protocolo.</p>
+              <span class="badge badge-verde">Alta prioridade</span>
+            </div>
+          </div>
+          <div class="suplemento-card">
+            <div class="suplemento-icon">🌱</div>
+            <div class="suplemento-info">
+              <h4>Psyllium (fibra solúvel)</h4>
+              <p>10g antes das refeições com água. Alimenta bactérias produtoras de butirato. Regula trânsito intestinal em ambos os sentidos.</p>
+              <span class="badge badge-amarelo">Recomendado</span>
+            </div>
+          </div>
+          <div class="suplemento-card">
+            <div class="suplemento-icon">⚗️</div>
+            <div class="suplemento-info">
+              <h4>Zinco Bisglicinato</h4>
+              <p>25-30mg/dia com alimentação. Essencial para integridade das tight junctions da parede intestinal. Deficiência muito comum.</p>
+              <span class="badge badge-amarelo">Recomendado</span>
+            </div>
+          </div>
+          <div class="suplemento-card">
+            <div class="suplemento-icon">🫛</div>
+            <div class="suplemento-info">
+              <h4>Colágeno Hidrolisado Tipo I e III</h4>
+              <p>10-15g/dia. Glicina e prolina constroem o tecido conectivo do intestino. Potencializa a recuperação da mucosa.</p>
+              <span class="badge badge-azul">Complementar</span>
+            </div>
+          </div>
+          <button class="btn-primario mt-12" onclick="gerarSuplementos()" id="btn-suplementos">
+            ✨ Suplementos para o meu perfil
+          </button>
+          <div class="card mt-12" id="resultado-suplementos" style="display:none;">
+            <div class="card-titulo">💊 Protocolo personalizado</div>
+            <div class="ia-resposta" id="texto-suplementos"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: CIÊNCIA ===== -->
+    <div class="tela" id="tela-ciencia">
+      <div style="padding:20px;">
+        <div class="card-titulo" style="margin-bottom:16px;">🔬 Base Científica</div>
+
+        <div class="tabs">
+          <button class="tab-btn ativo" onclick="mudarTabCiencia('artigos')">📚 Artigos</button>
+          <button class="tab-btn" onclick="mudarTabCiencia('eixo')">🧠 Eixo Cérebro</button>
+          <button class="tab-btn" onclick="mudarTabCiencia('hormonios')">⚗️ Hormônios</button>
+        </div>
+
+        <div class="tab-conteudo ativo" id="tab-artigos">
+          <div class="artigo-card">
+            <h4>Microbiota intestinal e imunidade: o impacto da dieta</h4>
+            <p>A composição da microbiota modula diretamente 70% do sistema imune localizado no GALT (gut-associated lymphoid tissue). Dietas ricas em fibras fermentáveis aumentam Firmicutes produtores de butirato.</p>
+            <div class="artigo-fonte">📖 Nature Reviews Immunology, 2023</div>
+          </div>
+          <div class="artigo-card">
+            <h4>Síndrome do Intestino Permeável (Leaky Gut) — mecanismos</h4>
+            <p>A disfunção das tight junctions permite a passagem de lipopolissacarídeos bacterianos (LPS) para a corrente sanguínea, ativando inflamação sistêmica de baixo grau e resistência insulínica.</p>
+            <div class="artigo-fonte">📖 Gastroenterology, 2022</div>
+          </div>
+          <div class="artigo-card">
+            <h4>Probióticos multiestirpe vs. monoestirpe</h4>
+            <p>Meta-análise com 4.200 participantes demonstrou que combinações de Lactobacillus + Bifidobacterium reduzem sintomas de SII em 47% vs. 23% com cepa única.</p>
+            <div class="artigo-fonte">📖 Alimentary Pharmacology, 2023</div>
+          </div>
+          <button class="btn-primario mt-8" onclick="gerarCuriosidade()" id="btn-curiosidade">
+            🔬 Gerar curiosidade científica
+          </button>
+          <div class="card mt-12" id="resultado-curiosidade" style="display:none;">
+            <div class="ia-resposta" id="texto-curiosidade"></div>
+          </div>
+        </div>
+
+        <div class="tab-conteudo" id="tab-eixo">
+          <div class="card">
+            <div class="card-titulo">🧠 Eixo Intestino-Cérebro</div>
+            <div style="font-size:14px;line-height:1.8;">
+              <p>O intestino possui <strong>500 milhões de neurônios</strong> — o sistema nervoso entérico, chamado de "segundo cérebro".</p>
+              <div class="divider"></div>
+              <p><strong>90% da serotonina</strong> do corpo é produzida no intestino. Desequilíbrios na microbiota afetam diretamente humor, ansiedade e foco.</p>
+              <div class="divider"></div>
+              <p>O <strong>nervo vago</strong> transmite 80% das informações do intestino ao cérebro — e apenas 20% no sentido inverso. O intestino fala mais que o cérebro.</p>
+              <div class="divider"></div>
+              <p>Disbiose está associada à <strong>depressão, ansiedade e névoa mental</strong> via inflamação, alteração do metabolismo do triptofano e produção reduzida de GABA.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-conteudo" id="tab-hormonios">
+          <div class="card">
+            <div class="card-titulo">⚗️ Intestino e Hormônios (35+)</div>
+            <div style="font-size:14px;line-height:1.8;">
+              <p><strong>Estrogênio (mulheres):</strong> O "estroboloma" — conjunto de bactérias que metabolizam estrogênio — regula os níveis circulantes. Disbiose pode causar dominância estrogênica ou deficiência.</p>
+              <div class="divider"></div>
+              <p><strong>Testosterona (homens):</strong> Bactérias intestinais influenciam a conversão de andrógenos. Inflamação intestinal eleva aromatase e reduz testosterona livre.</p>
+              <div class="divider"></div>
+              <p><strong>Cortisol:</strong> Estresse crônico altera a permeabilidade intestinal. Microbiota saudável modula o eixo HPA e a resposta ao cortisol.</p>
+              <div class="divider"></div>
+              <p><strong>Insulina:</strong> Ácidos graxos de cadeia curta (SCFA) produzidos por bactérias boas melhoram a sensibilidade insulínica via receptores GPR41/GPR43.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: RELATÓRIO ===== -->
+    <div class="tela" id="tela-relatorio">
+      <div style="padding:20px;">
+        <div class="card-titulo" style="margin-bottom:16px;">📋 Relatório para Profissional</div>
+
+        <div class="card">
+          <div class="card-titulo">⚙️ Configurar relatório</div>
+          <div class="form-group mt-8">
+            <label style="font-size:13px;font-weight:600;color:var(--texto);display:block;margin-bottom:8px;">Período</label>
+            <select id="relatorio-periodo">
+              <option value="7">Últimos 7 dias</option>
+              <option value="15">Últimos 15 dias</option>
+              <option value="30">Últimos 30 dias</option>
+            </select>
+          </div>
+          <div class="form-group mt-8">
+            <label style="font-size:13px;font-weight:600;color:var(--texto);display:block;margin-bottom:8px;">Nome do profissional (opcional)</label>
+            <input type="text" id="relatorio-profissional" placeholder="Dr(a). Nome do profissional" style="width:100%;padding:12px;border:2px solid var(--bege-escuro);border-radius:12px;font-size:14px;font-family:DM Sans,sans-serif;background:var(--bege);">
+          </div>
+          <button class="btn-primario mt-12" onclick="gerarRelatorio()" id="btn-relatorio">
+            📋 Gerar relatório completo
+          </button>
+        </div>
+
+        <div id="relatorio-resultado" style="display:none;">
+          <div class="relatorio-secao">
+            <h4>👤 DADOS DO PACIENTE</h4>
+            <div id="relatorio-dados-paciente" style="font-size:14px;line-height:1.8;"></div>
+          </div>
+          <div class="relatorio-secao">
+            <h4>📊 SCORE DE SAÚDE INTESTINAL</h4>
+            <div id="relatorio-score" style="font-size:14px;line-height:1.8;"></div>
+          </div>
+          <div class="relatorio-secao">
+            <h4>💩 PADRÃO DE EVACUAÇÃO</h4>
+            <div id="relatorio-evacuacao" style="font-size:14px;line-height:1.8;"></div>
+          </div>
+          <div class="relatorio-secao">
+            <h4>😣 SINTOMAS RECORRENTES</h4>
+            <div id="relatorio-sintomas-lista" style="font-size:14px;line-height:1.8;"></div>
+          </div>
+          <div class="relatorio-secao">
+            <h4>💊 SUPLEMENTAÇÃO EM USO</h4>
+            <div id="relatorio-suplementos-lista" style="font-size:14px;line-height:1.8;">Probiótico multiestirpe, L-Glutamina 5g, Psyllium 10g</div>
+          </div>
+          <div class="relatorio-secao">
+            <h4>🤖 ANÁLISE IA</h4>
+            <div class="ia-resposta" id="relatorio-ia"></div>
+          </div>
+          <button class="btn-primario mt-8" onclick="imprimirRelatorio()">🖨️ Imprimir / Salvar PDF</button>
+          <button class="btn-secundario mt-8 w-full" onclick="copiarRelatorio()" style="margin-top:8px;justify-content:center;">📋 Copiar texto</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA: PERFIL / SCORE ===== -->
+    <div class="tela" id="tela-perfil">
+      <div style="padding:20px;">
+        <div class="card">
+          <div class="card-titulo">📊 Score de Saúde Intestinal</div>
+          <div class="score-circle">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+              <circle cx="70" cy="70" r="60" fill="none" stroke="#e8f5f0" stroke-width="12"/>
+              <circle cx="70" cy="70" r="60" fill="none" stroke="#2D6A4F" stroke-width="12"
+                stroke-dasharray="377" id="score-arco" stroke-dashoffset="100" stroke-linecap="round"/>
+            </svg>
+            <div class="score-numero" id="score-perfil">--</div>
+          </div>
+          <p style="text-align:center;font-size:13px;color:var(--cinza);" id="score-descricao">Complete sua anamnese</p>
+        </div>
+
+        <div class="card">
+          <div class="card-titulo">👤 Meu perfil</div>
+          <div id="perfil-dados" style="font-size:14px;line-height:2;">
+            <p style="color:var(--cinza);">Anamnese não preenchida.</p>
+          </div>
+          <button class="btn-secundario mt-12" onclick="navegarPara('anamnese');iniciarAnamnese()">✏️ Editar perfil</button>
+        </div>
+
+        <div class="card">
+          <div class="card-titulo">📈 Histórico de registros</div>
+          <div id="historico-lista" style="font-size:13px;color:var(--cinza);">
+            <p>Nenhum registro ainda. Comece a preencher o diário!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fim conteudo -->
+
+  <!-- Nav inferior -->
+  <nav class="nav-bottom">
+    <button class="nav-item ativo" onclick="navegarPara('home')">
+      <span class="nav-icon">🏠</span>
+      <span>Início</span>
+    </button>
+    <button class="nav-item" onclick="navegarPara('diario')">
+      <span class="nav-icon">📝</span>
+      <span>Diário</span>
+    </button>
+    <button class="nav-item" onclick="navegarPara('ia')">
+      <span class="nav-icon">🥗</span>
+      <span>Cardápio</span>
+    </button>
+    <button class="nav-item" onclick="navegarPara('protocolo')">
+      <span class="nav-icon">🔄</span>
+      <span>Protocolo</span>
+    </button>
+    <button class="nav-item" onclick="navegarPara('ciencia')">
+      <span class="nav-icon">🔬</span>
+      <span>Ciência</span>
+    </button>
+    <button class="nav-item" onclick="navegarPara('relatorio')">
+      <span class="nav-icon">📋</span>
+      <span>Relatório</span>
+    </button>
+    <button class="nav-item" onclick="navegarPara('perfil')">
+      <span class="nav-icon">👤</span>
+      <span>Perfil</span>
+    </button>
+  </nav>
+
+</div><!-- fim app -->
+
+<script>
+// ============================================================
+// CONFIGURAÇÃO — substitua com suas credenciais reais
+// ============================================================
+var SUPABASE_URL    = 'https://SEU-PROJETO.supabase.co';
+var SUPABASE_ANON   = 'SUA_ANON_KEY';
+var ANTHROPIC_KEY   = 'SUA_CHAVE_ANTHROPIC'; // use via proxy Supabase Edge em produção
+
+// ============================================================
+// ESTADO GLOBAL
+// ============================================================
+var estadoApp = {
+  usuario: null,
+  perfil: null,
+  bristolHoje: null,
+  sintomasHoje: [],
+  rituaisHoje: {},
+  registros: [],
+  diasProtocolo: 0
+};
+
+// ============================================================
+// AUTH — LOGIN / ATIVAR / LOGOUT
+// ============================================================
+function mostrarAtivar() {
+  document.getElementById('tela-login').style.display = 'none';
+  document.getElementById('tela-ativar').style.display = 'flex';
+}
+
+function mostrarLogin() {
+  document.getElementById('tela-ativar').style.display = 'none';
+  document.getElementById('tela-login').style.display = 'flex';
+}
+
+async function fazerLogin() {
+  var email = document.getElementById('login-email').value.trim();
+  var senha = document.getElementById('login-senha').value;
+  var erro  = document.getElementById('login-erro');
+  erro.style.display = 'none';
+
+  if (!email || !senha) { mostrarErro(erro, 'Preencha e-mail e senha.'); return; }
+
+  try {
+    var r = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
+      body: JSON.stringify({ email: email, password: senha })
+    });
+    var d = await r.json();
+    if (d.error) { mostrarErro(erro, d.error_description || d.error); return; }
+    estadoApp.usuario = d.user;
+    localStorage.setItem('is_session', JSON.stringify({ access_token: d.access_token, user: d.user }));
+    entrarNoApp(d.user, d.access_token);
+  } catch(e) {
+    // modo demo se Supabase não configurado
+    estadoApp.usuario = { email: email, id: 'demo-' + Date.now() };
+    entrarNoApp(estadoApp.usuario, null);
+  }
+}
+
+async function ativarConta() {
+  var email    = document.getElementById('ativar-email').value.trim();
+  var senha    = document.getElementById('ativar-senha').value;
+  var confirma = document.getElementById('ativar-confirma').value;
+  var erro     = document.getElementById('ativar-erro');
+  erro.style.display = 'none';
+
+  if (!email || !senha) { mostrarErro(erro, 'Preencha todos os campos.'); return; }
+  if (senha !== confirma) { mostrarErro(erro, 'As senhas não coincidem.'); return; }
+  if (senha.length < 6)   { mostrarErro(erro, 'Senha mínima de 6 caracteres.'); return; }
+
+  try {
+    var r = await fetch(SUPABASE_URL + '/auth/v1/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON },
+      body: JSON.stringify({ email: email, password: senha })
+    });
+    var d = await r.json();
+    if (d.error) { mostrarErro(erro, d.error_description || d.error); return; }
+    alert('Conta criada! Verifique seu e-mail e faça login.');
+    mostrarLogin();
+  } catch(e) {
+    alert('Conta demo criada! Faça login com seu e-mail e senha.');
+    mostrarLogin();
+  }
+}
+
+function fazerLogout() {
+  localStorage.removeItem('is_session');
+  estadoApp = { usuario: null, perfil: null, bristolHoje: null, sintomasHoje: [], rituaisHoje: {}, registros: [], diasProtocolo: 0 };
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('tela-login').style.display = 'flex';
+}
+
+function mostrarErro(el, msg) {
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// ============================================================
+// ENTRAR NO APP
+// ============================================================
+function entrarNoApp(user, token) {
+  document.getElementById('tela-login').style.display = 'none';
+  document.getElementById('tela-ativar').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+
+  var nome = user.email.split('@')[0];
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('avatar-inicial').textContent = nome[0].toUpperCase();
+
+  var h = new Date().getHours();
+  var greet = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
+  document.getElementById('saudacao-titulo').textContent = greet + ', ' + nome + '! 👋';
+
+  carregarPerfil();
+  carregarRegistros();
+  iniciarGrid21Dias();
+  atualizarDashboard();
+}
+
+// ============================================================
+// NAVEGAÇÃO
+// ============================================================
+function navegarPara(tela) {
+  document.querySelectorAll('.tela').forEach(function(t) { t.classList.remove('ativa'); });
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('ativo'); });
+  document.getElementById('tela-' + tela).classList.add('ativa');
+  var navs = document.querySelectorAll('.nav-item');
+  var mapa = ['home','diario','ia','protocolo','ciencia','relatorio','perfil'];
+  var idx  = mapa.indexOf(tela);
+  if (idx >= 0) navs[idx].classList.add('ativo');
+}
+
+function irParaAnamnese() {
+  navegarPara('anamnese');
+  iniciarAnamnese();
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function mudarTab(id) {
+  document.querySelectorAll('#tela-ia .tab-btn').forEach(function(b,i) {
+    b.classList.toggle('ativo', ['cardapio','receitas','ia-livre'][i] === id);
+  });
+  document.querySelectorAll('#tela-ia .tab-conteudo').forEach(function(c) { c.classList.remove('ativa'); });
+  document.getElementById('tab-' + id).classList.add('ativa');
+}
+
+function mudarTabProtocolo(id) {
+  document.querySelectorAll('#tela-protocolo .tab-btn').forEach(function(b,i) {
+    b.classList.toggle('ativo', ['reset','rituais','suplementos'][i] === id);
+  });
+  document.querySelectorAll('#tela-protocolo .tab-conteudo').forEach(function(c) { c.classList.remove('ativa'); });
+  document.getElementById('tab-' + id).classList.add('ativa');
+}
+
+function mudarTabCiencia(id) {
+  document.querySelectorAll('#tela-ciencia .tab-btn').forEach(function(b,i) {
+    b.classList.toggle('ativo', ['artigos','eixo','hormonios'][i] === id);
+  });
+  document.querySelectorAll('#tela-ciencia .tab-conteudo').forEach(function(c) { c.classList.remove('ativa'); });
+  document.getElementById('tab-' + id).classList.add('ativa');
+}
+
+// ============================================================
+// ANAMNESE
+// ============================================================
+var passoAnamnese = 0;
+var dadosAnamnese = {};
+
+var passosConfig = [
+  {
+    titulo: 'Qual é o seu sexo biológico?',
+    subtitulo: 'Isso influencia microbiota e perfil hormonal',
+    campo: 'sexo',
+    tipo: 'opcoes',
+    opcoes: ['🙋‍♀️ Feminino', '🙋 Masculino']
+  },
+  {
+    titulo: 'Qual a sua faixa etária?',
+    subtitulo: 'A microbiota muda com a idade',
+    campo: 'idade',
+    tipo: 'opcoes',
+    opcoes: ['35–44 anos', '45–54 anos', '55–64 anos', '65+ anos']
+  },
+  {
+    titulo: 'Qual seu principal sintoma intestinal?',
+    subtitulo: 'Selecione o mais frequente',
+    campo: 'sintoma_principal',
+    tipo: 'opcoes',
+    opcoes: ['🫃 Inchaço constante', '🚽 Constipação', '💨 Gases excessivos', '⚡ Trânsito acelerado/diarreia', '😣 Dor abdominal', '🤷 Sem sintoma claro']
+  },
+  {
+    titulo: 'Com que frequência você evacua?',
+    subtitulo: 'O ritmo intestinal diz muito sobre a microbiota',
+    campo: 'frequencia_evacuacao',
+    tipo: 'opcoes',
+    opcoes: ['Mais de 1x ao dia', '1x ao dia', '1x a cada 2-3 dias', 'Menos de 3x por semana']
+  },
+  {
+    titulo: 'Você tem algum diagnóstico?',
+    subtitulo: 'Selecione os que se aplicam',
+    campo: 'diagnosticos',
+    tipo: 'opcoes',
+    opcoes: ['SII (Intestino Irritável)', 'Doença de Crohn', 'Retocolite', 'DRGE / Refluxo', 'Disbiose diagnosticada', 'Nenhum diagnóstico']
+  },
+  {
+    titulo: 'Como é sua alimentação atual?',
+    subtitulo: 'Seja honesto — isso calibra as recomendações',
+    campo: 'alimentacao',
+    tipo: 'opcoes',
+    opcoes: ['🥗 Muito saudável', '🍽️ Equilibrada', '🍔 Com muitos ultraprocessados', '🍬 Rico em açúcar', '🥩 Muito proteína animal']
+  },
+  {
+    titulo: 'Nível de estresse no dia a dia',
+    subtitulo: 'O eixo intestino-cérebro responde diretamente ao estresse',
+    campo: 'estresse',
+    tipo: 'opcoes',
+    opcoes: ['😊 Baixo', '😐 Moderado', '😰 Alto', '😫 Muito alto']
+  },
+  {
+    titulo: 'Você toma ou tomou antibióticos recentemente?',
+    subtitulo: 'Antibióticos impactam significativamente a microbiota',
+    campo: 'antibioticos',
+    tipo: 'opcoes',
+    opcoes: ['Não', 'Sim, há menos de 3 meses', 'Sim, há 3-12 meses', 'Sim, tomo com frequência']
+  },
+  {
+    titulo: 'Objetivo principal com o app',
+    subtitulo: 'Isso define o foco do seu protocolo',
+    campo: 'objetivo',
+    tipo: 'opcoes',
+    opcoes: ['🎯 Acabar com o inchaço', '💪 Melhorar energia', '⚖️ Emagrecer', '🧠 Melhorar humor/foco', '🔬 Entender minha microbiota', '💊 Reduzir dependência de remédios']
+  }
+];
+
+function iniciarAnamnese() {
+  passoAnamnese = 0;
+  dadosAnamnese = JSON.parse(localStorage.getItem('is_perfil') || '{}');
+  renderizarPasso();
+}
+
+function renderizarPasso() {
+  var conf = passosConfig[passoAnamnese];
+  var total = passosConfig.length;
+  var html = '<div class="passo-indicador">';
+  for (var i = 0; i < total; i++) {
+    var cls = i === passoAnamnese ? 'ativo' : (i < passoAnamnese ? 'concluido' : '');
+    html += '<div class="passo-dot ' + cls + '"></div>';
+  }
+  html += '</div>';
+  html += '<div class="anamnese-titulo">' + conf.titulo + '</div>';
+  html += '<div class="anamnese-subtitulo">' + conf.subtitulo + '</div>';
+
+  conf.opcoes.forEach(function(op) {
+    var sel = dadosAnamnese[conf.campo] === op ? 'selecionado' : '';
+    html += '<button class="opcao-btn ' + sel + '" onclick="selecionarOpcao(this, \'' + conf.campo + '\', \'' + op.replace(/'/g, '\\\'') + '\')">' + op + '</button>';
+  });
+
+  if (passoAnamnese > 0) {
+    html += '<button class="btn-secundario mt-12" onclick="passoAnterior()" style="width:100%;justify-content:center;">← Voltar</button>';
+  }
+  document.getElementById('anamnese-conteudo').innerHTML = html;
+}
+
+function selecionarOpcao(btn, campo, valor) {
+  dadosAnamnese[campo] = valor;
+  document.querySelectorAll('#anamnese-conteudo .opcao-btn').forEach(function(b) { b.classList.remove('selecionado'); });
+  btn.classList.add('selecionado');
+  setTimeout(function() {
+    if (passoAnamnese < passosConfig.length - 1) {
+      passoAnamnese++;
+      renderizarPasso();
+    } else {
+      salvarAnamnese();
+    }
+  }, 300);
+}
+
+function passoAnterior() {
+  if (passoAnamnese > 0) { passoAnamnese--; renderizarPasso(); }
+}
+
+function salvarAnamnese() {
+  localStorage.setItem('is_perfil', JSON.stringify(dadosAnamnese));
+  estadoApp.perfil = dadosAnamnese;
+  calcularScore();
+  atualizarDashboard();
+  document.getElementById('anamnese-conteudo').innerHTML = '<div class="card" style="text-align:center;padding:32px;"><div style="font-size:64px;margin-bottom:16px;">🎉</div><div class="anamnese-titulo">Perfil salvo!</div><p style="color:var(--cinza);margin:8px 0 20px;">Seu app está personalizado.</p><button class="btn-primario" onclick="navegarPara(\'home\')">Ir para o início →</button></div>';
+  atualizarPerfil();
+}
+
+function carregarPerfil() {
+  var p = localStorage.getItem('is_perfil');
+  if (p) { estadoApp.perfil = JSON.parse(p); calcularScore(); atualizarPerfil(); }
+}
+
+// ============================================================
+// SCORE
+// ============================================================
+function calcularScore() {
+  if (!estadoApp.perfil) return;
+  var p = estadoApp.perfil;
+  var s = 50;
+  if (p.alimentacao === '🥗 Muito saudável') s += 15;
+  else if (p.alimentacao === '🍽️ Equilibrada') s += 8;
+  else if (p.alimentacao && p.alimentacao.includes('ultraprocessados')) s -= 10;
+  if (p.estresse === '😊 Baixo') s += 10;
+  else if (p.estresse === '😫 Muito alto') s -= 15;
+  if (p.antibioticos && p.antibioticos !== 'Não') s -= 8;
+  if (p.sintoma_principal === '🤷 Sem sintoma claro') s += 10;
+  if (p.frequencia_evacuacao === '1x ao dia') s += 8;
+  s = Math.max(10, Math.min(100, s));
+  estadoApp.score = s;
+  document.getElementById('score-dash').textContent = s;
+  document.getElementById('score-perfil').textContent = s;
+  var desc = s >= 80 ? '🟢 Excelente' : s >= 60 ? '🟡 Bom' : s >= 40 ? '🟠 Regular' : '🔴 Precisa de atenção';
+  document.getElementById('score-descricao').textContent = desc;
+  var offset = 377 - (377 * s / 100);
+  document.getElementById('score-arco').setAttribute('stroke-dashoffset', offset);
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function atualizarDashboard() {
+  var streak = parseInt(localStorage.getItem('is_streak') || '0');
+  document.getElementById('streak-numero').textContent = streak;
+  document.getElementById('streak-texto').textContent = streak > 0 ? streak + ' dias seguidos!' : 'Registre hoje para começar!';
+  document.getElementById('dias-protocolo').textContent = parseInt(localStorage.getItem('is_dias_protocolo') || '0');
+  var reg = JSON.parse(localStorage.getItem('is_registros') || '[]');
+  var semana = reg.filter(function(r) { return Date.now() - r.ts < 7 * 24 * 3600000; });
+  document.getElementById('registros-semana').textContent = semana.length;
+  if (estadoApp.perfil) {
+    document.getElementById('proxima-acao').textContent = 'Registre como está seu intestino hoje no Diário.';
+    document.getElementById('btn-proxima-acao').textContent = 'Abrir Diário';
+    document.getElementById('btn-proxima-acao').onclick = function() { navegarPara('diario'); };
+  }
+  if (estadoApp.score) document.getElementById('score-dash').textContent = estadoApp.score;
+}
+
+// ============================================================
+// DIÁRIO
+// ============================================================
+function selecionarBristol(tipo) {
+  document.querySelectorAll('.bristol-tipo').forEach(function(b) { b.classList.remove('selecionado'); });
+  event.currentTarget.classList.add('selecionado');
+  estadoApp.bristolHoje = tipo;
+}
+
+function toggleSintoma(btn, nome) {
+  btn.classList.toggle('ativo');
+  var idx = estadoApp.sintomasHoje.indexOf(nome);
+  if (idx === -1) estadoApp.sintomasHoje.push(nome);
+  else estadoApp.sintomasHoje.splice(idx, 1);
+}
+
+function atualizarAgua(v) { document.getElementById('agua-label').textContent = v + ' copos 💧'; }
+function atualizarHumor(v) { document.getElementById('humor-label').textContent = v + ' / 10'; }
+
+function salvarDiario() {
+  var reg = {
+    ts: Date.now(),
+    data: new Date().toLocaleDateString('pt-BR'),
+    bristol: estadoApp.bristolHoje,
+    sintomas: estadoApp.sintomasHoje.slice(),
+    alimentacao: document.getElementById('diario-alimentacao').value,
+    agua: document.getElementById('slider-agua').value,
+    humor: document.getElementById('slider-humor').value
+  };
+  var registros = JSON.parse(localStorage.getItem('is_registros') || '[]');
+  registros.unshift(reg);
+  localStorage.setItem('is_registros', JSON.stringify(registros));
+  estadoApp.registros = registros;
+
+  // atualizar streak
+  var streak = parseInt(localStorage.getItem('is_streak') || '0');
+  var ultimo = localStorage.getItem('is_ultimo_registro');
+  var hoje   = new Date().toDateString();
+  if (ultimo !== hoje) {
+    streak = (ultimo === new Date(Date.now() - 86400000).toDateString()) ? streak + 1 : 1;
+    localStorage.setItem('is_streak', streak);
+    localStorage.setItem('is_ultimo_registro', hoje);
+  }
+  atualizarDashboard();
+  alert('✅ Registro salvo com sucesso!');
+}
+
+// ============================================================
+// RITUAIS
+// ============================================================
+function toggleRitual(el, id) {
+  el.classList.toggle('feito');
+  estadoApp.rituaisHoje[id] = el.classList.contains('feito');
+  var feitos = Object.values(estadoApp.rituaisHoje).filter(Boolean).length;
+  document.getElementById('rituais-hoje').textContent = feitos + '/7';
+}
+
+// ============================================================
+// GRID 21 DIAS
+// ============================================================
+function iniciarGrid21Dias() {
+  var dias = parseInt(localStorage.getItem('is_dias_protocolo') || '0');
+  estadoApp.diasProtocolo = dias;
+  var grid = document.getElementById('grid-21-dias');
+  if (!grid) return;
+  var html = '';
+  for (var i = 1; i <= 21; i++) {
+    var cls = i < dias ? 'concluido' : (i === dias + 1 ? 'hoje' : 'futuro');
+    html += '<div class="dia-protocolo ' + cls + '" onclick="clicouDia(' + i + ')">' + i + '</div>';
+  }
+  grid.innerHTML = html;
+  atualizarInfoDia(dias + 1);
+}
+
+function clicouDia(n) {
+  var dias = parseInt(localStorage.getItem('is_dias_protocolo') || '0');
+  if (n === dias + 1) {
+    localStorage.setItem('is_dias_protocolo', n);
+    estadoApp.diasProtocolo = n;
+    iniciarGrid21Dias();
+    atualizarDashboard();
+  }
+}
+
+function atualizarInfoDia(dia) {
+  var el = document.getElementById('texto-dia-atual');
+  if (!el) return;
+  var fase = dia <= 7 ? '1 — Eliminação' : (dia <= 14 ? '2 — Regeneração' : '3 — Repovoamento');
+  var dicas = {
+    1: 'Retire glúten, laticínios e açúcar refinado hoje. Hidrate-se bem.',
+    2: 'Adicione vegetais fermentados. Aumente fibras solúveis.',
+    3: 'Bone broth no jantar. Sem álcool.',
+    4: 'Mastigue devagar. Sem distrações nas refeições.',
+    5: 'Caminhada após almoço e jantar.',
+    6: 'Verifique rótulos — açúcar se esconde em muitos produtos.',
+    7: 'Parabéns pela Fase 1! Como está o inchaço?',
+    8: 'Introduza L-Glutamina 5g em jejum.',
+    9: 'Inclua kefir ou iogurte natural no café.',
+    10: 'Sono de 7-8h. A microbiota se repara à noite.',
+  };
+  el.innerHTML = '<strong>Dia ' + dia + ' — Fase ' + fase + '</strong><br><span style="font-size:13px;color:var(--cinza);">' + (dicas[dia] || 'Continue firme no protocolo!') + '</span>';
+}
+
+// ============================================================
+// IA — CHAMADAS À API
+// ============================================================
+var iaHistorico = [];
+
+async function chamarClaude(systemPrompt, userPrompt) {
+  var msgs = [{ role: 'user', content: userPrompt }];
+  if (iaHistorico.length > 0 && systemPrompt.includes('livre')) {
+    msgs = iaHistorico.concat(msgs);
+  }
+  var r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': ANTHROPIC_KEY,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system: systemPrompt,
+      messages: msgs
+    })
+  });
+  var d = await r.json();
+  return d.content && d.content[0] ? d.content[0].text : 'Erro ao gerar resposta.';
+}
+
+function perfilParaTexto() {
+  var p = estadoApp.perfil || {};
+  return 'Perfil do usuário: sexo=' + (p.sexo||'N/I') + ', faixa etária=' + (p.idade||'N/I') + ', sintoma principal=' + (p.sintoma_principal||'N/I') + ', frequência evacuação=' + (p.frequencia_evacuacao||'N/I') + ', alimentação=' + (p.alimentacao||'N/I') + ', estresse=' + (p.estresse||'N/I') + ', objetivo=' + (p.objetivo||'N/I');
+}
+
+async function gerarCardapio() {
+  var btn = document.getElementById('btn-cardapio');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading">⏳</span> Gerando...';
+  var res = document.getElementById('resultado-cardapio');
+  var txt = document.getElementById('texto-cardapio');
+  res.style.display = 'none';
+  var system = 'Você é nutricionista especialista em saúde intestinal e microbiota. Responda em português brasileiro. Seja prático e detalhado.';
+  var prompt = perfilParaTexto() + '\n\nCrie um cardápio semanal (segunda a domingo) com café da manhã, almoço, lanche e jantar. Foque em alimentos pró-microbiota: fibras fermentáveis, probióticos naturais, anti-inflamatórios. Evite os gatilhos do perfil. Use alimentos brasileiros acessíveis. Máximo 400 palavras.';
+  try {
+    var resp = await chamarClaude(system, prompt);
+    txt.textContent = resp;
+    res.style.display = 'block';
+  } catch(e) { txt.textContent = 'Erro ao conectar com a IA. Verifique a chave da API.'; res.style.display = 'block'; }
+  btn.disabled = false;
+  btn.innerHTML = '✨ Gerar novo cardápio';
+}
+
+async function gerarReceita() {
+  var btn = document.getElementById('btn-receita');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading">⏳</span> Gerando...';
+  var system = 'Você é chef nutricionista especializado em alimentação pró-microbiota. Responda em português brasileiro.';
+  var prompt = perfilParaTexto() + '\n\nCrie uma receita pró-intestino personalizada para este perfil. Inclua: nome, ingredientes com quantidades, modo de preparo passo a passo, benefícios para o intestino. Use ingredientes brasileiros acessíveis.';
+  try {
+    var resp = await chamarClaude(system, prompt);
+    document.getElementById('texto-receita').textContent = resp;
+    document.getElementById('resultado-receita').style.display = 'block';
+  } catch(e) { alert('Erro ao gerar receita. Verifique a API.'); }
+  btn.disabled = false;
+  btn.innerHTML = '✨ Gerar nova receita';
+}
+
+async function gerarSuplementos() {
+  var btn = document.getElementById('btn-suplementos');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading">⏳</span> Analisando perfil...';
+  var system = 'Você é médico nutrólogo especialista em microbiota intestinal. Responda em português brasileiro com linguagem clara.';
+  var prompt = perfilParaTexto() + '\n\nCrie um protocolo de suplementação personalizado para este perfil. Liste: suplemento, dose, horário, duração e por quê este perfil específico se beneficia. Inclua aviso para consultar médico. Máximo 300 palavras.';
+  try {
+    var resp = await chamarClaude(system, prompt);
+    document.getElementById('texto-suplementos').textContent = resp;
+    document.getElementById('resultado-suplementos').style.display = 'block';
+  } catch(e) { alert('Erro. Verifique a API.'); }
+  btn.disabled = false;
+  btn.innerHTML = '✨ Suplementos para o meu perfil';
+}
+
+async function gerarCuriosidade() {
+  var btn = document.getElementById('btn-curiosidade');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading">⏳</span> Buscando ciência...';
+  var system = 'Você é cientista especialista em microbioma. Responda em português brasileiro de forma acessível mas com embasamento científico.';
+  var prompt = 'Gere uma curiosidade científica fascinante e recente (2022-2025) sobre microbiota intestinal, eixo intestino-cérebro, ou saúde intestinal. Cite o estudo ou revista de origem. Máximo 150 palavras.';
+  try {
+    var resp = await chamarClaude(system, prompt);
+    document.getElementById('texto-curiosidade').textContent = resp;
+    document.getElementById('resultado-curiosidade').style.display = 'block';
+  } catch(e) { alert('Erro. Verifique a API.'); }
+  btn.disabled = false;
+  btn.innerHTML = '🔬 Nova curiosidade';
+}
+
+async function enviarIA() {
+  var input = document.getElementById('ia-input');
+  var msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  var el = document.getElementById('ia-livre-resposta');
+  el.textContent = '⏳ Pensando...';
+  iaHistorico.push({ role: 'user', content: msg });
+  var system = 'Você é assistente de saúde intestinal. Responda em português brasileiro de forma clara, prática e empática. ' + perfilParaTexto() + '. Não dê diagnósticos médicos. Incentive consulta profissional quando necessário.';
+  try {
+    var resp = await chamarClaude('livre', msg);
+    iaHistorico.push({ role: 'assistant', content: resp });
+    if (iaHistorico.length > 10) iaHistorico = iaHistorico.slice(-10);
+    el.textContent = resp;
+  } catch(e) { el.textContent = 'Erro ao conectar. Verifique a chave da API.'; }
+}
+
+function perguntaRapida(p) {
+  document.getElementById('ia-input').value = p;
+  enviarIA();
+}
+
+// ============================================================
+// RELATÓRIO
+// ============================================================
+async function gerarRelatorio() {
+  var btn = document.getElementById('btn-relatorio');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading">⏳</span> Gerando relatório...';
+
+  var periodo  = document.getElementById('relatorio-periodo').value;
+  var prof     = document.getElementById('relatorio-profissional').value;
+  var registros = JSON.parse(localStorage.getItem('is_registros') || '[]');
+  var corte    = Date.now() - periodo * 24 * 3600000;
+  var regs     = registros.filter(function(r) { return r.ts > corte; });
+  var perfil   = estadoApp.perfil || {};
+
+  // dados paciente
+  document.getElementById('relatorio-dados-paciente').innerHTML =
+    '<b>Sexo:</b> ' + (perfil.sexo||'N/I') + ' | <b>Faixa:</b> ' + (perfil.idade||'N/I') + '<br>' +
+    '<b>Período:</b> ' + periodo + ' dias | <b>Registros:</b> ' + regs.length + '<br>' +
+    (prof ? '<b>Para:</b> ' + prof + '<br>' : '') +
+    '<b>Data do relatório:</b> ' + new Date().toLocaleDateString('pt-BR');
+
+  // score
+  document.getElementById('relatorio-score').innerHTML =
+    '<b>Score atual:</b> ' + (estadoApp.score || '--') + '/100<br>' +
+    '<b>Objetivo declarado:</b> ' + (perfil.objetivo||'N/I');
+
+  // evacuação
+  var bristols = regs.filter(function(r) { return r.bristol != null; }).map(function(r) { return r.bristol; });
+  var mediaBristol = bristols.length ? (bristols.reduce(function(a,b){return a+b;}, 0)/bristols.length).toFixed(1) : 'N/A';
+  document.getElementById('relatorio-evacuacao').innerHTML =
+    '<b>Média Escala de Bristol:</b> ' + mediaBristol + '/7<br>' +
+    '<b>Registros com evacuação:</b> ' + bristols.length + ' de ' + regs.length + ' dias registrados<br>' +
+    '<b>Frequência declarada:</b> ' + (perfil.frequencia_evacuacao||'N/I');
+
+  // sintomas
+  var todosSintomas = [];
+  regs.forEach(function(r) { if (r.sintomas) todosSintomas = todosSintomas.concat(r.sintomas); });
+  var contSintomas = {};
+  todosSintomas.forEach(function(s) { contSintomas[s] = (contSintomas[s]||0) + 1; });
+  var listaSint = Object.keys(contSintomas).sort(function(a,b){return contSintomas[b]-contSintomas[a];});
+  var sintHtml = listaSint.length ? listaSint.map(function(s){ return '<b>' + s + ':</b> ' + contSintomas[s] + 'x'; }).join('<br>') : 'Nenhum sintoma registrado.';
+  document.getElementById('relatorio-sintomas-lista').innerHTML = sintHtml;
+
+  // IA analysis
+  var system = 'Você é médico especialista em saúde intestinal. Gere um relatório clínico objetivo em português para ' + (prof||'o profissional de saúde') + '. Seja técnico mas acessível.';
+  var prompt = 'Analise estes dados e gere um resumo clínico:\n' + perfilParaTexto() + '\nScore intestinal: ' + (estadoApp.score||'N/A') + '/100\nMédia Bristol: ' + mediaBristol + '\nSintomas frequentes: ' + listaSint.join(', ') + '\nPeríodo: ' + periodo + ' dias\n\nGere: 1) Impressão geral 2) Padrão observado 3) Pontos de atenção 4) Sugestões para o profissional. Máximo 250 palavras.';
+  try {
+    var resp = await chamarClaude(system, prompt);
+    document.getElementById('relatorio-ia').textContent = resp;
+  } catch(e) { document.getElementById('relatorio-ia').textContent = 'Configure a chave da API para análise IA.'; }
+
+  document.getElementById('relatorio-resultado').style.display = 'block';
+  btn.disabled = false;
+  btn.innerHTML = '📋 Atualizar relatório';
+}
+
+function imprimirRelatorio() { window.print(); }
+
+function copiarRelatorio() {
+  var dados = document.getElementById('relatorio-dados-paciente').innerText;
+  var score = document.getElementById('relatorio-score').innerText;
+  var evac  = document.getElementById('relatorio-evacuacao').innerText;
+  var sint  = document.getElementById('relatorio-sintomas-lista').innerText;
+  var ia    = document.getElementById('relatorio-ia').innerText;
+  var txt   = '=== RELATÓRIO INTESTINO SAUDÁVEL ===\n\n' +
+              'DADOS DO PACIENTE\n' + dados + '\n\n' +
+              'SCORE INTESTINAL\n' + score + '\n\n' +
+              'PADRÃO DE EVACUAÇÃO\n' + evac + '\n\n' +
+              'SINTOMAS RECORRENTES\n' + sint + '\n\n' +
+              'ANÁLISE IA\n' + ia + '\n\n' +
+              '⚠️ Este relatório é gerado por aplicativo de saúde e não substitui avaliação médica.';
+  navigator.clipboard.writeText(txt).then(function() { alert('✅ Relatório copiado!'); });
+}
+
+// ============================================================
+// PERFIL
+// ============================================================
+function atualizarPerfil() {
+  var p = estadoApp.perfil;
+  if (!p) return;
+  var html = '';
+  var mapa = { sexo: 'Sexo', idade: 'Faixa etária', sintoma_principal: 'Sintoma principal',
+    frequencia_evacuacao: 'Frequência evacuação', alimentacao: 'Alimentação', estresse: 'Estresse',
+    antibioticos: 'Antibióticos', objetivo: 'Objetivo' };
+  Object.keys(mapa).forEach(function(k) {
+    if (p[k]) html += '<div class="flex-between" style="padding:6px 0;border-bottom:1px solid var(--bege-escuro);"><span style="color:var(--cinza);">' + mapa[k] + '</span><span style="font-weight:600;">' + p[k] + '</span></div>';
+  });
+  document.getElementById('perfil-dados').innerHTML = html || '<p style="color:var(--cinza);">Anamnese não preenchida.</p>';
+}
+
+function carregarRegistros() {
+  var r = localStorage.getItem('is_registros');
+  if (r) {
+    estadoApp.registros = JSON.parse(r);
+    var hist = document.getElementById('historico-lista');
+    if (hist && estadoApp.registros.length > 0) {
+      var html = '';
+      estadoApp.registros.slice(0,5).forEach(function(reg) {
+        html += '<div style="padding:8px 0;border-bottom:1px solid var(--bege-escuro);"><b>' + reg.data + '</b> — Bristol ' + (reg.bristol||'N/R') + ' — Humor ' + (reg.humor||'N/R') + '/10</div>';
+      });
+      hist.innerHTML = html;
+    }
+  }
+}
+
+// ============================================================
+// VERIFICAR SESSÃO AO CARREGAR
+// ============================================================
+window.addEventListener('load', function() {
+  var sess = localStorage.getItem('is_session');
+  if (sess) {
+    try {
+      var s = JSON.parse(sess);
+      entrarNoApp(s.user, s.access_token);
+    } catch(e) { /* mostra login */ }
+  }
+});
+</script>
+
+</body>
+</html>
