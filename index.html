@@ -1586,26 +1586,30 @@ function irParaAnamnese() {
 // ============================================================
 function mudarTab(id) {
   document.querySelectorAll('#tela-ia .tab-btn').forEach(function(b,i) {
-    b.classList.toggle('ativo', ['cardapio','receitas','ia-livre'][i] === id);
+    b.classList.toggle('ativo', ['receitas','ia-livre'][i] === id);
   });
-  document.querySelectorAll('#tela-ia .tab-conteudo').forEach(function(c) { c.classList.remove('ativa'); });
-  document.getElementById('tab-' + id).classList.add('ativa');
+  document.querySelectorAll('#tela-ia .tab-conteudo').forEach(function(c) { c.classList.remove('ativo'); c.style.display = 'none'; });
+  var el = document.getElementById('tab-' + id);
+  if (el) { el.classList.add('ativo'); el.style.display = 'block'; }
+  if (id === 'receitas') renderizarReceitas();
 }
 
 function mudarTabProtocolo(id) {
   document.querySelectorAll('#tela-protocolo .tab-btn').forEach(function(b,i) {
     b.classList.toggle('ativo', ['reset','rituais','suplementos'][i] === id);
   });
-  document.querySelectorAll('#tela-protocolo .tab-conteudo').forEach(function(c) { c.classList.remove('ativa'); });
-  document.getElementById('tab-' + id).classList.add('ativa');
+  document.querySelectorAll('#tela-protocolo .tab-conteudo').forEach(function(c) { c.classList.remove('ativo'); c.style.display = 'none'; });
+  var el = document.getElementById('tab-' + id);
+  if (el) { el.classList.add('ativo'); el.style.display = 'block'; }
 }
 
 function mudarTabCiencia(id) {
   document.querySelectorAll('#tela-ciencia .tab-btn').forEach(function(b,i) {
     b.classList.toggle('ativo', ['artigos','eixo','hormonios'][i] === id);
   });
-  document.querySelectorAll('#tela-ciencia .tab-conteudo').forEach(function(c) { c.classList.remove('ativa'); });
-  document.getElementById('tab-' + id).classList.add('ativa');
+  document.querySelectorAll('#tela-ciencia .tab-conteudo').forEach(function(c) { c.classList.remove('ativo'); c.style.display = 'none'; });
+  var el = document.getElementById('tab-' + id);
+  if (el) { el.classList.add('ativo'); el.style.display = 'block'; }
 }
 
 // ============================================================
@@ -2901,11 +2905,23 @@ document.addEventListener('click', function(e) {
   if (modal && e.target === modal) fecharModal();
 });
 
-// Inicializar receitas ao entrar na tela
 var _navOriginal = navegarPara;
 navegarPara = function(tela) {
   _navOriginal(tela);
-  if (tela === 'ia') renderizarReceitas();
+  if (tela === 'ia') { 
+    renderizarReceitas(); 
+    // garantir que tab receitas está visível
+    document.querySelectorAll('#tela-ia .tab-conteudo').forEach(function(c) { c.style.display = 'none'; });
+    var tabR = document.getElementById('tab-receitas');
+    if (tabR) tabR.style.display = 'block';
+  }
+  if (tela === 'protocolo') {
+    renderizarDesafio();
+    // garantir que tab reset está visível
+    document.querySelectorAll('#tela-protocolo .tab-conteudo').forEach(function(c) { c.style.display = 'none'; });
+    var tabReset = document.getElementById('tab-reset');
+    if (tabReset) tabReset.style.display = 'block';
+  }
 };
 
 // ============================================================
