@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Intestino Saudável</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232D6A4F'/><text y='.9em' font-size='75' x='12'>🌿</text></svg>">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Intestino Saudável">
+<meta name="theme-color" content="#2D6A4F">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
 
@@ -1623,64 +1628,64 @@ var passosConfig = [
     titulo: 'Qual é o seu sexo biológico?',
     subtitulo: 'Isso influencia microbiota e perfil hormonal',
     campo: 'sexo',
-    tipo: 'opcoes',
+    tipo: 'unico',
     opcoes: ['🙋‍♀️ Feminino', '🙋 Masculino']
   },
   {
     titulo: 'Qual a sua faixa etária?',
     subtitulo: 'A microbiota muda com a idade',
     campo: 'idade',
-    tipo: 'opcoes',
+    tipo: 'unico',
     opcoes: ['20–24 anos', '25–29 anos', '30–34 anos', '35–39 anos', '40–44 anos', '45–49 anos', '50–54 anos', '55–59 anos', '60–64 anos', '65+ anos']
   },
   {
-    titulo: 'Qual seu principal sintoma intestinal?',
-    subtitulo: 'Selecione o mais frequente',
-    campo: 'sintoma_principal',
-    tipo: 'opcoes',
-    opcoes: ['🫃 Inchaço constante', '🚽 Constipação', '💨 Gases excessivos', '⚡ Trânsito acelerado/diarreia', '😣 Dor abdominal', '🤷 Sem sintoma claro']
+    titulo: 'Quais são seus sintomas intestinais?',
+    subtitulo: 'Selecione todos que se aplicam',
+    campo: 'sintomas',
+    tipo: 'multiplo',
+    opcoes: ['🫃 Inchaço', '🚽 Constipação', '💨 Gases excessivos', '⚡ Diarreia frequente', '😣 Dor abdominal', '🔥 Azia / Refluxo', '🤢 Náusea', '😴 Cansaço após comer', '🤷 Sem sintomas']
   },
   {
     titulo: 'Com que frequência você evacua?',
     subtitulo: 'O ritmo intestinal diz muito sobre a microbiota',
     campo: 'frequencia_evacuacao',
-    tipo: 'opcoes',
+    tipo: 'unico',
     opcoes: ['Mais de 1x ao dia', '1x ao dia', '1x a cada 2-3 dias', 'Menos de 3x por semana']
   },
   {
     titulo: 'Você tem algum diagnóstico?',
-    subtitulo: 'Selecione os que se aplicam',
+    subtitulo: 'Selecione todos que se aplicam',
     campo: 'diagnosticos',
-    tipo: 'opcoes',
-    opcoes: ['SII (Intestino Irritável)', 'Doença de Crohn', 'Retocolite', 'DRGE / Refluxo', 'Disbiose diagnosticada', 'Nenhum diagnóstico']
+    tipo: 'multiplo',
+    opcoes: ['SII (Intestino Irritável)', 'Doença de Crohn', 'Retocolite', 'DRGE / Refluxo', 'Disbiose diagnosticada', 'Intolerância à lactose', 'Intolerância ao glúten', 'Nenhum diagnóstico']
   },
   {
     titulo: 'Como é sua alimentação atual?',
     subtitulo: 'Seja honesto — isso calibra as recomendações',
     campo: 'alimentacao',
-    tipo: 'opcoes',
+    tipo: 'unico',
     opcoes: ['🥗 Muito saudável', '🍽️ Equilibrada', '🍔 Com muitos ultraprocessados', '🍬 Rico em açúcar', '🥩 Muito proteína animal']
   },
   {
     titulo: 'Nível de estresse no dia a dia',
     subtitulo: 'O eixo intestino-cérebro responde diretamente ao estresse',
     campo: 'estresse',
-    tipo: 'opcoes',
+    tipo: 'unico',
     opcoes: ['😊 Baixo', '😐 Moderado', '😰 Alto', '😫 Muito alto']
   },
   {
     titulo: 'Você toma ou tomou antibióticos recentemente?',
     subtitulo: 'Antibióticos impactam significativamente a microbiota',
     campo: 'antibioticos',
-    tipo: 'opcoes',
+    tipo: 'unico',
     opcoes: ['Não', 'Sim, há menos de 3 meses', 'Sim, há 3-12 meses', 'Sim, tomo com frequência']
   },
   {
-    titulo: 'Objetivo principal com o app',
-    subtitulo: 'Isso define o foco do seu protocolo',
-    campo: 'objetivo',
-    tipo: 'opcoes',
-    opcoes: ['🎯 Acabar com o inchaço', '💪 Melhorar energia', '⚖️ Emagrecer', '🧠 Melhorar humor/foco', '🔬 Entender minha microbiota', '💊 Reduzir dependência de remédios']
+    titulo: 'Objetivos',
+    subtitulo: 'Selecione todos que se aplicam',
+    campo: 'objetivos',
+    tipo: 'multiplo',
+    opcoes: ['🎯 Acabar com o inchaço', '💪 Melhorar energia', '⚖️ Emagrecer', '🧠 Melhorar humor/foco', '🔬 Entender minha microbiota', '💊 Reduzir dependência de remédios', '🌙 Melhorar o sono', '🏃 Melhorar performance']
   }
 ];
 
@@ -1702,10 +1707,24 @@ function renderizarPasso() {
   html += '<div class="anamnese-titulo">' + conf.titulo + '</div>';
   html += '<div class="anamnese-subtitulo">' + conf.subtitulo + '</div>';
 
-  conf.opcoes.forEach(function(op) {
-    var sel = dadosAnamnese[conf.campo] === op ? 'selecionado' : '';
-    html += '<button class="opcao-btn ' + sel + '" onclick="selecionarOpcao(this, \'' + conf.campo + '\', \'' + op.replace(/'/g, '\\\'') + '\')">' + op + '</button>';
-  });
+  var valorAtual = dadosAnamnese[conf.campo];
+
+  if (conf.tipo === 'multiplo') {
+    var selecionados = Array.isArray(valorAtual) ? valorAtual : [];
+    html += '<p style="font-size:12px;color:var(--verde);font-weight:600;margin-bottom:8px;">Selecione uma ou mais opcoes</p>';
+    conf.opcoes.forEach(function(op) {
+      var sel = selecionados.indexOf(op) !== -1 ? 'selecionado' : '';
+      var opEsc = op.replace(/'/g, "\x27");
+      html += '<button class="opcao-btn ' + sel + '" onclick="toggleOpcaoMultipla(this,\'' + conf.campo + '\',\'' + opEsc + '\')">' + op + '</button>';
+    });
+    html += '<button class="btn-primario mt-16" onclick="confirmarMultiplo()">Confirmar e continuar →</button>';
+  } else {
+    conf.opcoes.forEach(function(op) {
+      var sel = valorAtual === op ? 'selecionado' : '';
+      var opEsc = op.replace(/'/g, "\x27");
+      html += '<button class="opcao-btn ' + sel + '" onclick="selecionarOpcao(this,\'' + conf.campo + '\',\'' + opEsc + '\')">' + op + '</button>';
+    });
+  }
 
   if (passoAnamnese > 0) {
     html += '<button class="btn-secundario mt-12" onclick="passoAnterior()" style="width:100%;justify-content:center;">← Voltar</button>';
@@ -1713,17 +1732,28 @@ function renderizarPasso() {
   document.getElementById('anamnese-conteudo').innerHTML = html;
 }
 
+function toggleOpcaoMultipla(btn, campo, valor) {
+  if (!Array.isArray(dadosAnamnese[campo])) dadosAnamnese[campo] = [];
+  var idx = dadosAnamnese[campo].indexOf(valor);
+  if (idx === -1) { dadosAnamnese[campo].push(valor); btn.classList.add('selecionado'); }
+  else { dadosAnamnese[campo].splice(idx, 1); btn.classList.remove('selecionado'); }
+}
+
+function confirmarMultiplo() {
+  var conf = passosConfig[passoAnamnese];
+  var selecionados = Array.isArray(dadosAnamnese[conf.campo]) ? dadosAnamnese[conf.campo] : [];
+  if (selecionados.length === 0) { alert('Selecione pelo menos uma opção.'); return; }
+  if (passoAnamnese < passosConfig.length - 1) { passoAnamnese++; renderizarPasso(); }
+  else { salvarAnamnese(); }
+}
+
 function selecionarOpcao(btn, campo, valor) {
   dadosAnamnese[campo] = valor;
   document.querySelectorAll('#anamnese-conteudo .opcao-btn').forEach(function(b) { b.classList.remove('selecionado'); });
   btn.classList.add('selecionado');
   setTimeout(function() {
-    if (passoAnamnese < passosConfig.length - 1) {
-      passoAnamnese++;
-      renderizarPasso();
-    } else {
-      salvarAnamnese();
-    }
+    if (passoAnamnese < passosConfig.length - 1) { passoAnamnese++; renderizarPasso(); }
+    else { salvarAnamnese(); }
   }, 300);
 }
 
@@ -1742,7 +1772,26 @@ function salvarAnamnese() {
 
 function carregarPerfil() {
   var p = localStorage.getItem('is_perfil');
-  if (p) { estadoApp.perfil = JSON.parse(p); calcularScore(); atualizarPerfil(); }
+  if (p) {
+    estadoApp.perfil = JSON.parse(p);
+    // Restaurar score salvo sem recalcular
+    var scoreSalvo = localStorage.getItem('is_score');
+    if (scoreSalvo) {
+      estadoApp.score = parseInt(scoreSalvo);
+      var scoreDash = document.getElementById('score-dash');
+      var scorePerfil = document.getElementById('score-perfil');
+      var scoreDesc = document.getElementById('score-descricao');
+      var scoreArco = document.getElementById('score-arco');
+      if (scoreDash) scoreDash.textContent = estadoApp.score;
+      if (scorePerfil) scorePerfil.textContent = estadoApp.score;
+      var desc = estadoApp.score >= 80 ? '🟢 Excelente' : estadoApp.score >= 60 ? '🟡 Bom' : estadoApp.score >= 40 ? '🟠 Regular' : '🔴 Precisa de atenção';
+      if (scoreDesc) scoreDesc.textContent = desc;
+      if (scoreArco) scoreArco.setAttribute('stroke-dashoffset', 377 - (377 * estadoApp.score / 100));
+    } else {
+      calcularScore(); // primeira vez, calcula e salva
+    }
+    atualizarPerfil();
+  }
 }
 
 // ============================================================
@@ -1752,22 +1801,53 @@ function calcularScore() {
   if (!estadoApp.perfil) return;
   var p = estadoApp.perfil;
   var s = 50;
+
+  // Alimentação
   if (p.alimentacao === '🥗 Muito saudável') s += 15;
   else if (p.alimentacao === '🍽️ Equilibrada') s += 8;
   else if (p.alimentacao && p.alimentacao.includes('ultraprocessados')) s -= 10;
+  else if (p.alimentacao && p.alimentacao.includes('açúcar')) s -= 8;
+
+  // Estresse
   if (p.estresse === '😊 Baixo') s += 10;
+  else if (p.estresse === '😐 Moderado') s += 3;
+  else if (p.estresse === '😰 Alto') s -= 8;
   else if (p.estresse === '😫 Muito alto') s -= 15;
+
+  // Antibióticos
   if (p.antibioticos && p.antibioticos !== 'Não') s -= 8;
-  if (p.sintoma_principal === '🤷 Sem sintoma claro') s += 10;
+
+  // Sintomas (array)
+  var sintomas = Array.isArray(p.sintomas) ? p.sintomas : [];
+  if (sintomas.indexOf('🤷 Sem sintomas') !== -1) s += 12;
+  else s -= Math.min(sintomas.length * 3, 15);
+
+  // Frequência evacuação
   if (p.frequencia_evacuacao === '1x ao dia') s += 8;
+  else if (p.frequencia_evacuacao === 'Mais de 1x ao dia') s += 5;
+  else if (p.frequencia_evacuacao === 'Menos de 3x por semana') s -= 8;
+
+  // Diagnósticos (array)
+  var diag = Array.isArray(p.diagnosticos) ? p.diagnosticos : [];
+  if (diag.indexOf('Nenhum diagnóstico') !== -1) s += 5;
+  else s -= Math.min(diag.length * 4, 12);
+
   s = Math.max(10, Math.min(100, s));
   estadoApp.score = s;
-  document.getElementById('score-dash').textContent = s;
-  document.getElementById('score-perfil').textContent = s;
+
+  // Salvar score no localStorage permanentemente
+  localStorage.setItem('is_score', s);
+
+  // Atualizar UI
+  var scoreDash = document.getElementById('score-dash');
+  var scorePerfil = document.getElementById('score-perfil');
+  var scoreDesc = document.getElementById('score-descricao');
+  var scoreArco = document.getElementById('score-arco');
+  if (scoreDash) scoreDash.textContent = s;
+  if (scorePerfil) scorePerfil.textContent = s;
   var desc = s >= 80 ? '🟢 Excelente' : s >= 60 ? '🟡 Bom' : s >= 40 ? '🟠 Regular' : '🔴 Precisa de atenção';
-  document.getElementById('score-descricao').textContent = desc;
-  var offset = 377 - (377 * s / 100);
-  document.getElementById('score-arco').setAttribute('stroke-dashoffset', offset);
+  if (scoreDesc) scoreDesc.textContent = desc;
+  if (scoreArco) scoreArco.setAttribute('stroke-dashoffset', 377 - (377 * s / 100));
 }
 
 // ============================================================
